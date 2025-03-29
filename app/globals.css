@@ -3,24 +3,49 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 240, 240, 240;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 24, 24, 27;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 20, 20, 30;
-    --background-end-rgb: 10, 10, 20;
-  }
-}
-
-body {
+html, body {
+  margin: 0;
+  padding: 0;
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-    to bottom,
-    rgb(var(--background-start-rgb)),
-    rgb(var(--background-end-rgb))
-  );
+  background: rgb(var(--background-rgb));
+  width: 100%;
+  height: 100vh;
+}
+
+/* Main layout containers */
+.full-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+/* ReactFlow container */
+.flow-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* Full height layout containers */
+body > div:first-child {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+/* ReactFlow nodes */
+.react-flow__node {
+  max-width: 250px;
+  width: auto !important;
+}
+
+#__next {
+  height: 100%;
 } 

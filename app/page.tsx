@@ -1,14 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Inter } from 'next/font/google';
 import SearchInput from './components/SearchInput';
-import EtymologyChain from './components/EtymologyChain';
+import EtymologyFlow from './components/EtymologyFlow';
 import Timeline from './components/Timeline';
 import { EtymologyWord } from './types';
 import { getWordEtymology, flattenEtymologyTree } from './services/wordService';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -35,7 +32,7 @@ export default function Home() {
         setFlattenedWords(flattened);
       }
     } catch (err) {
-      setError(`Error fetching etymology data: ${err instanceof Error ? err.message : String(err)}`);
+      setError(`Error: ${err instanceof Error ? err.message : String(err)}`);
       setEtymologyData(null);
       setFlattenedWords([]);
     } finally {
@@ -43,41 +40,68 @@ export default function Home() {
     }
   };
 
-  return (
-    <main className={`min-h-screen p-6 md:p-24 ${inter.className}`}>
-      <div className="max-w-5xl mx-auto">
-        <h1 className="text-4xl font-bold mb-6 text-center">Etymology Explorer</h1>
-        
-        <div className="flex justify-center mb-12">
+  // Initial search screen
+  if (!etymologyData && !loading && !error) {
+    return (
+      <div className="full-page">
+        <h1 className="text-4xl font-bold mb-2">Etymology Explorer</h1>
+        <p className="text-zinc-400 mb-8">Discover the origins and history of words</p>
+        <div className="w-full max-w-md">
           <SearchInput onSearch={handleSearch} />
         </div>
-
-        {loading && (
-          <div className="text-center my-10">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
-            <p className="mt-2">Loading etymology data...</p>
-          </div>
-        )}
-
-        {error && (
-          <div className="text-center my-10 p-4 bg-red-100 text-red-800 rounded-lg">
-            {error}
-          </div>
-        )}
-
-        {!loading && !error && etymologyData && (
-          <div className="relative flex flex-col md:flex-row justify-between mt-10">
-            <div className="flex-grow">
-              <h2 className="text-2xl font-semibold mb-6">
-                Etymology of <span className="italic">{searchedWord}</span>
-              </h2>
-              <EtymologyChain words={flattenedWords} />
-            </div>
-            
-            <Timeline words={flattenedWords} />
-          </div>
-        )}
       </div>
-    </main>
+    );
+  }
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="full-page">
+        <div className="animate-spin h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full"></div>
+        <p className="mt-4">Loading...</p>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="full-page">
+        <div className="bg-red-50 text-red-800 p-4 rounded-lg max-w-md">
+          {error}
+        </div>
+        <button 
+          onClick={() => {setError(null); setSearchedWord(null);}}
+          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
+
+  // Results view
+  return (
+    <div className="h-screen flex flex-col">
+      {/* Fixed header */}
+      <div className="bg-white/90 p-3 shadow-sm flex justify-between items-center">
+        <h1 className="font-bold">
+          Etymology of <span className="italic">{searchedWord}</span>
+        </h1>
+        <div className="w-64">
+          <SearchInput onSearch={handleSearch} compact />
+        </div>
+      </div>
+      
+      {/* Main content */}
+      <div className="flex-1 flow-container">
+        <EtymologyFlow words={flattenedWords} />
+      </div>
+      
+      {/* Timeline */}
+      <div className="bg-white/90 p-2 border-t">
+        <Timeline words={flattenedWords} />
+      </div>
+    </div>
   );
 } 
