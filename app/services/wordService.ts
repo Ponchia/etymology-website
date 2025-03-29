@@ -4,7 +4,7 @@ import { EtymologyWord } from '../types';
 import { Octokit } from 'octokit';
 
 // Repository settings
-const REPO_OWNER = 'zeno';
+const REPO_OWNER = 'Ponchia';
 const REPO_NAME = 'etymology-website';
 const DATA_PATH = 'data/words';
 

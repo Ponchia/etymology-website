@@ -20,9 +20,13 @@ jobs:
       
       - name: Configure Next.js for static export
         run: |
-          # Ensure next.config.ts has output: 'export'
-          echo "Configuring Next.js for static export"
-          sed -i 's/const nextConfig: NextConfig = {/const nextConfig: NextConfig = {\n  output: "export",/' next.config.ts
+          # Check if output: "export" already exists in the config
+          if ! grep -q 'output: "export"' next.config.ts; then
+            echo "Adding output: export to Next.js config"
+            sed -i 's/const nextConfig: NextConfig = {/const nextConfig: NextConfig = {\n  output: "export",/' next.config.ts
+          else
+            echo "output: export already exists in Next.js config"
+          fi
       
       - name: Build
         run: npm run build
