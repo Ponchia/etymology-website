@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import ReactFlow, {
   Node,
   Edge,
@@ -78,77 +78,160 @@ export default function EtymologyFlow({ words }: { words: RootWord[] }) {
     // Map to track created nodes by word text
     const nodeMap = new Map<string, string>();
     
-    // Main word at the top center
-    const mainWord = words[0];
-    newNodes.push({
-      id: 'main',
-      type: 'etymologyNode',
-      position: { x: 0, y: 0 },
-      data: mainWord
-    });
-    nodeMap.set(mainWord.word, 'main');
+    // Build a hierarchical representation of the data
+    interface HierarchicalWord extends RootWord {
+      children: HierarchicalWord[];
+      depth: number; // How deep in the tree
+      index?: number; // Horizontal position at its depth level
+    }
     
-    // Position remaining words in rows below
+    // Function to build the hierarchical tree
+    const buildHierarchy = (): HierarchicalWord => {
+      const mainWord = words[0] as EtymologyWord;
+      
+      // Create a map for quick lookup of words by their text
+      const wordMap = new Map<string, RootWord>();
+      words.forEach(word => {
+        wordMap.set(word.word, word);
+      });
+      
+      // Recursive function to build the tree
+      const buildSubtree = (word: RootWord, depth: number): HierarchicalWord => {
+        const hierarchicalWord: HierarchicalWord = {
+          ...word,
+          children: [],
+          depth
+        };
+        
+        // Check if this is the main word with etymology
+        if (depth === 0 && (word as EtymologyWord).etymology) {
+          for (const etymWord of (word as EtymologyWord).etymology) {
+            hierarchicalWord.children.push(buildSubtree(etymWord, depth + 1));
+          }
+        }
+        
+        // Add the roots
+        if (word.roots) {
+          for (const rootWord of word.roots) {
+            hierarchicalWord.children.push(buildSubtree(rootWord, depth + 1));
+          }
+        }
+        
+        return hierarchicalWord;
+      };
+      
+      return buildSubtree(mainWord, 0);
+    };
+    
+    const hierarchicalTree = buildHierarchy();
+    
+    // Function to assign horizontal positions at each depth level
+    const assignIndices = (tree: HierarchicalWord) => {
+      // Group words by depth
+      const depthMap = new Map<number, HierarchicalWord[]>();
+      
+      // Recursive function to collect words at each depth
+      const collectByDepth = (node: HierarchicalWord) => {
+        if (!depthMap.has(node.depth)) {
+          depthMap.set(node.depth, []);
+        }
+        const depthNodes = depthMap.get(node.depth);
+        if (depthNodes) {
+          depthNodes.push(node);
+        }
+        
+        for (const child of node.children) {
+          collectByDepth(child);
+        }
+      };
+      
+      collectByDepth(tree);
+      
+      // Assign indices at each depth level
+      depthMap.forEach((nodesAtDepth, depth) => {
+        nodesAtDepth.forEach((node, index) => {
+          node.index = index;
+        });
+      });
+      
+      return depthMap;
+    };
+    
+    const depthMap = assignIndices(hierarchicalTree);
+    
+    // Calculate node positions based on depth and index
     const VERTICAL_SPACE = 200;
     const HORIZONTAL_SPACE = 250;
     
-    // Group words by language
-    const languageGroups: Record<string, RootWord[]> = {};
-    for (let i = 1; i < words.length; i++) {
-      const word = words[i];
-      if (!languageGroups[word.language]) {
-        languageGroups[word.language] = [];
-      }
-      languageGroups[word.language].push(word);
-    }
-    
-    // Create nodes by language groups
-    let rowIndex = 1;
-    for (const language in languageGroups) {
-      const wordsInGroup = languageGroups[language];
-      
-      // Calculate total width needed for this row
-      const totalWidth = (wordsInGroup.length - 1) * HORIZONTAL_SPACE;
-      const startX = -totalWidth / 2;
-      
-      // Create nodes for this language
-      wordsInGroup.forEach((word, index) => {
-        const nodeId = `${language}_${index}`;
-        const x = startX + index * HORIZONTAL_SPACE;
-        const y = rowIndex * VERTICAL_SPACE;
+    // Function to create nodes for the flow diagram
+    const createNodes = (depthMap: Map<number, HierarchicalWord[]>) => {
+      // Process each depth level
+      depthMap.forEach((nodesAtDepth, depth) => {
+        // Calculate total width needed for this row
+        const totalWidth = (nodesAtDepth.length - 1) * HORIZONTAL_SPACE;
+        const startX = -totalWidth / 2;
         
-        newNodes.push({
-          id: nodeId,
-          type: 'etymologyNode',
-          position: { x, y },
-          data: word
+        // Create nodes for this depth
+        nodesAtDepth.forEach((word, index) => {
+          const nodeId = depth === 0 ? 'main' : `${word.word}_${depth}_${index}`;
+          const x = startX + index * HORIZONTAL_SPACE;
+          const y = depth * VERTICAL_SPACE;
+          
+          newNodes.push({
+            id: nodeId,
+            type: 'etymologyNode',
+            position: { x, y },
+            data: word
+          });
+          
+          nodeMap.set(word.word, nodeId);
         });
-        
-        nodeMap.set(word.word, nodeId);
       });
-      
-      rowIndex++;
-    }
+    };
+    
+    createNodes(depthMap);
+    
+    // Flatten the hierarchy to help with edge creation
+    const flattenHierarchy = (
+      root: HierarchicalWord, 
+      parentWordMap: Map<string, string>
+    ) => {
+      for (const child of root.children) {
+        parentWordMap.set(child.word, root.word);
+        flattenHierarchy(child, parentWordMap);
+      }
+    };
+    
+    // Map to track parent-child relationships
+    const parentWordMap = new Map<string, string>();
+    flattenHierarchy(hierarchicalTree, parentWordMap);
+    
+    console.log('Parent-child map:', Object.fromEntries(parentWordMap));
+    console.log('Node map:', Object.fromEntries(nodeMap));
     
     setNodes(newNodes);
+    
+    // Store the parent-child relationships and node map as component state
+    // so it can be used in the edge creation
+    setParentChildMap(parentWordMap);
+    setNodeIdMap(nodeMap);
+    
   }, [words, setNodes]);
   
-  // Create edges separately after nodes
+  // Added state to store parent-child map and node ID map
+  const [parentChildMap, setParentChildMap] = useState<Map<string, string>>(new Map());
+  const [nodeIdMap, setNodeIdMap] = useState<Map<string, string>>(new Map());
+  
+  // Create edges separately after nodes and maps are set
   useMemo(() => {
-    if (!nodes || nodes.length <= 1 || !words || words.length === 0) return;
+    if (!nodes || nodes.length <= 1 || !parentChildMap.size || !nodeIdMap.size) return;
     
     const newEdges: Edge[] = [];
-    const wordToNodeId = new Map<string, string>();
     
-    // Create mapping of word text to node id
-    nodes.forEach(node => {
-      wordToNodeId.set(node.data.word, node.id);
-    });
-    
-    // Helper function to create an edge if both nodes exist
-    const createEdge = (sourceWord: string, targetWord: string) => {
-      const sourceId = wordToNodeId.get(sourceWord);
-      const targetId = wordToNodeId.get(targetWord);
+    // Create edges based on parent-child relationships
+    parentChildMap.forEach((parentWord, childWord) => {
+      const sourceId = nodeIdMap.get(parentWord);
+      const targetId = nodeIdMap.get(childWord);
       
       if (sourceId && targetId) {
         const edgeId = `e_${sourceId}_to_${targetId}`;
@@ -177,48 +260,12 @@ export default function EtymologyFlow({ words }: { words: RootWord[] }) {
           });
         }
       }
-    };
-    
-    // Process the original data structure to build edges
-    const mainWord = words[0] as EtymologyWord;
-    
-    // Connect main word to its etymology words (direct descendants)
-    if (mainWord.etymology) {
-      for (const etymWord of mainWord.etymology) {
-        createEdge(mainWord.word, etymWord.word);
-      }
-    }
-    
-    // Function to connect a word to its roots recursively
-    const connectRootsRecursively = (word: RootWord) => {
-      if (word.roots && word.roots.length > 0) {
-        for (const root of word.roots) {
-          createEdge(word.word, root.word);
-          
-          // Recursively connect this root's roots
-          connectRootsRecursively(root);
-        }
-      }
-    };
-    
-    // Process each word in the flattened array
-    for (const word of words) {
-      connectRootsRecursively(word);
-    }
-    
-    // Check for isolated nodes with no connections
-    const connectedNodeIds = new Set<string>();
-    newEdges.forEach(edge => {
-      connectedNodeIds.add(edge.source);
-      connectedNodeIds.add(edge.target);
     });
     
-    console.log('Connected nodes:', connectedNodeIds);
-    console.log('Total nodes:', nodes.length);
-    console.log('Total edges:', newEdges.length);
+    console.log('Created edges:', newEdges.length);
     
     setEdges(newEdges);
-  }, [nodes, words, setEdges]);
+  }, [nodes, parentChildMap, nodeIdMap, setEdges]);
   
   if (!words || words.length === 0) {
     return <div className="flex h-full items-center justify-center">No etymology data available</div>;
