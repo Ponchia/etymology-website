@@ -1,107 +1,33 @@
 {
   "word": "fromage",
   "language": "French",
-  "definition": "cheese",
   "year": null,
+  "definition": "",
   "roots": [
     {
-      "word": "plural",
-      "language": "Unknown",
-      "definition": "Definition of plural",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "Author",
-      "language": "Unknown",
-      "definition": "Definition of Author",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "on mission to inform public about \u2018real\u2019 cheese",
-      "language": "Unknown",
-      "definition": "Definition of on mission to inform public about \u2018real\u2019 cheese",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "see ",
-      "language": "Unknown",
-      "definition": "Definition of see ",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "oblique plural",
-      "language": "Unknown",
-      "definition": "Definition of oblique plural",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "nominative singular",
-      "language": "French",
-      "definition": "Definition of nominative singular",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "nominative plural",
-      "language": "French",
-      "definition": "Definition of nominative plural",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "see there for further descendants",
-      "language": "Unknown",
-      "definition": "Definition of see there for further descendants",
-      "year": 6848,
-      "roots": []
+      "word": "formaticum",
+      "language": "Latin",
+      "year": -100,
+      "geo_origin": {
+        "lat": 41.9028,
+        "lng": 12.4964,
+        "location": "Rome, Italy",
+        "confidence": 0.5
+      }
     }
   ],
-  "meaning": "cheese",
   "etymology": [
     {
-      "word": "plural",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "Author",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "on mission to inform public about \u2018real\u2019 cheese",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "see ",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "oblique plural",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "nominative singular",
-      "language": "French",
-      "year": null
-    },
-    {
-      "word": "nominative plural",
-      "language": "French",
-      "year": null
-    },
-    {
-      "word": "see there for further descendants",
-      "language": "Unknown",
-      "year": 6848
+      "word": "formaticum",
+      "language": "Latin",
+      "year": -100,
+      "geo_origin": {
+        "lat": 41.9028,
+        "lng": 12.4964,
+        "location": "Rome, Italy",
+        "confidence": 0.5
+      }
     }
-  ]
+  ],
+  "quality_score": 40
 }

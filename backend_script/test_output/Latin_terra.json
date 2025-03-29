@@ -1,227 +1,27 @@
 {
   "word": "terra",
   "language": "Latin",
-  "definition": "dry land (as opposed to watery parts of the Earth)",
   "year": null,
+  "definition": "",
   "roots": [
     {
-      "word": "See also",
-      "language": "Unknown",
-      "definition": "Definition of See also",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "and",
-      "language": "Unknown",
-      "definition": "Definition of and",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "plural",
-      "language": "Unknown",
-      "definition": "Definition of plural",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "Diccionari de la llengua catalana, segona edici\u00f3",
-      "language": "Unknown",
-      "definition": "Definition of Diccionari de la llengua catalana, segona edici\u00f3",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "Diccionari normatiu valenci\u00e0",
-      "language": "Unknown",
-      "definition": "Definition of Diccionari normatiu valenci\u00e0",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "Diccionari catal\u00e0-valenci\u00e0-balear",
-      "language": "Unknown",
-      "definition": "Definition of Diccionari catal\u00e0-valenci\u00e0-balear",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "INFCOR: Banca di dati di a lingua corsa",
-      "language": "Unknown",
-      "definition": "Definition of INFCOR: Banca di dati di a lingua corsa",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "third person singular past indicative",
-      "language": "Unknown",
-      "definition": "Definition of third person singular past indicative",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "third person plural past indicative",
-      "language": "Unknown",
-      "definition": "Definition of third person plural past indicative",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "supine",
-      "language": "Unknown",
-      "definition": "Definition of supine",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "genitive",
-      "language": "Unknown",
-      "definition": "Definition of genitive",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "Glossarium Medi\u00e6 et Infim\u00e6 Latinitatis",
-      "language": "Latin",
-      "definition": "Definition of Glossarium Medi\u00e6 et Infim\u00e6 Latinitatis",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "Sprach- und Sachatlas Italiens und der S\u00fcdschweiz",
-      "language": "Unknown",
-      "definition": "Definition of Sprach- und Sachatlas Italiens und der S\u00fcdschweiz",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "Linguistic and Ethnographic Atlas of Italy and Southern Switzerland",
-      "language": "Unknown",
-      "definition": "Definition of Linguistic and Ethnographic Atlas of Italy and Southern Switzerland",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "navigais-web.pd.istc.cnr.it",
-      "language": "Unknown",
-      "definition": "Definition of navigais-web.pd.istc.cnr.it",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "oblique plural",
-      "language": "Unknown",
-      "definition": "Definition of oblique plural",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "nominative singular",
-      "language": "Unknown",
-      "definition": "Definition of nominative singular",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "nominative plural",
-      "language": "Unknown",
-      "definition": "Definition of nominative plural",
-      "year": null,
-      "roots": []
+      "word": "*ters-",
+      "language": "ine",
+      "year": null
     }
   ],
-  "meaning": "dry land (as opposed to watery parts of the Earth)",
   "etymology": [
     {
-      "word": "See also",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "and",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "plural",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "Diccionari de la llengua catalana, segona edici\u00f3",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "Diccionari normatiu valenci\u00e0",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "Diccionari catal\u00e0-valenci\u00e0-balear",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "INFCOR: Banca di dati di a lingua corsa",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "third person singular past indicative",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "third person plural past indicative",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "supine",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "genitive",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "Glossarium Medi\u00e6 et Infim\u00e6 Latinitatis",
-      "language": "Latin",
-      "year": null
-    },
-    {
-      "word": "Sprach- und Sachatlas Italiens und der S\u00fcdschweiz",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "Linguistic and Ethnographic Atlas of Italy and Southern Switzerland",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "navigais-web.pd.istc.cnr.it",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "oblique plural",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "nominative singular",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "nominative plural",
-      "language": "Unknown",
+      "word": "*ters-",
+      "language": "ine",
       "year": null
     }
-  ]
+  ],
+  "geo_origin": {
+    "lat": 41.9028,
+    "lng": 12.4964,
+    "location": "Rome, Italy",
+    "confidence": 0.5
+  },
+  "quality_score": 35
 }

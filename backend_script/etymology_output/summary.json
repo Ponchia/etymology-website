@@ -1,0 +1,10 @@
+{
+  "total_words": 5,
+  "processed_words": 5,
+  "elapsed_time": 2.487225294113159,
+  "words_per_second": 2.010272254722623,
+  "average_quality_score": 33.0,
+  "total_connections": 3,
+  "average_connections_per_word": 0.6,
+  "timestamp": "2025-03-29T17:26:38.153819"
+}

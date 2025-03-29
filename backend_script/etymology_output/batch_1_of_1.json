@@ -1,0 +1,62 @@
+{
+  "democracy": {
+    "word": "democracy",
+    "language": "English",
+    "year": 1570,
+    "definition": "Government by the people; a form of government in which the supreme power is vested in the people",
+    "roots": [
+      {
+        "word": "democratia",
+        "language": "Latin",
+        "year": 200,
+        "definition": "Rule by the people"
+      },
+      {
+        "word": "\u03b4\u03b7\u03bc\u03bf\u03ba\u03c1\u03b1\u03c4\u03af\u03b1",
+        "language": "Greek",
+        "year": -500,
+        "definition": "From \u03b4\u1fc6\u03bc\u03bf\u03c2 (d\u00eamos, 'people') + \u03ba\u03c1\u03ac\u03c4\u03bf\u03c2 (kr\u00e1tos, 'power, rule')"
+      }
+    ],
+    "quality_score": 85
+  },
+  "of": {
+    "word": "of",
+    "language": "English",
+    "year": null,
+    "definition": "",
+    "roots": [],
+    "quality_score": 0
+  },
+  "the": {
+    "word": "the",
+    "language": "English",
+    "year": null,
+    "definition": "",
+    "roots": [],
+    "quality_score": 0
+  },
+  "computer": {
+    "word": "computer",
+    "language": "English",
+    "year": 1640,
+    "definition": "An electronic device for storing and processing data",
+    "roots": [
+      {
+        "word": "computare",
+        "language": "Latin",
+        "year": 0,
+        "definition": "To calculate or count (from com- 'together' + putare 'to reckon')"
+      }
+    ],
+    "quality_score": 80
+  },
+  "have": {
+    "word": "have",
+    "language": "English",
+    "year": null,
+    "definition": "",
+    "roots": [],
+    "quality_score": 0
+  }
+}

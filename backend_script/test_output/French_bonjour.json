@@ -1,83 +1,33 @@
 {
   "word": "bonjour",
   "language": "French",
-  "definition": "greetings; hello (general salutation)",
   "year": null,
+  "definition": "",
   "roots": [
     {
-      "word": "See also",
-      "language": "Unknown",
-      "definition": "Definition of See also",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "see ",
-      "language": "Unknown",
-      "definition": "Definition of see ",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "third-person singular simple present",
-      "language": "Unknown",
-      "definition": "Definition of third-person singular simple present",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "present participle",
-      "language": "Unknown",
-      "definition": "Definition of present participle",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "simple past and past participle",
-      "language": "Unknown",
-      "definition": "Definition of simple past and past participle",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "plural",
-      "language": "Unknown",
-      "definition": "Definition of plural",
-      "year": null,
-      "roots": []
+      "word": "bonus diurnus",
+      "language": "Latin",
+      "year": -100,
+      "geo_origin": {
+        "lat": 41.9028,
+        "lng": 12.4964,
+        "location": "Rome, Italy",
+        "confidence": 0.5
+      }
     }
   ],
-  "meaning": "greetings; hello (general salutation)",
   "etymology": [
     {
-      "word": "See also",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "see ",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "third-person singular simple present",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "present participle",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "simple past and past participle",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "plural",
-      "language": "Unknown",
-      "year": null
+      "word": "bonus diurnus",
+      "language": "Latin",
+      "year": -100,
+      "geo_origin": {
+        "lat": 41.9028,
+        "lng": 12.4964,
+        "location": "Rome, Italy",
+        "confidence": 0.5
+      }
     }
-  ]
+  ],
+  "quality_score": 40
 }

@@ -1,59 +1,27 @@
 {
   "word": "vici",
   "language": "Latin",
-  "definition": "dative singular of vicis",
   "year": null,
+  "definition": "",
   "roots": [
     {
-      "word": "See also",
-      "language": "Unknown",
-      "definition": "Definition of See also",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "and",
-      "language": "Unknown",
-      "definition": "Definition of and",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "plural",
-      "language": "Unknown",
-      "definition": "Definition of plural",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "Diccionari de la llengua catalana, segona edici\u00f3",
-      "language": "Unknown",
-      "definition": "Definition of Diccionari de la llengua catalana, segona edici\u00f3",
-      "year": null,
-      "roots": []
+      "word": "*weik-",
+      "language": "ine",
+      "year": null
     }
   ],
-  "meaning": "dative singular of vicis",
   "etymology": [
     {
-      "word": "See also",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "and",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "plural",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "Diccionari de la llengua catalana, segona edici\u00f3",
-      "language": "Unknown",
+      "word": "*weik-",
+      "language": "ine",
       "year": null
     }
-  ]
+  ],
+  "geo_origin": {
+    "lat": 41.9028,
+    "lng": 12.4964,
+    "location": "Rome, Italy",
+    "confidence": 0.5
+  },
+  "quality_score": 35
 }

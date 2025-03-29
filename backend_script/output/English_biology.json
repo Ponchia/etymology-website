@@ -1,0 +1,48 @@
+{
+  "word": "biology",
+  "language": "English",
+  "year": 1819,
+  "definition": "",
+  "roots": [
+    {
+      "word": "biologia",
+      "language": "New Latin",
+      "year": 1766
+    },
+    {
+      "word": "\u03b2\u03af\u03bf\u03c2",
+      "language": "Ancient Greek",
+      "year": -500,
+      "definition": "life",
+      "transliteration": "b\u00edos"
+    },
+    {
+      "word": "\u03bb\u03bf\u03b3\u03af\u03b1",
+      "language": "Ancient Greek",
+      "year": -500,
+      "definition": "study of",
+      "transliteration": "log\u00eda"
+    }
+  ],
+  "etymology": [
+    {
+      "word": "biologia",
+      "language": "New Latin",
+      "year": 1766
+    },
+    {
+      "word": "\u03b2\u03af\u03bf\u03c2",
+      "language": "Ancient Greek",
+      "year": -500,
+      "definition": "life",
+      "transliteration": "b\u00edos"
+    },
+    {
+      "word": "\u03bb\u03bf\u03b3\u03af\u03b1",
+      "language": "Ancient Greek",
+      "year": -500,
+      "definition": "study of",
+      "transliteration": "log\u00eda"
+    }
+  ]
+}

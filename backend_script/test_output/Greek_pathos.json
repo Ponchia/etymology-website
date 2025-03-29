@@ -1,58 +1,9 @@
 {
   "word": "pathos",
   "language": "Greek",
-  "definition": "",
   "year": null,
-  "roots": [
-    {
-      "word": "See also",
-      "language": "Unknown",
-      "definition": "Definition of See also",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "and",
-      "language": "Unknown",
-      "definition": "Definition of and",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "plural",
-      "language": "Unknown",
-      "definition": "Definition of plural",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "The Guardian",
-      "language": "Unknown",
-      "definition": "Definition of The Guardian",
-      "year": 2018,
-      "roots": []
-    }
-  ],
-  "etymology": [
-    {
-      "word": "See also",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "and",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "plural",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "The Guardian",
-      "language": "Unknown",
-      "year": 2018
-    }
-  ]
+  "definition": "",
+  "roots": [],
+  "etymology": [],
+  "quality_score": 10
 }

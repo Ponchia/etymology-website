@@ -1,82 +1,33 @@
 {
   "word": "logos",
   "language": "Greek",
-  "definition": "",
   "year": null,
+  "definition": "",
   "roots": [
     {
-      "word": "See also",
-      "language": "Unknown",
-      "definition": "Definition of See also",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "and",
-      "language": "Unknown",
-      "definition": "In rhythm, the second half of a divided beat.",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "plural",
-      "language": "Unknown",
-      "definition": "(grammar) The plural number.",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "singulative",
-      "language": "Unknown",
-      "definition": "Definition of singulative",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "genitive",
-      "language": "Unknown",
-      "definition": "Definition of genitive",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "Cyrillic spelling",
-      "language": "Unknown",
-      "definition": "Definition of Cyrillic spelling",
-      "year": null,
-      "roots": []
+      "word": "*leg-",
+      "language": "Proto-Indo-European",
+      "year": -4500,
+      "geo_origin": {
+        "lat": 52.0,
+        "lng": 45.0,
+        "location": "Pontic-Caspian steppe",
+        "confidence": 0.5
+      }
     }
   ],
   "etymology": [
     {
-      "word": "See also",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "and",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "plural",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "singulative",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "genitive",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "Cyrillic spelling",
-      "language": "Unknown",
-      "year": null
+      "word": "*leg-",
+      "language": "Proto-Indo-European",
+      "year": -4500,
+      "geo_origin": {
+        "lat": 52.0,
+        "lng": 45.0,
+        "location": "Pontic-Caspian steppe",
+        "confidence": 0.5
+      }
     }
-  ]
+  ],
+  "quality_score": 40
 }

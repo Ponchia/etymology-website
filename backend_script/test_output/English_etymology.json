@@ -1,58 +1,8 @@
 {
   "word": "etymology",
   "language": "English",
-  "definition": "",
   "year": null,
-  "roots": [
-    {
-      "word": "plural",
-      "language": "Unknown",
-      "definition": "(grammar) The plural number.",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "lead",
-      "language": "Unknown",
-      "definition": "A heavy, pliable, inelastic metal element, having a bright, bluish color, but easily tarnished; both malleable and ductile, though with little tenacity. It is easily fusible, forms alloys with other metals, and is an ingredient of solder and type metal. Atomic number 82, symbol Pb (from Latin plumbum).",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "Japlish",
-      "language": "Unknown",
-      "definition": "Definition of Japlish",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "WordNet 2.0",
-      "language": "Unknown",
-      "definition": "Definition of WordNet 2.0",
-      "year": 2003,
-      "roots": []
-    }
-  ],
-  "etymology": [
-    {
-      "word": "plural",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "lead",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "Japlish",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "WordNet 2.0",
-      "language": "Unknown",
-      "year": 2003
-    }
-  ]
+  "definition": "",
+  "roots": [],
+  "quality_score": 0
 }

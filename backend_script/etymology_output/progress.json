@@ -1,0 +1,17 @@
+{
+  "total_words": 5,
+  "processed_words": 5,
+  "processed_batches": [
+    0
+  ],
+  "start_time": 1743265595.666602,
+  "quality_scores": [
+    85,
+    0,
+    0,
+    80,
+    0
+  ],
+  "connections": 3,
+  "last_update": 1743265598.153656
+}

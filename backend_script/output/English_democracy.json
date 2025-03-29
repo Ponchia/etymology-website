@@ -1,0 +1,30 @@
+{
+  "word": "democracy",
+  "language": "English",
+  "year": 1570,
+  "definition": "",
+  "roots": [
+    {
+      "word": "d\u0113mocratia",
+      "language": "Medieval Latin",
+      "year": 900
+    },
+    {
+      "word": "\u03b4\u03b7\u03bc\u03bf\u03ba\u03c1\u03b1\u03c4\u03af\u03b1",
+      "language": "Ancient Greek",
+      "year": -500
+    }
+  ],
+  "etymology": [
+    {
+      "word": "d\u0113mocratia",
+      "language": "Medieval Latin",
+      "year": 900
+    },
+    {
+      "word": "\u03b4\u03b7\u03bc\u03bf\u03ba\u03c1\u03b1\u03c4\u03af\u03b1",
+      "language": "Ancient Greek",
+      "year": -500
+    }
+  ]
+}

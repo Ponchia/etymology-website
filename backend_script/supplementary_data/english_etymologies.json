@@ -1,0 +1,87 @@
+{
+  "etymology": {
+    "language": "English",
+    "year": 1398,
+    "roots": [
+      {
+        "word": "etymologia",
+        "language": "Latin",
+        "year": 1200
+      },
+      {
+        "word": "ἐτυμολογία",
+        "language": "Ancient Greek",
+        "year": -300
+      }
+    ]
+  },
+  "philosophy": {
+    "language": "English",
+    "year": 1300,
+    "roots": [
+      {
+        "word": "philosophia",
+        "language": "Latin",
+        "year": 100
+      },
+      {
+        "word": "φιλοσοφία",
+        "language": "Ancient Greek",
+        "year": -400
+      }
+    ]
+  },
+  "democracy": {
+    "language": "English",
+    "year": 1570,
+    "roots": [
+      {
+        "word": "dēmocratia",
+        "language": "Medieval Latin",
+        "year": 900
+      },
+      {
+        "word": "δημοκρατία",
+        "language": "Ancient Greek",
+        "year": -500
+      }
+    ]
+  },
+  "computer": {
+    "language": "English",
+    "year": 1640,
+    "roots": [
+      {
+        "word": "computare",
+        "language": "Latin",
+        "year": 300,
+        "definition": "to count, sum up, reckon together"
+      }
+    ]
+  },
+  "biology": {
+    "language": "English",
+    "year": 1819,
+    "roots": [
+      {
+        "word": "biologia",
+        "language": "New Latin",
+        "year": 1766
+      },
+      {
+        "word": "βίος",
+        "language": "Ancient Greek",
+        "year": -500,
+        "definition": "life",
+        "transliteration": "bíos"
+      },
+      {
+        "word": "λογία",
+        "language": "Ancient Greek",
+        "year": -500,
+        "definition": "study of",
+        "transliteration": "logía"
+      }
+    ]
+  }
+}

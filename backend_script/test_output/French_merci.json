@@ -1,95 +1,33 @@
 {
   "word": "merci",
   "language": "French",
-  "definition": "thank you",
   "year": null,
+  "definition": "",
   "roots": [
     {
-      "word": "See also",
-      "language": "Unknown",
-      "definition": "Definition of See also",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "and",
-      "language": "Unknown",
-      "definition": "Definition of and",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "plural",
-      "language": "Unknown",
-      "definition": "Definition of plural",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "Duden",
-      "language": "Unknown",
-      "definition": "Definition of Duden",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "Digitales W\u00f6rterbuch der deutschen Sprache",
-      "language": "Unknown",
-      "definition": "Definition of Digitales W\u00f6rterbuch der deutschen Sprache",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "nominative singular",
-      "language": "Unknown",
-      "definition": "Definition of nominative singular",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "Clig\u00e8s",
-      "language": "Unknown",
-      "definition": "Definition of Clig\u00e8s",
-      "year": null,
-      "roots": []
+      "word": "merces",
+      "language": "Latin",
+      "year": -100,
+      "geo_origin": {
+        "lat": 41.9028,
+        "lng": 12.4964,
+        "location": "Rome, Italy",
+        "confidence": 0.5
+      }
     }
   ],
-  "meaning": "thank you",
   "etymology": [
     {
-      "word": "See also",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "and",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "plural",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "Duden",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "Digitales W\u00f6rterbuch der deutschen Sprache",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "nominative singular",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "Clig\u00e8s",
-      "language": "Unknown",
-      "year": null
+      "word": "merces",
+      "language": "Latin",
+      "year": -100,
+      "geo_origin": {
+        "lat": 41.9028,
+        "lng": 12.4964,
+        "location": "Rome, Italy",
+        "confidence": 0.5
+      }
     }
-  ]
+  ],
+  "quality_score": 40
 }

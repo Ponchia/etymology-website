@@ -1,83 +1,8 @@
 {
   "word": "philosophy",
   "language": "English",
-  "definition": " An academic discipline that seeks truth through reasoning rather than empiricism, often attempting to provide explanations relating to general concepts such as existence and rationality.",
   "year": null,
-  "roots": [
-    {
-      "word": "plural",
-      "language": "Unknown",
-      "definition": "(grammar) The plural number.",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "third-person singular simple present",
-      "language": "Unknown",
-      "definition": "Definition of third-person singular simple present",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "present participle",
-      "language": "Unknown",
-      "definition": "(grammar) A verb form that indicates an ongoing action or state in the present and which can function as an adjective.",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "simple past and past participle",
-      "language": "Unknown",
-      "definition": "Definition of simple past and past participle",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "Plato",
-      "language": "Unknown",
-      "definition": "Definition of Plato",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "Keywords",
-      "language": "Unknown",
-      "definition": "Definition of Keywords",
-      "year": 1983,
-      "roots": []
-    }
-  ],
-  "meaning": " An academic discipline that seeks truth throug...",
-  "etymology": [
-    {
-      "word": "plural",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "third-person singular simple present",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "present participle",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "simple past and past participle",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "Plato",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "Keywords",
-      "language": "Unknown",
-      "year": 1983
-    }
-  ]
+  "definition": "",
+  "roots": [],
+  "quality_score": 0
 }

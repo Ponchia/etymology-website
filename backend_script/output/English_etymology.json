@@ -1,0 +1,30 @@
+{
+  "word": "etymology",
+  "language": "English",
+  "year": 1398,
+  "definition": "",
+  "roots": [
+    {
+      "word": "etymologia",
+      "language": "Latin",
+      "year": 1200
+    },
+    {
+      "word": "\u1f10\u03c4\u03c5\u03bc\u03bf\u03bb\u03bf\u03b3\u03af\u03b1",
+      "language": "Ancient Greek",
+      "year": -300
+    }
+  ],
+  "etymology": [
+    {
+      "word": "etymologia",
+      "language": "Latin",
+      "year": 1200
+    },
+    {
+      "word": "\u1f10\u03c4\u03c5\u03bc\u03bf\u03bb\u03bf\u03b3\u03af\u03b1",
+      "language": "Ancient Greek",
+      "year": -300
+    }
+  ]
+}

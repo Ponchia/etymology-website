@@ -1,0 +1,34 @@
+{
+  "word": "bonjour",
+  "language": "French",
+  "year": 1400,
+  "definition": "",
+  "roots": [
+    {
+      "word": "bon",
+      "language": "French",
+      "year": 1100,
+      "definition": "good"
+    },
+    {
+      "word": "jour",
+      "language": "French",
+      "year": 1100,
+      "definition": "day"
+    }
+  ],
+  "etymology": [
+    {
+      "word": "bon",
+      "language": "French",
+      "year": 1100,
+      "definition": "good"
+    },
+    {
+      "word": "jour",
+      "language": "French",
+      "year": 1100,
+      "definition": "day"
+    }
+  ]
+}

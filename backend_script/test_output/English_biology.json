@@ -1,46 +1,8 @@
 {
   "word": "biology",
   "language": "English",
-  "definition": "",
   "year": null,
-  "roots": [
-    {
-      "word": "a biographical history",
-      "language": "Unknown",
-      "definition": "Definition of a biographical history",
-      "year": 1799,
-      "roots": []
-    },
-    {
-      "word": "plural",
-      "language": "Unknown",
-      "definition": "(grammar) The plural number.",
-      "year": null,
-      "roots": []
-    },
-    {
-      "word": "see also",
-      "language": "Unknown",
-      "definition": "Definition of see also",
-      "year": null,
-      "roots": []
-    }
-  ],
-  "etymology": [
-    {
-      "word": "a biographical history",
-      "language": "Unknown",
-      "year": 1799
-    },
-    {
-      "word": "plural",
-      "language": "Unknown",
-      "year": null
-    },
-    {
-      "word": "see also",
-      "language": "Unknown",
-      "year": null
-    }
-  ]
+  "definition": "",
+  "roots": [],
+  "quality_score": 0
 }

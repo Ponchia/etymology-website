@@ -1,0 +1,22 @@
+{
+  "word": "caf\u00e9",
+  "language": "French",
+  "year": 1700,
+  "definition": "",
+  "roots": [
+    {
+      "word": "qahwa",
+      "language": "Arabic",
+      "year": 1500,
+      "definition": "coffee"
+    }
+  ],
+  "etymology": [
+    {
+      "word": "qahwa",
+      "language": "Arabic",
+      "year": 1500,
+      "definition": "coffee"
+    }
+  ]
+}

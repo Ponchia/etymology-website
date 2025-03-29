@@ -1,0 +1,32 @@
+{
+  "word": "ch\u00e2teau",
+  "language": "French",
+  "year": 1100,
+  "definition": "",
+  "roots": [
+    {
+      "word": "castellum",
+      "language": "Latin",
+      "year": 100,
+      "definition": "castle, fort"
+    },
+    {
+      "word": "chastel",
+      "language": "Old French",
+      "year": 900
+    }
+  ],
+  "etymology": [
+    {
+      "word": "castellum",
+      "language": "Latin",
+      "year": 100,
+      "definition": "castle, fort"
+    },
+    {
+      "word": "chastel",
+      "language": "Old French",
+      "year": 900
+    }
+  ]
+}

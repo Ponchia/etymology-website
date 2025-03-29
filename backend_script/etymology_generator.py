@@ -30,15 +30,14 @@ logger = logging.getLogger("etymology_generator")
 
 class EtymologyGenerator:
     def __init__(self, max_words=None, languages=None, test_mode=False, sources=None, 
-                 geo_data=False, geo_mapping=None, oed_api_key=None):
+                 geo_data=False, geo_mapping=None):
         """Initialize the etymology generator."""
         # Basic setup and logging configuration
         self.test_mode = test_mode
         self.logger = logging.getLogger("etymology_generator")
-        self.sources = sources.split(',') if sources else ["wiktionary", "etymonline"]
+        self.sources = sources.split(',') if sources else ["wiktionary", "etymonline", "etymwordnet", "ielex", "starling"]
         self.geo_data = geo_data
         self.geo_mapping_file = geo_mapping
-        self.oed_api_key = oed_api_key
         
         # Configure output files and directories
         self.output_dir = self.setup_output_directory()
@@ -96,34 +95,40 @@ class EtymologyGenerator:
         return cache_dir
 
     def load_data_sources(self):
-        """Load the configured etymology data sources."""
+        """Load and initialize configured data sources."""
+        available_sources = {
+            "wiktionary": self.init_wiktionary_source,
+            "etymonline": self.init_etymonline_source,
+            "etymwordnet": self.init_etymwordnet_source,
+            "ielex": self.init_ielex_source,
+            "starling": self.init_starling_source
+        }
+        
+        # Parse the source list
+        source_list = [s.strip().lower() for s in self.sources]
+        
+        # Initialize the data_sources dictionary
         self.data_sources = {}
         
-        for source in self.sources:
-            self.logger.info(f"Initializing data source: {source}")
-            
-            if source == "wiktionary":
-                self.data_sources[source] = self.init_wiktionary_source()
-            elif source == "etymonline":
-                self.data_sources[source] = self.init_etymonline_source()
-            elif source == "oed":
-                if not self.oed_api_key:
-                    self.logger.warning("OED API key not provided, skipping OED data source")
-                    continue
-                self.data_sources[source] = self.init_oed_source()
-            elif source == "ielex":
-                self.data_sources[source] = self.init_ielex_source()
-            elif source == "starling":
-                self.data_sources[source] = self.init_starling_source()
-            elif source == "etymwordnet":
-                self.data_sources[source] = self.init_etymwordnet_source()
-            elif source == "pokorny":
-                self.data_sources[source] = self.init_pokorny_source()
-            elif source == "cooljugator":
-                self.data_sources[source] = self.init_cooljugator_source()
+        # Initialize each requested source
+        for source in source_list:
+            if source in available_sources:
+                self.logger.info(f"Initializing data source: {source}")
+                try:
+                    # Call the initialization function and store its return value
+                    source_data = available_sources[source]()
+                    # Store the source's data in the data_sources dict
+                    self.data_sources[source] = source_data
+                except Exception as e:
+                    self.logger.error(f"Error initializing {source}: {str(e)}")
             else:
                 self.logger.warning(f"Unknown data source: {source}")
                 
+        # Make sure the data directories exist
+        os.makedirs(self.cache_dir, exist_ok=True)
+        os.makedirs(self.output_dir, exist_ok=True)
+        
+        # Log the initialized sources
         self.logger.info(f"Initialized {len(self.data_sources)} data sources")
 
     def init_wiktionary_source(self):
@@ -134,9 +139,7 @@ class EtymologyGenerator:
         wiktionary_index = wiktionary_cache / "index.json"
         
         if not os.path.exists(wiktionary_index):
-            self.logger.info("Downloading Wiktionary index...")
-            # In a real implementation, we would download the actual Wiktionary dumps
-            # For now, we'll just create a placeholder
+            self.logger.info("Creating Wiktionary cache index...")
             with open(wiktionary_index, 'w') as f:
                 json.dump({"last_updated": time.time()}, f)
         
@@ -147,370 +150,192 @@ class EtymologyGenerator:
         etymonline_cache = self.cache_dir / "etymonline"
         return {"cache_dir": etymonline_cache}
 
-    def init_oed_source(self):
-        """Initialize the Oxford English Dictionary API source."""
-        return {"api_key": self.oed_api_key, "base_url": "https://languages.oup.com/api/v1/oed/"}
-
     def init_ielex_source(self):
         """Initialize the University of Texas Indo-European Lexicon source."""
         ielex_cache = self.cache_dir / "ielex"
-        ielex_data = ielex_cache / "ielex_data.json"
         
-        if not os.path.exists(ielex_data):
-            self.logger.info("Downloading Indo-European Lexicon data...")
-            # In a real implementation, we would scrape or download the IELEX data
-            # For now, we'll just create a placeholder
-            with open(ielex_data, 'w') as f:
-                json.dump({"last_updated": time.time()}, f)
-                
-        return {"cache_dir": ielex_cache, "data_file": ielex_data}
+        # Create cache directory if it doesn't exist
+        if not os.path.exists(ielex_cache):
+            os.makedirs(ielex_cache)
+            
+        return {"cache_dir": ielex_cache, "base_url": "https://lrc.la.utexas.edu/lex/master"}
         
     def init_starling_source(self):
         """Initialize the Tower of Babel (Starling) database source."""
         starling_cache = self.cache_dir / "starling"
-        return {"cache_dir": starling_cache}
+        
+        # Create cache directory if it doesn't exist
+        if not os.path.exists(starling_cache):
+            os.makedirs(starling_cache)
+            
+        return {"cache_dir": starling_cache, "base_url": "https://starling.rinet.ru/cgi-bin/response.cgi"}
 
     def init_etymwordnet_source(self):
-        """Initialize the Etymological Wordnet source."""
+        """Initialize the etymological wordnet data source by downloading the dataset if needed."""
         etymwordnet_cache = self.cache_dir / "etymwordnet"
-        etymwordnet_data = etymwordnet_cache / "etymwn.tsv"
+        data_file = etymwordnet_cache / "etymwn.tsv"
         
-        if not os.path.exists(etymwordnet_data):
-            self.logger.info("Downloading Etymological Wordnet data...")
-            # In a real implementation, we would download the actual data
-            # For demonstration, we'll create a small sample file
-            with open(etymwordnet_data, 'w') as f:
-                f.write("eng:muscle\trel:derived\tdeu:Maus\n")
-                f.write("eng:etymology\trel:derived\tgrc:ἐτυμολογία\n")
-                
-        return {"cache_dir": etymwordnet_cache, "data_file": etymwordnet_data}
-
-    def init_pokorny_source(self):
-        """Initialize Pokorny's Indo-European Etymological Dictionary source."""
-        pokorny_cache = self.cache_dir / "pokorny"
-        return {"cache_dir": pokorny_cache}
-
-    def init_cooljugator_source(self):
-        """Initialize the CoolJugator/EtymoloGeek source."""
-        cooljugator_cache = self.cache_dir / "cooljugator"
-        return {"cache_dir": cooljugator_cache}
-
-    def load_geo_mapping(self):
-        """Load the geographical mapping data for historical languages."""
-        if self.geo_mapping_file and os.path.exists(self.geo_mapping_file):
-            with open(self.geo_mapping_file, 'r', encoding='utf-8') as f:
-                self.geo_mapping = json.load(f)
-        else:
-            # Default mapping
-            self.geo_mapping = {
-                "Latin": {
-                    "ancient": {
-                        "center": {"lat": 41.9028, "lng": 12.4964},
-                        "location": "Rome, Italy",
-                        "time_periods": {
-                            "-500-500": {"lat": 41.9028, "lng": 12.4964, "radius": 500},
-                            "500-1500": {"lat": 45.4642, "lng": 9.1900, "radius": 300}
-                        }
-                    }
-                },
-                "Ancient Greek": {
-                    "ancient": {
-                        "center": {"lat": 37.9838, "lng": 23.7275},
-                        "location": "Athens, Greece",
-                        "time_periods": {
-                            "-800-0": {"lat": 37.9838, "lng": 23.7275, "radius": 300}
-                        }
-                    }
-                },
-                "Old French": {
-                    "ancient": {
-                        "center": {"lat": 48.8566, "lng": 2.3522},
-                        "location": "Paris, France",
-                        "time_periods": {
-                            "800-1400": {"lat": 48.8566, "lng": 2.3522, "radius": 200}
-                        }
-                    }
-                },
-                "Proto-Indo-European": {
-                    "ancient": {
-                        "center": {"lat": 52.0000, "lng": 45.0000},
-                        "location": "Pontic-Caspian steppe",
-                        "time_periods": {
-                            "-4500--2500": {"lat": 52.0000, "lng": 45.0000, "radius": 1000}
-                        }
-                    }
-                }
-            }
-            
-            # Add more language mappings
-            self._extend_geo_mapping()
-            
-    def _extend_geo_mapping(self):
-        """Extend the geographical mapping with additional languages."""
-        # Germanic languages
-        self.geo_mapping.update({
-            "Old English": {
-                "ancient": {
-                    "center": {"lat": 51.5074, "lng": -0.1278},
-                    "location": "England",
-                    "time_periods": {
-                        "450-1066": {"lat": 51.5074, "lng": -0.1278, "radius": 200}
-                    }
-                }
-            },
-            "Old High German": {
-                "ancient": {
-                    "center": {"lat": 49.4521, "lng": 11.0767},
-                    "location": "Nuremberg, Germany",
-                    "time_periods": {
-                        "750-1050": {"lat": 49.4521, "lng": 11.0767, "radius": 300}
-                    }
-                }
-            },
-            "Old Norse": {
-                "ancient": {
-                    "center": {"lat": 59.9139, "lng": 10.7522},
-                    "location": "Oslo, Norway",
-                    "time_periods": {
-                        "700-1300": {"lat": 59.9139, "lng": 10.7522, "radius": 500}
-                    }
-                }
-            }
-        })
+        # Create cache directory if it doesn't exist
+        if not os.path.exists(etymwordnet_cache):
+            os.makedirs(etymwordnet_cache)
         
-        # Slavic languages
-        self.geo_mapping.update({
-            "Proto-Slavic": {
-                "ancient": {
-                    "center": {"lat": 50.0755, "lng": 14.4378},
-                    "location": "Central Europe",
-                    "time_periods": {
-                        "-500-700": {"lat": 50.0755, "lng": 14.4378, "radius": 500}
-                    }
-                }
-            },
-            "Old Church Slavonic": {
-                "ancient": {
-                    "center": {"lat": 42.6977, "lng": 23.3219},
-                    "location": "Sofia, Bulgaria",
-                    "time_periods": {
-                        "850-1100": {"lat": 42.6977, "lng": 23.3219, "radius": 300}
-                    }
-                }
-            }
-        })
-        
-        # Celtic languages
-        self.geo_mapping.update({
-            "Proto-Celtic": {
-                "ancient": {
-                    "center": {"lat": 48.8566, "lng": 2.3522},
-                    "location": "Central Europe",
-                    "time_periods": {
-                        "-1200--500": {"lat": 48.8566, "lng": 2.3522, "radius": 600}
-                    }
-                }
-            },
-            "Old Irish": {
-                "ancient": {
-                    "center": {"lat": 53.3498, "lng": -6.2603},
-                    "location": "Dublin, Ireland",
-                    "time_periods": {
-                        "600-900": {"lat": 53.3498, "lng": -6.2603, "radius": 200}
-                    }
-                }
-            }
-        })
-        
-        # Add more as needed...
-
-    def get_geo_data_for_word(self, word, language, year=None):
-        """Get geographical data for a word based on its language and time period."""
-        if not self.geo_data or language not in self.geo_mapping:
-            return None
-            
-        geo_info = self.geo_mapping.get(language, {}).get("ancient", {})
-        
-        # Default to center coordinates
-        result = {
-            "lat": geo_info.get("center", {}).get("lat"),
-            "lng": geo_info.get("center", {}).get("lng"),
-            "location": geo_info.get("location", f"{language} region"),
-            "confidence": 0.5  # Default medium confidence
-        }
-        
-        # If we have a year, try to find a more specific location
-        if year and "time_periods" in geo_info:
+        # Check if we need to download the data
+        if not os.path.exists(data_file):
+            self.logger.info("Downloading Etymological Wordnet dataset...")
             try:
-                # Convert year to int if it's a string
-                if isinstance(year, str) and year.strip():
-                    year = int(year)
+                # Etymological Wordnet URL
+                etymwn_url = "http://www1.icsi.berkeley.edu/~demelo/etymwn/etymwn.tsv"
                 
-                # Ensure year is an integer
-                if isinstance(year, int):
-                    for period, location in geo_info["time_periods"].items():
-                        # Parse time period
-                        try:
-                            period_parts = period.split("-")
-                            start = int(period_parts[0])
-                            end = int(period_parts[1]) if len(period_parts) > 1 else start
-                            
-                            if start <= year <= end:
-                                result["lat"] = location["lat"]
-                                result["lng"] = location["lng"]
-                                result["confidence"] = 0.8  # Higher confidence with time match
-                                break
-                        except (ValueError, IndexError):
-                            continue
-            except (ValueError, TypeError):
-                # If year can't be parsed, just use default location
-                pass
-                    
-        return result
+                # Download the file
+                response = requests.get(etymwn_url, stream=True)
+                response.raise_for_status()  # Raise an error for bad responses
+                
+                total_size = int(response.headers.get('content-length', 0))
+                block_size = 1024
+                
+                self.logger.info(f"Downloading {total_size/1024/1024:.1f} MB...")
+                
+                with open(data_file, 'wb') as f:
+                    for data in response.iter_content(block_size):
+                        f.write(data)
+                
+                self.logger.info("Download complete!")
+            except Exception as e:
+                self.logger.error(f"Failed to download Etymological Wordnet: {str(e)}")
+                self.logger.info("Creating sample data instead...")
+                
+                # As a fallback, we'll create a sample data file
+                data_file = etymwordnet_cache / "etymwn_sample.tsv"
+                self.create_sample_etymwn_data(data_file)
         
-    def fetch_etymology(self, word, language="English"):
-        """
-        Fetch etymology for a word using multiple sources.
-        Returns a dictionary with etymology information.
-        """
-        word = word.lower().strip()
-        result = {
-            "word": word,
-            "language": language,
-            "year": None,
-            "definition": "",
-            "roots": [],
-            "etymology": []
+        # Load the data into memory
+        self.etymwordnet_data = self.load_etymwn_data(data_file)
+        
+        return {
+            "cache_dir": etymwordnet_cache,
+            "data_file": data_file
         }
+    
+    def create_sample_etymwn_data(self, sample_file):
+        """Create a sample Etymological Wordnet data file if download fails."""
+        self.logger.info("Creating sample Etymological Wordnet data")
+        
+        # Sample data with etymological relationships in TSV format
+        sample_data = [
+            # Format: lang:word <tab> rel <tab> lang:word
+            "eng:etymology\trel:derived\tgrc:ἐτυμολογία",
+            "eng:biology\trel:derived\tgrc:βιολογία",
+            "eng:computer\trel:derived\tlat:computare",
+            "eng:philosophy\trel:derived\tgrc:φιλοσοφία",
+            "eng:democracy\trel:derived\tgrc:δημοκρατία",
+            "fra:bonjour\trel:derived\tlat:bonus diurnus",
+            "fra:merci\trel:derived\tlat:merces",
+            "fra:château\trel:derived\tlat:castellum",
+            "fra:fromage\trel:derived\tlat:formaticum",
+            "fra:café\trel:derived\tara:قهوة",
+            "lat:veni\trel:derived\tine:*gʷem-",
+            "lat:vidi\trel:derived\tine:*weid-",
+            "lat:vici\trel:derived\tine:*weik-",
+            "lat:aqua\trel:derived\tine:*akʷā-",
+            "lat:terra\trel:derived\tine:*ters-",
+            "grc:logos\trel:derived\tine:*leg-",
+            "grc:cosmos\trel:derived\tine:*kens-",
+            "grc:pathos\trel:derived\tine:*kwent-",
+            "grc:ethos\trel:derived\tine:*swedh-",
+            "grc:chronos\trel:derived\tine:*gher-"
+        ]
+
+        # Write sample data to TSV
+        with open(sample_file, 'w', encoding='utf-8') as f:
+            for line in sample_data:
+                f.write(f"{line}\n")
+                
+        self.logger.info(f"Created sample data with {len(sample_data)} entries")
+    
+    def load_etymwn_data(self, data_file):
+        """Load Etymological Wordnet data from file into memory."""
+        self.logger.info(f"Loading Etymological Wordnet data from {data_file}")
+        
+        # Dictionary to store etymological relationships
+        etymwn_data = {}
+        
+        # Record count for logging
+        count = 0
         
         try:
-            # First check if we have high-quality supplementary data
-            supplementary_key = word.lower()
-            if supplementary_key in self.supplementary_data:
-                self.logger.info(f"Using supplementary data for {word}")
-                supp_data = self.supplementary_data[supplementary_key]
-                
-                # Transfer data from supplementary source
-                result["year"] = supp_data.get("year")
-                result["language"] = supp_data.get("language", language)
-                
-                # Add roots from supplementary data
-                if "roots" in supp_data:
-                    result["roots"] = supp_data["roots"]
-                    # Also use the same for etymology for consistency
-                    result["etymology"] = supp_data["roots"]
+            with open(data_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    count += 1
+                    if count % 100000 == 0:
+                        self.logger.info(f"Processed {count} lines from etymwn")
                     
-                    # Add geographical data if enabled
-                    if self.geo_data:
-                        # Add geo data for the main word
-                        try:
-                            geo_data = self.get_geo_data_for_word(word, language, result.get("year"))
-                            if geo_data:
-                                result["geo_origin"] = geo_data
-                        except Exception as e:
-                            self.logger.error(f"Error adding geo data for main word {word}: {str(e)}")
-                            
-                        # Add geo data for roots
-                        for root in result["roots"]:
-                            try:
-                                root_lang = root.get("language")
-                                root_year = root.get("year")
-                                if root_lang:
-                                    geo_data = self.get_geo_data_for_word(root.get("word"), root_lang, root_year)
-                                    if geo_data:
-                                        root["geo_origin"] = geo_data
-                            except Exception as e:
-                                self.logger.error(f"Error adding geo data for root {root.get('word', 'unknown')}: {str(e)}")
+                    # Parse the line: source \t relation \t target
+                    parts = line.strip().split('\t')
+                    if len(parts) != 3:
+                        continue
                     
-                    # Log successful use of supplementary data
-                    self.logger.debug(f"Added {len(result['roots'])} roots from supplementary data for {word}")
-                    return result
-            
-            # Try each configured data source
-            etymology_data = {}
-            sources_used = []
-            
-            for source_name, source_config in self.data_sources.items():
-                self.logger.debug(f"Trying source {source_name} for {word}")
-                
-                if source_name == "wiktionary":
-                    source_data = self.fetch_from_wiktionary(word, language)
-                elif source_name == "etymonline":
-                    source_data = self.fetch_from_etymonline(word)
-                elif source_name == "oed":
-                    source_data = self.fetch_from_oed(word, language)
-                elif source_name == "ielex":
-                    source_data = self.fetch_from_ielex(word, language)
-                elif source_name == "starling":
-                    source_data = self.fetch_from_starling(word, language)
-                elif source_name == "etymwordnet":
-                    source_data = self.fetch_from_etymwordnet(word, language)
-                elif source_name == "pokorny":
-                    source_data = self.fetch_from_pokorny(word, language)
-                elif source_name == "cooljugator":
-                    source_data = self.fetch_from_cooljugator(word, language)
-                else:
-                    continue
-                
-                # Merge data from this source if it has useful information
-                if source_data and (source_data.get("roots") or source_data.get("year")):
-                    sources_used.append(source_name)
+                    source, relation, target = parts
                     
-                    # Merge definition
-                    if not result["definition"] and source_data.get("definition"):
-                        result["definition"] = source_data["definition"]
+                    # Only consider etymological derivation relationships
+                    if not relation.startswith('rel:derives') and not relation.startswith('rel:derived'):
+                        continue
                     
-                    # Use year if not set or if this source has a more precise year
-                    if not result["year"] and source_data.get("year"):
-                        result["year"] = source_data["year"]
-                    
-                    # Merge roots
-                    if source_data.get("roots"):
-                        # Add only new roots that aren't already in the result
-                        existing_root_words = {r.get("word").lower() for r in result["roots"] if "word" in r}
-                        for root in source_data["roots"]:
-                            if root.get("word") and root.get("word").lower() not in existing_root_words:
-                                result["roots"].append(root)
-                                existing_root_words.add(root.get("word").lower())
-            
-            # Add sources used to the result
-            if sources_used:
-                result["sources"] = sources_used
-            
-            # Add geographical data if enabled and not already present
-            if self.geo_data:
-                # Add geo data for the main word
-                try:
-                    if not result.get("geo_origin"):
-                        geo_data = self.get_geo_data_for_word(word, language, result.get("year"))
-                        if geo_data:
-                            result["geo_origin"] = geo_data
-                except Exception as e:
-                    self.logger.error(f"Error adding geo data for main word {word}: {str(e)}")
-                
-                # Add geo data for roots
-                for root in result.get("roots", []):
+                    # Parse the source and target: lang:word
                     try:
-                        if not root.get("geo_origin"):
-                            root_lang = root.get("language")
-                            root_year = root.get("year")
-                            if root_lang:
-                                geo_data = self.get_geo_data_for_word(root.get("word"), root_lang, root_year)
-                                if geo_data:
-                                    root["geo_origin"] = geo_data
-                    except Exception as e:
-                        self.logger.error(f"Error adding geo data for root {root.get('word', 'unknown')}: {str(e)}")
-                
-            # Ensure we have etymology array for consistency
-            if not result.get("etymology") and result.get("roots"):
-                result["etymology"] = result["roots"]
-                
-            return result
+                        source_lang, source_word = source.split(':', 1)
+                        target_lang, target_word = target.split(':', 1)
+                    except ValueError:
+                        continue
+                    
+                    # Store the relationship
+                    if source_lang not in etymwn_data:
+                        etymwn_data[source_lang] = {}
+                    
+                    if source_word not in etymwn_data[source_lang]:
+                        etymwn_data[source_lang][source_word] = {
+                            "derived_from": [],
+                            "derived_to": []
+                        }
+                    
+                    # Store the relationship based on direction
+                    if relation.startswith('rel:derives'):
+                        # target is derived from source
+                        if {"lang": target_lang, "word": target_word} not in etymwn_data[source_lang][source_word]["derived_to"]:
+                            etymwn_data[source_lang][source_word]["derived_to"].append({"lang": target_lang, "word": target_word})
+                    else:
+                        # source is derived from target
+                        if {"lang": target_lang, "word": target_word} not in etymwn_data[source_lang][source_word]["derived_from"]:
+                            etymwn_data[source_lang][source_word]["derived_from"].append({"lang": target_lang, "word": target_word})
+                    
+                    # Also create an entry for the target if it doesn't exist
+                    if target_lang not in etymwn_data:
+                        etymwn_data[target_lang] = {}
+                    
+                    if target_word not in etymwn_data[target_lang]:
+                        etymwn_data[target_lang][target_word] = {
+                            "derived_from": [],
+                            "derived_to": []
+                        }
+                    
+                    # Add the reverse relationship
+                    if relation.startswith('rel:derives'):
+                        # target is derived from source
+                        if {"lang": source_lang, "word": source_word} not in etymwn_data[target_lang][target_word]["derived_from"]:
+                            etymwn_data[target_lang][target_word]["derived_from"].append({"lang": source_lang, "word": source_word})
+                    else:
+                        # source is derived from target
+                        if {"lang": source_lang, "word": source_word} not in etymwn_data[target_lang][target_word]["derived_to"]:
+                            etymwn_data[target_lang][target_word]["derived_to"].append({"lang": source_lang, "word": source_word})
+            
+            self.logger.info(f"Loaded {count} relationships from Etymological Wordnet")
+            self.logger.info(f"Created {sum(len(words) for words in etymwn_data.values())} word entries")
+            
+            return etymwn_data
             
         except Exception as e:
-            self.logger.error(f"Error fetching etymology for {word}: {str(e)}")
-            return result
-            
+            self.logger.error(f"Error loading etymwn data: {str(e)}")
+            return {}
+
     def fetch_from_etymwordnet(self, word, language):
         """Fetch etymology data from Etymological Wordnet."""
         result = {
@@ -522,35 +347,112 @@ class EtymologyGenerator:
         }
         
         try:
+            # Check if etymwordnet is in our data sources
+            if "etymwordnet" not in self.data_sources:
+                self.logger.warning("Etymwordnet source not initialized")
+                return result
+                
             # Get the language code for the query
             lang_code = self.get_language_code(language)
             if not lang_code:
                 self.logger.warning(f"Unknown language code for {language}")
                 return result
                 
-            # Search for the word in the TSV file
-            data_file = self.data_sources["etymwordnet"]["data_file"]
-            with open(data_file, 'r', encoding='utf-8') as f:
-                for line in f:
-                    parts = line.strip().split('\t')
-                    if len(parts) >= 3:
-                        source_word = parts[0].split(':')
-                        relation = parts[1].split(':')[1]
-                        target_word = parts[2].split(':')
+            # Check the in-memory etymwn data
+            self.logger.info(f"Checking etymwordnet for {word} ({lang_code})")
+            
+            word_lower = word.lower()
+            
+            if hasattr(self, 'etymwordnet_data') and lang_code in self.etymwordnet_data and word_lower in self.etymwordnet_data[lang_code]:
+                word_data = self.etymwordnet_data[lang_code][word_lower]
+                self.logger.info(f"Found {word} in etymwordnet data")
+                
+                # Process derived_from relationships to find roots
+                for root_entry in word_data.get("derived_from", []):
+                    root_lang_code = root_entry["lang"]
+                    root_word = root_entry["word"]
+                    
+                    target_lang = self.get_language_name(root_lang_code)
+                    
+                    # Create the root entry
+                    root = {
+                        "word": root_word,
+                        "language": target_lang,
+                        "year": None,
+                        "definition": ""
+                    }
+                    
+                    # Estimate year based on language
+                    if target_lang == "Latin":
+                        root["year"] = -100  # Classical Latin period
+                    elif target_lang == "Ancient Greek":
+                        root["year"] = -400  # Classical Greek period
+                    elif target_lang == "Proto-Indo-European":
+                        root["year"] = -4500  # Estimated PIE period
+                    elif target_lang == "Old French":
+                        root["year"] = 1000  # Old French period
+                    elif target_lang == "Arabic":
+                        root["year"] = 700  # Classical Arabic period
                         
-                        # Check if this line relates to our word
-                        if source_word[0] == lang_code and source_word[1] == word and relation == "derived":
-                            # Found a root word
-                            target_lang = self.get_language_name(target_word[0])
-                            root = {
-                                "word": target_word[1],
-                                "language": target_lang,
-                                "year": None  # EtymWordnet doesn't provide years
-                            }
-                            result["roots"].append(root)
+                    # Add the root if not already present
+                    if not any(r.get("word") == root_word and r.get("language") == target_lang for r in result["roots"]):
+                        result["roots"].append(root)
+                        self.logger.info(f"Added root: {root_word} ({target_lang})")
+            
+            # If we found roots, return the result
+            if result["roots"]:
+                return result
+            
+            # If no roots found in etymwn data, fall back to our known pairs table
+            known_pairs = {
+                "English": {
+                    "etymology": {"word": "ἐτυμολογία", "language": "Ancient Greek", "year": -400, "definition": "The study of the origin of words"},
+                    "biology": {"word": "βιολογία", "language": "Ancient Greek", "year": -400, "definition": "The study of life"},
+                    "philosophy": {"word": "φιλοσοφία", "language": "Ancient Greek", "year": -400, "definition": "Love of wisdom"},
+                    "democracy": {"word": "δημοκρατία", "language": "Ancient Greek", "year": -400, "definition": "Rule by the people"}
+                },
+                "French": {
+                    "bonjour": {"word": "bonus diurnus", "language": "Latin", "year": -100, "definition": "Good day"},
+                    "merci": {"word": "merces", "language": "Latin", "year": -100, "definition": "Reward, payment"},
+                    "château": {"word": "castellum", "language": "Latin", "year": -100, "definition": "Castle, fort"}
+                },
+                "Latin": {
+                    "veni": {"word": "*gʷem-", "language": "Proto-Indo-European", "year": -4500, "definition": "To come"},
+                    "vidi": {"word": "*weid-", "language": "Proto-Indo-European", "year": -4500, "definition": "To see"}
+                },
+                "Greek": {
+                    "logos": {"word": "*leg-", "language": "Proto-Indo-European", "year": -4500, "definition": "To collect, speak"},
+                    "cosmos": {"word": "*kens-", "language": "Proto-Indo-European", "year": -4500, "definition": "To announce, proclaim"}
+                }
+            }
+            
+            if language in known_pairs and word.lower() in known_pairs[language]:
+                known_root = known_pairs[language][word.lower()]
+                root = {
+                    "word": known_root["word"],
+                    "language": known_root["language"],
+                    "year": known_root.get("year"),
+                    "definition": known_root.get("definition", "")
+                }
+                result["roots"].append(root)
+                self.logger.info(f"Added known root: {root['word']} ({root['language']})")
+                
+                # For these known pairs, also set reasonable year and definition for the word itself if not already set
+                if not result.get("year"):
+                    if language == "English":
+                        result["year"] = 1500  # Approximate for English words
+                    elif language == "French":
+                        result["year"] = 1200  # Approximate for French words
+                    elif language == "Latin":
+                        result["year"] = -100  # Classical Latin period
+                    elif language == "Greek":
+                        result["year"] = -500  # Classical Greek period
+                
+                if not result.get("definition") and known_root.get("definition"):
+                    result["definition"] = f"Related to {known_root['definition']}"
             
             return result
-            
+        
         except Exception as e:
             self.logger.error(f"Error fetching from EtymWordnet for {word}: {str(e)}")
             return result
@@ -566,17 +468,188 @@ class EtymologyGenerator:
         }
         
         try:
-            # This would be a real implementation querying the IELEX data
-            # For now, return a simple placeholder for demonstration
-            if word == "etymology" and language == "English":
-                result["roots"] = [
-                    {
-                        "word": "*et-", 
+            # Check cache first
+            cache_file = self.data_sources["ielex"]["cache_dir"] / f"{language}_{word}.json"
+            if os.path.exists(cache_file):
+                with open(cache_file, 'r', encoding='utf-8') as f:
+                    cached_data = json.load(f)
+                    return cached_data
+            
+            # Get base URL from data sources
+            if "ielex" not in self.data_sources or "base_url" not in self.data_sources["ielex"]:
+                self.logger.warning("IELEX source not properly initialized")
+                return result
+                
+            base_url = self.data_sources["ielex"]["base_url"]
+            
+            # Set up headers for requests
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            }
+            
+            # First, we need to find potential PIE roots that might relate to this word
+            # We'll search the master index page
+            master_url = f"{base_url}/index.html"
+            
+            self.logger.info(f"Searching IELEX for {word}")
+            
+            # Fetch the master index page
+            try:
+                response = requests.get(master_url, headers=headers, timeout=10)
+                response.raise_for_status()
+            except Exception as e:
+                self.logger.error(f"Failed to fetch IELEX master index: {str(e)}")
+                return result
+                
+            # Parse the HTML
+            soup = BeautifulSoup(response.text, 'html.parser')
+            
+            # Extract all links to root pages
+            root_links = soup.find_all('a')
+            potential_roots = []
+            
+            # Get language code for search
+            lang_code = self.get_language_code(language)
+            search_word = word.lower()
+            
+            # Look through the roots to find potential matches
+            for link in root_links:
+                href = link.get('href')
+                if not href or not href.endswith('.html'):
+                    continue
+                    
+                # Extract the root from the href
+                root_match = re.search(r'/([^/]+)\.html$', href)
+                if not root_match:
+                    continue
+                    
+                root_id = root_match.group(1)
+                
+                # If the link text contains our word or vice versa, add it to potential roots
+                link_text = link.text.lower()
+                if search_word in link_text or any(part in link_text for part in search_word.split()):
+                    potential_roots.append((root_id, href))
+                    self.logger.info(f"Found potential root: {root_id}")
+            
+            # If we don't find any direct matches, try looking for cognates
+            if not potential_roots:
+                # Find the most relevant page by checking for cognates
+                all_lang_roots = []
+                for link in root_links:
+                    href = link.get('href')
+                    if href and href.endswith('.html') and not href.startswith('http'):
+                        # Only consider pages in the master directory
+                        root_match = re.search(r'/([^/]+)\.html$', href)
+                        if root_match:
+                            all_lang_roots.append((root_match.group(1), href))
+                
+                # For each root page, check if it contains our language and word
+                for root_id, href in all_lang_roots:
+                    # Construct full URL if necessary
+                    if href.startswith('/'):
+                        root_url = f"https://lrc.la.utexas.edu{href}"
+                    elif href.startswith('http'):
+                        root_url = href
+                    else:
+                        root_url = f"{base_url}/{href}"
+                        
+                    try:
+                        # Fetch the root page
+                        root_response = requests.get(root_url, headers=headers, timeout=10)
+                        root_response.raise_for_status()
+                        
+                        # Check if the page contains our word
+                        if search_word in root_response.text.lower():
+                            # Parse the page
+                            root_soup = BeautifulSoup(root_response.text, 'html.parser')
+                            
+                            # Check for the language section
+                            lang_sections = root_soup.find_all(['h2', 'h3', 'h4', 'b', 'strong'])
+                            for section in lang_sections:
+                                section_text = section.text.lower()
+                                if language.lower() in section_text or (lang_code and lang_code.lower() in section_text):
+                                    # Found the language section, now check for the word
+                                    next_elem = section.next_sibling
+                                    while next_elem and not (hasattr(next_elem, 'name') and next_elem.name in ['h2', 'h3', 'h4']):
+                                        if hasattr(next_elem, 'text') and search_word in next_elem.text.lower():
+                                            potential_roots.append((root_id, href))
+                                            self.logger.info(f"Found cognate in root: {root_id}")
+                                            break
+                                        next_elem = next_elem.next_sibling
+                    except Exception as e:
+                        self.logger.warning(f"Error checking root page {root_id}: {str(e)}")
+                        continue
+            
+            # Process the potential roots
+            for root_id, href in potential_roots:
+                # Construct full URL if necessary
+                if href.startswith('/'):
+                    root_url = f"https://lrc.la.utexas.edu{href}"
+                elif href.startswith('http'):
+                    root_url = href
+                else:
+                    root_url = f"{base_url}/{href}"
+                
+                try:
+                    # Fetch the root page
+                    root_response = requests.get(root_url, headers=headers, timeout=10)
+                    root_response.raise_for_status()
+                    
+                    # Parse the page
+                    root_soup = BeautifulSoup(root_response.text, 'html.parser')
+                    
+                    # Extract the PIE root
+                    pie_root = ""
+                    title = root_soup.find('title')
+                    if title:
+                        title_text = title.text
+                        pie_match = re.search(r'Indo-European\s+Roots?\s+\*([^\s*]+)', title_text)
+                        if pie_match:
+                            pie_root = "*" + pie_match.group(1)
+                            
+                    if not pie_root:
+                        # Try to find the root in the page content
+                        for tag in root_soup.find_all(['h1', 'h2', 'h3']):
+                            if 'Root' in tag.text:
+                                root_text = tag.text
+                                pie_match = re.search(r'\*([^\s*]+)', root_text)
+                                if pie_match:
+                                    pie_root = "*" + pie_match.group(1)
+                                    break
+                    
+                    # If we still don't have a root, use the root ID
+                    if not pie_root:
+                        pie_root = "*" + root_id
+                    
+                    # Extract definition
+                    definition = ""
+                    definition_elem = root_soup.find('p')
+                    if definition_elem:
+                        definition = definition_elem.text.strip()
+                        # Clean up the definition
+                        definition = re.sub(r'\s+', ' ', definition)
+                        definition = re.sub(r'^\*[^\s]+\s+', '', definition)
+                    
+                    # Create the root object
+                    pie_root_obj = {
+                        "word": pie_root,
                         "language": "Proto-Indo-European",
-                        "definition": "true, real",
-                        "year": -4500
+                        "year": -4500,  # Estimated PIE period
+                        "definition": definition
                     }
-                ]
+                    
+                    # Add the root if not already present
+                    if not any(r.get("word") == pie_root_obj["word"] for r in result["roots"]):
+                        result["roots"].append(pie_root_obj)
+                        self.logger.info(f"Added PIE root: {pie_root}")
+                        
+                except Exception as e:
+                    self.logger.warning(f"Error processing root {root_id}: {str(e)}")
+                    continue
+            
+            # Cache the results
+            with open(cache_file, 'w', encoding='utf-8') as f:
+                json.dump(result, f, indent=2)
                 
             return result
             
@@ -594,92 +667,169 @@ class EtymologyGenerator:
             "roots": []
         }
         
-        # This would be a real implementation querying the Starling database
-        # For now, return an empty result
-        return result
-
-    def fetch_from_oed(self, word, language):
-        """Fetch etymology data from the Oxford English Dictionary API."""
-        result = {
-            "word": word,
-            "language": language,
-            "year": None,
-            "definition": "",
-            "roots": []
-        }
-        
         try:
-            if language != "English":
-                return result  # OED only covers English
+            # Check cache first
+            cache_file = self.data_sources["starling"]["cache_dir"] / f"{language}_{word}.json"
+            if os.path.exists(cache_file):
+                with open(cache_file, 'r', encoding='utf-8') as f:
+                    cached_data = json.load(f)
+                    return cached_data
+            
+            # Get base URL from data sources
+            if "starling" not in self.data_sources or "base_url" not in self.data_sources["starling"]:
+                self.logger.warning("Starling source not properly initialized")
+                return result
                 
-            # This would be a real implementation using the OED API
-            # For demonstration purposes, return some placeholder data
-            if word == "computer":
-                result["definition"] = "An electronic device for storing and processing data."
-                result["year"] = 1640
-                result["roots"] = [
-                    {
-                        "word": "compute",
-                        "language": "English",
-                        "year": 1631
-                    },
-                    {
-                        "word": "computare",
-                        "language": "Latin",
-                        "definition": "to calculate, to count",
-                        "year": 100
-                    }
-                ]
+            base_url = self.data_sources["starling"]["base_url"]
+            
+            # Set up headers for requests
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            }
+            
+            # Map language to Starling database
+            db_mappings = {
+                "English": "germanic",
+                "German": "germanic",
+                "Dutch": "germanic",
+                "Swedish": "germanic",
+                "Russian": "slavonic",
+                "Polish": "slavonic",
+                "Czech": "slavonic",
+                "Bulgarian": "slavonic",
+                "Latin": "romance",
+                "French": "romance",
+                "Italian": "romance",
+                "Spanish": "romance",
+                "Portuguese": "romance",
+                "Ancient Greek": "greek",
+                "Greek": "greek"
+            }
+            
+            # Determine which database to search
+            db_name = db_mappings.get(language, None)
+            if not db_name:
+                self.logger.warning(f"Language {language} not supported in Starling database")
+                return result
+            
+            self.logger.info(f"Searching Starling database '{db_name}' for {word}")
+            
+            # Construct the search URL
+            params = {
+                "root": "config",
+                "an": "search",
+                "dict": db_name,
+                "text": word,
+                "method": "substring"
+            }
+            
+            search_url = f"{base_url}?{urllib.parse.urlencode(params)}"
+            
+            # Fetch the search results
+            try:
+                response = requests.get(search_url, headers=headers, timeout=15)
+                response.raise_for_status()
+            except Exception as e:
+                self.logger.error(f"Failed to search Starling database for {word}: {str(e)}")
+                return result
+                
+            # Parse the HTML
+            soup = BeautifulSoup(response.text, 'html.parser')
+            
+            # Extract search results - look for links to individual entries
+            result_links = soup.find_all('a', href=lambda href: href and 'dbid' in href and 'single' in href)
+            
+            for link in result_links:
+                href = link.get('href')
+                # Extract the entry ID
+                entry_id_match = re.search(r'dbid=(\d+)', href)
+                if entry_id_match:
+                    entry_id = entry_id_match.group(1)
+                    
+                    # Get the entry page
+                    entry_url = f"{base_url}?single=1&dict={db_name}&dbid={entry_id}"
+                    
+                    try:
+                        entry_response = requests.get(entry_url, headers=headers, timeout=15)
+                        entry_response.raise_for_status()
+                        
+                        entry_soup = BeautifulSoup(entry_response.text, 'html.parser')
+                        
+                        # Look for the word/meaning and proto-form
+                        word_found = False
+                        proto_form = None
+                        meaning = None
+                        
+                        # Find the table with the entry data
+                        tables = entry_soup.find_all('table')
+                        for table in tables:
+                            rows = table.find_all('tr')
+                            for row in rows:
+                                cells = row.find_all('td')
+                                if len(cells) >= 2:
+                                    # Check if this is the word/meaning cell
+                                    if any(label in cells[0].text.lower() for label in ["word", "meaning", "translation"]):
+                                        if word.lower() in cells[1].text.lower():
+                                            word_found = True
+                                            meaning = cells[1].text.strip()
+                                    
+                                    # Look for proto-form
+                                    if any(label in cells[0].text.lower() for label in ["proto", "reconstruction", "etymology"]):
+                                        proto_text = cells[1].text.strip()
+                                        # Extract a proto-form - typically starts with asterisk
+                                        proto_match = re.search(r'\*([^\s,;]+)', proto_text)
+                                        if proto_match:
+                                            proto_form = f"*{proto_match.group(1)}"
+                        
+                        # If we found a match
+                        if word_found and proto_form:
+                            # Determine the proto-language
+                            if db_name == "germanic":
+                                proto_lang = "Proto-Germanic"
+                            elif db_name == "slavonic":
+                                proto_lang = "Proto-Slavic"
+                            elif db_name == "romance":
+                                proto_lang = "Proto-Indo-European"
+                            elif db_name == "greek":
+                                proto_lang = "Proto-Greek"
+                            else:
+                                proto_lang = "Proto-Indo-European"
+                            
+                            # Create the root entry
+                            root = {
+                                "word": proto_form,
+                                "language": proto_lang,
+                                "year": None,
+                                "definition": meaning or ""
+                            }
+                            
+                            # Set year based on language
+                            if proto_lang == "Proto-Germanic":
+                                root["year"] = -500
+                            elif proto_lang == "Proto-Slavic":
+                                root["year"] = 0
+                            elif proto_lang == "Proto-Indo-European":
+                                root["year"] = -4500
+                            elif proto_lang == "Proto-Greek":
+                                root["year"] = -1500
+                            
+                            # Add to roots if not already present
+                            if not any(r.get("word") == proto_form for r in result["roots"]):
+                                result["roots"].append(root)
+                                self.logger.info(f"Added proto-form: {proto_form} ({proto_lang})")
+                        
+                    except Exception as e:
+                        self.logger.warning(f"Error fetching entry {entry_id}: {str(e)}")
+                        continue
+            
+            # Cache the results
+            with open(cache_file, 'w', encoding='utf-8') as f:
+                json.dump(result, f, indent=2)
                 
             return result
             
         except Exception as e:
-            self.logger.error(f"Error fetching from OED for {word}: {str(e)}")
-            return result
-
-    def fetch_from_pokorny(self, word, language):
-        """Fetch etymology data from Pokorny's Indo-European Etymological Dictionary."""
-        result = {
-            "word": word,
-            "language": language,
-            "year": None,
-            "definition": "",
-            "roots": []
-        }
-        
-        # This would be a real implementation parsing Pokorny's dictionary
-        # For now, return an empty result
-        return result
-
-    def fetch_from_cooljugator(self, word, language):
-        """Fetch etymology data from CoolJugator/EtymoloGeek."""
-        result = {
-            "word": word,
-            "language": language,
-            "year": None,
-            "definition": "",
-            "roots": []
-        }
-        
-        try:
-            # This would be a real implementation querying the CoolJugator API
-            # For now, we'll just return placeholder data for certain words
-            if word == "democracy" and language == "English":
-                result["definition"] = "A system of government by the whole population."
-                result["year"] = 1570
-                result["roots"] = [
-                    {
-                        "word": "demokratia",
-                        "language": "Ancient Greek",
-                        "definition": "popular government",
-                        "year": -500
-                    }
-                ]
-                
-            return result
-            
-        except Exception as e:
-            self.logger.error(f"Error fetching from CoolJugator for {word}: {str(e)}")
+            self.logger.error(f"Error fetching from Starling for {word}: {str(e)}")
             return result
 
     def get_language_code(self, language):
@@ -715,6 +865,121 @@ class EtymologyGenerator:
             # Add more as needed
         }
         return language_names.get(code, code)
+
+    def fetch_etymology(self, word, language):
+        """Fetch etymology data from all configured sources."""
+        # Initialize the result structure
+        result = {
+        "word": word,
+        "language": language,
+        "year": None,
+        "definition": "",
+        "roots": []
+        }
+        
+        # Check the data directory first
+        data_dir = Path("data/words")
+        word_dir = data_dir / language.lower() / word[0].lower()
+        word_file = word_dir / f"{word.lower()}.json"
+        
+        # If data already exists and we're in a recovery situation, load it
+        if word_file.exists():
+        try:
+            with open(word_file, 'r', encoding='utf-8') as f:
+                existing_data = json.load(f)
+                self.logger.info(f"Found existing data for {word}")
+                return existing_data
+        except Exception as e:
+            self.logger.warning(f"Error loading existing data for {word}: {str(e)}")
+        
+        # Check our supplementary data for known etymologies
+        if word.lower() in self.supplementary_data:
+            self.logger.info(f"Found {word} in supplementary data")
+            return self.supplementary_data[word.lower()]
+        
+        # Fetch from each configured source
+        for source in self.sources:
+            try:
+                source_data = None
+                
+                if source == "wiktionary":
+                    source_data = self.fetch_from_wiktionary(word, language)
+                elif source == "etymonline":
+                    source_data = self.fetch_from_etymonline(word, language)
+                elif source == "etymwordnet":
+                    source_data = self.fetch_from_etymwordnet(word, language)
+                elif source == "ielex":
+                    source_data = self.fetch_from_ielex(word, language)
+                elif source == "starling":
+                    source_data = self.fetch_from_starling(word, language)
+                
+                if source_data and source_data.get("roots"):
+                    # Merge data, avoiding duplicates
+                    self.merge_etymology_data(result, source_data)
+                    self.logger.info(f"Added data from {source} for {word}")
+            except Exception as e:
+                self.logger.error(f"Error fetching from {source} for {word}: {str(e)}")
+        
+        # Ensure the word and language are set correctly
+        result["word"] = word
+        result["language"] = language
+        
+        # Save data to file for recovery
+        self.save_etymology_data(result)
+        
+        return result
+        
+    def merge_etymology_data(self, target, source):
+        """Merge etymology data from source into target, avoiding duplicates."""
+        # Merge year if not already set
+        if not target.get("year") and source.get("year"):
+            target["year"] = source["year"]
+            
+        # Merge definition if not already set or if the new one is longer
+        if (not target.get("definition") and source.get("definition")) or \
+           (source.get("definition") and len(source["definition"]) > len(target.get("definition", ""))):
+            target["definition"] = source["definition"]
+            
+        # Merge roots, avoiding duplicates
+        if source.get("roots"):
+            for new_root in source["roots"]:
+                # Check if this root already exists
+                exists = False
+                for existing_root in target.get("roots", []):
+                    if (existing_root.get("word") == new_root.get("word") and 
+                        existing_root.get("language") == new_root.get("language")):
+                        exists = True
+                        # Update year or definition if not set
+                        if not existing_root.get("year") and new_root.get("year"):
+                            existing_root["year"] = new_root["year"]
+                        if not existing_root.get("definition") and new_root.get("definition"):
+                            existing_root["definition"] = new_root["definition"]
+                        break
+                
+                if not exists:
+                    target.setdefault("roots", []).append(new_root)
+    
+    def save_etymology_data(self, data):
+        """Save etymology data to a file for future use and recovery."""
+        if not data or not data.get("word") or not data.get("language"):
+            return
+            
+        # Create directory structure if needed
+        word = data["word"].lower()
+        language = data["language"]
+        
+        data_dir = Path("data/words")
+        lang_dir = data_dir / language.lower()
+        first_letter_dir = lang_dir / word[0].lower()
+        
+        os.makedirs(first_letter_dir, exist_ok=True)
+        
+        # Save the file
+        word_file = first_letter_dir / f"{word}.json"
+        with open(word_file, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2)
+            
+        self.logger.debug(f"Saved etymology data for {word} ({language})")
 
     def process_word(self, word, language="English"):
         """Process a word and store its etymology data."""
@@ -885,7 +1150,7 @@ class EtymologyGenerator:
     def run(self):
         """Run the etymology generator on the word lists."""
         start_time = time.time()
-        
+            
         try:
             # Get word lists for each language
             word_lists = self.fetch_word_lists()
@@ -917,8 +1182,8 @@ class EtymologyGenerator:
             
             # Save final state
             if not self.test_mode:
-                self.save_state()
-            
+                        self.save_state()
+                        
             # Log completion statistics
             end_time = time.time()
             elapsed_minutes = (end_time - start_time) / 60
@@ -1079,14 +1344,14 @@ class EtymologyGenerator:
                     },
                     "aqua": {
                         "language": "Latin",
-                        "year": -100,
+                        "year": -150,
                         "roots": [
                             {"word": "*akʷā-", "language": "Proto-Indo-European", "year": -3000, "definition": "water"}
                         ]
                     },
                     "terra": {
                         "language": "Latin",
-                        "year": -100,
+                        "year": -150,
                         "roots": [
                             {"word": "*ters-", "language": "Proto-Indo-European", "year": -3000, "definition": "dry"}
                         ]
@@ -1097,14 +1362,14 @@ class EtymologyGenerator:
                 greek_data = {
                     "logos": {
                         "language": "Greek",
-                        "year": -500,
+                        "year": -800,
                         "roots": [
                             {"word": "λόγος", "language": "Ancient Greek", "year": -800, "definition": "word, speech, reason"}
                         ]
                     },
                     "cosmos": {
                         "language": "Greek",
-                        "year": -500,
+                        "year": -700,
                         "roots": [
                             {"word": "κόσμος", "language": "Ancient Greek", "year": -800, "definition": "order, arrangement, ornament"}
                         ]
@@ -1125,7 +1390,7 @@ class EtymologyGenerator:
                     },
                     "chronos": {
                         "language": "Greek",
-                        "year": -500,
+                        "year": -600,
                         "roots": [
                             {"word": "χρόνος", "language": "Ancient Greek", "year": -800, "definition": "time"}
                         ]

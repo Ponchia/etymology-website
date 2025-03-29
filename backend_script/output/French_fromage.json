@@ -1,0 +1,22 @@
+{
+  "word": "fromage",
+  "language": "French",
+  "year": 1200,
+  "definition": "",
+  "roots": [
+    {
+      "word": "formaticum",
+      "language": "Late Latin",
+      "year": 800,
+      "definition": "formed cheese"
+    }
+  ],
+  "etymology": [
+    {
+      "word": "formaticum",
+      "language": "Late Latin",
+      "year": 800,
+      "definition": "formed cheese"
+    }
+  ]
+}

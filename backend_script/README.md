@@ -1,65 +1,60 @@
 # Etymology Dataset Generator
 
-A tool for generating structured etymology data for visualization and analysis.
+A sophisticated tool to generate high-quality etymological data for visualization and analysis.
 
 ## Features
-- Automated extraction of etymology information from multiple sources
-- Support for multiple languages including English, French, German, Latin, and Greek
-- Geographic mapping capabilities for visualizing word origins
-- Integration with multiple authoritative etymology databases
-- Quality scoring for generated etymology data
-- Supplementary data system for high-quality verified etymologies
-- Customizable output formats (JSON, CSV)
-- Test framework to evaluate data quality
+
+- Generate etymological data for words from multiple languages
+- Trace word origins through various historical languages
+- Include geographical origin information for mapping visualization
+- Integrate with multiple free etymology data sources
+- Support for multiple languages (English, French, German, Latin, Greek, etc.)
+- Quality scoring system for generated data
+- Caching system for efficient processing
 
 ## Usage
 
-```bash
-python etymology_generator.py [options]
+```
+python etymology_generator.py --max-words 100 --sources wiktionary,etymonline,etymwordnet,starling,ielex
 ```
 
 ### Options
 
-- `--max-words NUM`: Limit processing to NUM words per language
-- `--languages LANG1,LANG2,...`: Specify languages to process (default: "English,French,German")
-- `--test-mode`: Run in test mode with limited words
-- `--sources SOURCE1,SOURCE2,...`: Specify data sources to use (default: "wiktionary,etymonline")
+- `--max-words`: Maximum number of words to process
+- `--languages`: Comma-separated list of languages to include
+- `--sources`: Comma-separated list of etymology data sources to use
 - `--geo-data`: Enable geographical data collection
-- `--geo-mapping FILE`: Path to custom geographical mapping file
-- `--oed-api-key KEY`: API key for Oxford English Dictionary (if using OED source)
+- `--geo-mapping`: Path to custom geographical mapping file
+- `--test`: Run in test mode on a predefined set of words
 
 ## Etymology Data Sources
 
-The generator can integrate with multiple data sources for etymology information:
-
-### Premium/Academic Resources
-- **Oxford English Dictionary (OED) API**: Access to the OED's comprehensive dataset of English language etymology (requires API key)
-- **Tower of Babel (Starling) Database**: Etymological database for reconstructing proto-languages
-- **Pokorny's Indo-European Etymological Dictionary**: Comprehensive dictionary for Indo-European etymology
+The generator can utilize multiple free etymology data sources:
 
 ### Free/Open Resources
-- **Wiktionary**: Multilingual dictionary with etymological information
-- **Etymonline**: Online etymology dictionary focused on English word origins
-- **Etymological Wordnet**: Database of etymological relations between words
-- **University of Texas Indo-European Lexicon**: Resource for Indo-European etymology
-- **EtymoloGeek/CoolJugator**: Etymology data from multiple sources with visual representation
 
-## Generated Data Structure
+- **Wiktionary**: Community-driven multilingual dictionary with etymological information
+- **Etymonline**: Online etymology dictionary focused on English words
+- **Etymological Wordnet**: Network of etymological and derivational relations extracted from Wiktionary
+- **University of Texas Indo-European Lexicon (IELEX)**: Collection of Indo-European roots and cognates
+- **Tower of Babel/Starling Database**: Comparative linguistics database for proto-language reconstruction
 
-The generator produces JSON files with the following structure:
+## Data Structure
+
+The generated data is stored as JSON files with the following structure:
 
 ```json
 {
   "word": "example",
   "language": "English",
-  "year": 1550,
+  "year": 1530,
   "definition": "A representative form or pattern",
   "roots": [
     {
       "word": "exemplum",
       "language": "Latin",
-      "definition": "A sample",
       "year": 100,
+      "definition": "sample",
       "geo_origin": {
         "lat": 41.9028,
         "lng": 12.4964,
@@ -74,62 +69,78 @@ The generator produces JSON files with the following structure:
     "location": "London, England",
     "confidence": 0.7
   },
-  "sources": ["wiktionary", "oed"]
+  "quality_score": 75
 }
 ```
 
 ## Geographical Features
 
-When enabled with the `--geo-data` flag, the generator will attempt to add geographical origin information to words and their roots.
+When enabled, the generator will include geographical origin information for words and their roots. This data can be used to create visualizations showing how words moved across regions and cultures.
 
-### Geographical Data Structure
-- `lat`: Latitude of the historical center for the language
-- `lng`: Longitude of the historical center for the language
-- `location`: Human-readable description of the location
-- `confidence`: Score from 0-1 indicating confidence in the geographical data
+### Enabling Geographic Data
 
-### Custom Mapping Files
-You can provide a custom geographical mapping file with the `--geo-mapping` option. This file should be a JSON file mapping language names to geographical coordinates and time periods.
+Use the `--geo-data` flag to enable geographical data collection:
 
-## Supplementary Data
+```
+python etymology_generator.py --max-words 100 --geo-data
+```
 
-The system includes a supplementary data mechanism for high-quality etymology information. This data takes precedence over other sources and ensures consistent, accurate results for common words.
+### Custom Mapping
+
+You can provide a custom geographical mapping file using the `--geo-mapping` option:
+
+```
+python etymology_generator.py --max-words 100 --geo-data --geo-mapping custom_mapping.json
+```
 
 ## Language Support
 
-The generator supports multiple languages, with varying levels of data quality:
-- **High Support**: English, Latin, Ancient Greek, French
-- **Medium Support**: German, Spanish, Italian, Old English, Middle English, Proto-Germanic
-- **Basic Support**: Russian, Portuguese, Sanskrit, Arabic, Proto-Indo-European
+The generator supports multiple languages including:
 
-The generator can be extended to support additional languages by adding appropriate language mappings and data sources.
+- English
+- French
+- German
+- Latin
+- Greek (Ancient and Modern)
+- Spanish
+- Italian
+- Russian
+- And more...
 
 ## Data Quality
 
-The generator includes a data quality evaluation framework that scores etymology data based on:
-- Presence of roots
-- Accuracy of language identification
+The quality of the generated etymology data is evaluated based on several metrics:
+
+- Presence of year information
+- Quality of root words
 - Presence of sensible definitions
-- Year accuracy
-- Overall coverage
+- Alignment with expected language origins
+- Geographical data accuracy
 
-Quality scores range from 0-100, with the following ratings:
-- 80-100: EXCELLENT
-- 60-80: GOOD
-- 40-60: FAIR
-- 20-40: POOR
-- 0-20: VERY POOR
+Quality scores range from 0 to 100, with the following categories:
 
-## Testing
+- 0-25: POOR
+- 26-50: FAIR
+- 51-75: GOOD
+- 76-100: EXCELLENT
 
-Run the test script to evaluate the quality of generated etymology data:
+## Performance
 
-```bash
-python test_generator.py
+The generator uses a caching system to avoid redundant network requests and improve performance. For large datasets, the process can be time-consuming due to rate limiting on web scraping. The estimation for processing time is:
+
+- Small dataset (100 words): ~5 minutes
+- Medium dataset (1,000 words): ~1 hour
+- Large dataset (10,000+ words): ~10+ hours
+
+## Dependencies
+
+- Python 3.6+
+- requests
+- beautifulsoup4
+- tqdm
+
+## Installation
+
 ```
-
-This will process a sample of words from different languages and output quality metrics.
-
-## Requirements
-- Python 3.7 or higher
-- Required Python packages are listed in requirements.txt 
+pip install -r requirements.txt
+``` 

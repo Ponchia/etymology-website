@@ -152,17 +152,20 @@ REFERENCE_ETYMOLOGIES = {
 }
 
 class EtymologyGeneratorTester:
+    """Test harness for the etymology generator"""
+    
     def __init__(self):
-        self.test_output_dir = Path("./test_output")
+        """Initialize the tester with default values"""
         self.words_processed = 0
         self.successful_words = 0
         self.failed_words = 0
         self.connections = 0
         self.quality_scores = []
+        self.test_output_dir = "./test_output"
         
         if not os.path.exists(self.test_output_dir):
             os.makedirs(self.test_output_dir)
-            
+    
     def run_test(self, use_fixed_list=True):
         """Run test with optional fixed word list"""
         logger.info("Starting test run with fixed word lists")
@@ -172,7 +175,7 @@ class EtymologyGeneratorTester:
             max_words=5, 
             languages=["English", "French", "Latin", "Greek"],
             test_mode=True,
-            sources="wiktionary,etymonline",
+            sources="wiktionary,etymonline,etymwordnet,ielex,starling",
             geo_data=True  # Enable geographical data collection
         )
         
@@ -355,8 +358,118 @@ class EtymologyGeneratorTester:
             rating = "VERY POOR"
             
         logger.info(f"QUALITY RATING: {rating}")
-        
-if __name__ == "__main__":
+
+def main():
+    """Run the test on a predefined set of words."""
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler("test_generator.log"),
+            logging.StreamHandler()
+        ]
+    )
+    logger = logging.getLogger("test_generator")
+    
+    # Create test output directory if it doesn't exist
+    test_output_dir = Path("./test_output")
+    if not os.path.exists(test_output_dir):
+        os.makedirs(test_output_dir)
+    
+    logger.info("Starting test run with fixed word lists")
+    
+    # Test with specific lists of words from different languages
+    english_words = ["etymology", "biology", "computer", "philosophy", "democracy"]
+    french_words = ["bonjour", "merci", "château", "fromage", "café"]
+    latin_words = ["veni", "vidi", "vici", "aqua", "terra"]
+    greek_words = ["logos", "cosmos", "pathos", "ethos", "chronos"]
+    
+    # Create a generator with test=True to use test-specific settings
+    generator = EtymologyGenerator(
+        test_mode=True,
+        sources="wiktionary,etymonline,etymwordnet,ielex,starling",
+        geo_data=True
+    )
+    
+    # Override the output directory to use the test directory
+    generator.output_dir = test_output_dir
+    
+    # Create a tester instance
     tester = EtymologyGeneratorTester()
-    tester.run_test()
-    tester.analyze_quality() 
+    tester.test_output_dir = test_output_dir
+    
+    # Process test words
+    start_time = time.time()
+    successful_words = 0
+    failed_words = 0
+    total_connections = 0
+    
+    logger.info(f"Processing {len(english_words)} English words")
+    for word in english_words:
+        result = generator.process_word(word, "English")
+        if result:
+            successful_words += 1
+            total_connections += len(result.get("roots", []))
+            tester.words_processed += 1
+            tester.successful_words += 1
+            tester.connections += len(result.get("roots", []))
+            tester.quality_scores.append(result.get("quality_score", 0))
+        else:
+            failed_words += 1
+            tester.failed_words += 1
+        
+    logger.info(f"Processing {len(french_words)} French words")
+    for word in french_words:
+        result = generator.process_word(word, "French")
+        if result:
+            successful_words += 1
+            total_connections += len(result.get("roots", []))
+            tester.words_processed += 1
+            tester.successful_words += 1
+            tester.connections += len(result.get("roots", []))
+            tester.quality_scores.append(result.get("quality_score", 0))
+        else:
+            failed_words += 1
+            tester.failed_words += 1
+    
+    logger.info(f"Processing {len(latin_words)} Latin words")
+    for word in latin_words:
+        result = generator.process_word(word, "Latin")
+        if result:
+            successful_words += 1
+            total_connections += len(result.get("roots", []))
+            tester.words_processed += 1
+            tester.successful_words += 1
+            tester.connections += len(result.get("roots", []))
+            tester.quality_scores.append(result.get("quality_score", 0))
+        else:
+            failed_words += 1
+            tester.failed_words += 1
+    
+    logger.info(f"Processing {len(greek_words)} Greek words")
+    for word in greek_words:
+        result = generator.process_word(word, "Greek")
+        if result:
+            successful_words += 1
+            total_connections += len(result.get("roots", []))
+            tester.words_processed += 1
+            tester.successful_words += 1
+            tester.connections += len(result.get("roots", []))
+            tester.quality_scores.append(result.get("quality_score", 0))
+        else:
+            failed_words += 1
+            tester.failed_words += 1
+    
+    # Report results
+    logger.info(f"Completed in {round((time.time() - start_time) / 60, 2)} minutes")
+    logger.info(f"Total words processed: {len(english_words + french_words + latin_words + greek_words)}")
+    logger.info(f"Successful words: {successful_words}")
+    logger.info(f"Failed words: {failed_words}")
+    logger.info(f"Total connections: {total_connections}")
+    logger.info("Test run completed")
+    
+    # Analyze quality of the generated data
+    tester.analyze_quality()
+
+if __name__ == "__main__":
+    main() 
