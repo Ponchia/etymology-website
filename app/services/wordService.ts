@@ -251,32 +251,80 @@ export async function getWordEtymology(word: string): Promise<EtymologyWord | nu
       console.log('Production mode - fetching from GitHub');
       
       try {
-        // Determine the path to the word's JSON file
-        const filePath = `${DATA_PATH}/${normalizedWord.charAt(0).toLowerCase()}/${normalizedWord}.json`;
+        // First try to fetch directly from raw.githubusercontent.com (more efficient)
+        const rawUrl = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${DATA_PATH}/English/${normalizedWord.charAt(0).toLowerCase()}/${normalizedWord}.json`;
         
-        // Fetch the file content from GitHub
-        const response = await octokit.rest.repos.getContent({
-          owner: REPO_OWNER,
-          repo: REPO_NAME,
-          path: filePath,
-        });
+        try {
+          console.log(`Trying raw GitHub URL: ${rawUrl}`);
+          const response = await fetch(rawUrl);
+          if (response.ok) {
+            const data = await response.json();
+            console.log('Successfully fetched from raw GitHub URL');
+            return data as EtymologyWord;
+          }
+        } catch (error) {
+          console.log('Error fetching from raw GitHub URL, trying API instead:', error);
+        }
         
-        // If the file exists, decode and parse it
-        if (response.status === 200 && 'content' in response.data) {
-          // GitHub API returns content as base64 encoded
-          const content = atob(response.data.content);
-          return JSON.parse(content) as EtymologyWord;
+        // Try each language directory
+        for (const language of ['English', 'French', 'Latin', 'Greek']) {
+          const langRawUrl = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${DATA_PATH}/${language}/${normalizedWord.charAt(0).toLowerCase()}/${normalizedWord}.json`;
+          
+          try {
+            console.log(`Trying language-specific raw URL: ${langRawUrl}`);
+            const langResponse = await fetch(langRawUrl);
+            if (langResponse.ok) {
+              const data = await langResponse.json();
+              console.log(`Successfully fetched from ${language} directory`);
+              return data as EtymologyWord;
+            }
+          } catch {
+            console.log(`Error fetching from ${language} directory`);
+          }
+        }
+        
+        // Fall back to GitHub API if direct fetch fails
+        console.log('Falling back to GitHub API');
+        
+        // Check each language directory
+        for (const language of ['English', 'French', 'Latin', 'Greek']) {
+          const filePath = `${DATA_PATH}/${language}/${normalizedWord.charAt(0).toLowerCase()}/${normalizedWord}.json`;
+          
+          try {
+            console.log(`Trying GitHub API with path: ${filePath}`);
+            const apiResponse = await octokit.rest.repos.getContent({
+              owner: REPO_OWNER,
+              repo: REPO_NAME,
+              path: filePath,
+            });
+            
+            // If the file exists, decode and parse it
+            if (apiResponse.status === 200 && 'content' in apiResponse.data) {
+              // GitHub API returns content as base64 encoded
+              const content = atob(apiResponse.data.content);
+              console.log(`Successfully fetched from GitHub API (${language} directory)`);
+              return JSON.parse(content) as EtymologyWord;
+            }
+          } catch {
+            console.log(`Error fetching from GitHub API (${language} directory)`);
+          }
+        }
+        
+        // If all API attempts fail, check for fallback data
+        console.log('All GitHub fetch attempts failed, checking for fallback data');
+        if (SAMPLE_DATA[normalizedWord]) {
+          console.log(`Falling back to sample data for "${normalizedWord}"`);
+          return SAMPLE_DATA[normalizedWord];
         }
         
         return null;
       } catch (error) {
-        console.error('Error fetching from GitHub:', error);
+        console.error('Error in GitHub fetch logic:', error);
         
-        // For demonstration purposes, return sample data for "etymology"
-        // even in production if GitHub fetch fails
-        if (normalizedWord === 'etymology') {
-          console.log('Falling back to sample data for "etymology"');
-          return SAMPLE_DATA['etymology'];
+        // For fallback, return sample data for known words
+        if (SAMPLE_DATA[normalizedWord]) {
+          console.log(`Falling back to sample data for "${normalizedWord}"`);
+          return SAMPLE_DATA[normalizedWord];
         }
         
         return null;
