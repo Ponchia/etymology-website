@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import SearchInput from './components/SearchInput';
 import EtymologyFlow from './components/EtymologyFlow';
-import Timeline from './components/Timeline';
 import { EtymologyWord } from './types';
 import { getWordEtymology, flattenEtymologyTree } from './services/wordService';
 
@@ -93,14 +92,9 @@ export default function Home() {
         </div>
       </div>
       
-      {/* Main content */}
+      {/* Main content - now takes full remaining height */}
       <div className="flex-1 flow-container">
         <EtymologyFlow words={flattenedWords} />
-      </div>
-      
-      {/* Timeline */}
-      <div className="bg-white/90 p-2 border-t">
-        <Timeline words={flattenedWords} />
       </div>
     </div>
   );

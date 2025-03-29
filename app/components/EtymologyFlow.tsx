@@ -11,7 +11,7 @@ import ReactFlow, {
   Position
 } from 'reactflow';
 import 'reactflow/dist/style.css';
-import { RootWord, languageColors, EtymologyWord } from '../types';
+import { RootWord, languageColors, EtymologyWord, formatYear, WordDefinition } from '../types';
 import { motion } from 'framer-motion';
 
 // Custom node component
@@ -19,6 +19,13 @@ function EtymologyNode({ data, id }: { data: RootWord; id: string }) {
   const languageColor = data.language && languageColors[data.language] 
     ? languageColors[data.language].split(' ')[0] 
     : 'bg-gray-700';
+
+  // Format definition based on new type
+  const getDefinition = (def: string | WordDefinition | undefined): string => {
+    if (!def) return '';
+    if (typeof def === 'string') return def;
+    return def.short;
+  };
 
   // Need to show source handles on all nodes that might have children
   // Show target handles on all nodes that might have parents
@@ -51,11 +58,11 @@ function EtymologyNode({ data, id }: { data: RootWord; id: string }) {
         {data.language}
       </span>
       {data.definition && (
-        <p className="text-sm text-gray-600 mb-2">{data.definition}</p>
+        <p className="text-sm text-gray-600 mb-2">{getDefinition(data.definition)}</p>
       )}
-      {data.year && (
+      {data.year !== undefined && (
         <div className="text-xs text-gray-500">
-          {data.year > 0 ? data.year : data.year < 0 ? `${Math.abs(data.year)} BCE` : 'unknown'}
+          {formatYear(data.year)}
         </div>
       )}
     </motion.div>
