@@ -33,7 +33,7 @@ function EtymologyNode({ data, id }: { data: RootWord; id: string }) {
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="bg-white p-4 rounded-lg border-2 border-gray-300 shadow-md max-w-[250px]"
+      className="bg-white p-4 rounded-lg border-2 border-gray-300 shadow-md max-w-[300px]"
     >
       {/* All nodes can be sources */}
       <Handle
@@ -174,8 +174,8 @@ export default function EtymologyFlow({ words }: { words: RootWord[] }) {
     const depthMap = assignIndices(hierarchicalTree);
     
     // Calculate node positions based on depth and index
-    const VERTICAL_SPACE = 200;
-    const HORIZONTAL_SPACE = 250;
+    const VERTICAL_SPACE = 300;
+    const HORIZONTAL_SPACE = 350;
     
     // Function to create nodes for the flow diagram
     const createNodes = (depthMap: Map<number, HierarchicalWord[]>) => {
@@ -291,7 +291,7 @@ export default function EtymologyFlow({ words }: { words: RootWord[] }) {
       elevateEdgesOnSelect={true}
       elevateNodesOnSelect={false}
       fitView
-      fitViewOptions={{ padding: 0.3 }}
+      fitViewOptions={{ padding: 0.5 }}
       defaultEdgeOptions={{
         type: 'default',
         animated: false,
