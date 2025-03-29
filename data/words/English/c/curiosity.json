@@ -1,0 +1,38 @@
+{
+  "word": "curiosity",
+  "language": "English",
+  "year": 1380,
+  "definition": "a strong desire to know or learn something",
+  "etymology": [
+    {
+      "word": "curiosite",
+      "language": "French",
+      "year": 1300,
+      "definition": "desire to know, inquisitiveness"
+    }
+  ],
+  "roots": [
+    {
+      "word": "curiositatem",
+      "language": "Latin",
+      "definition": "desire of knowledge, inquisitiveness",
+      "year": null,
+      "roots": [
+        {
+          "word": "curiosus",
+          "language": "Latin",
+          "definition": "careful, diligent",
+          "year": null,
+          "roots": [
+            {
+              "word": "cura",
+              "language": "Latin",
+              "definition": "care, concern, trouble",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

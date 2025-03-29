@@ -1,0 +1,23 @@
+{
+  "word": "zenith",
+  "language": "English",
+  "year": 1391,
+  "definition": "the time at which something is most powerful or successful",
+  "etymology": [
+    {
+      "word": "cenith",
+      "language": "French",
+      "year": 1350,
+      "definition": "highest point in the heavens"
+    }
+  ],
+  "roots": [
+    {
+      "word": "samt",
+      "language": "Arabic",
+      "definition": "path",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

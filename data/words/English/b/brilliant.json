@@ -1,0 +1,23 @@
+{
+  "word": "brilliant",
+  "language": "English",
+  "year": 1680,
+  "definition": "exceptionally clever, talented, or impressive",
+  "etymology": [
+    {
+      "word": "brillant",
+      "language": "French",
+      "year": 1600,
+      "definition": "shining, sparkling"
+    }
+  ],
+  "roots": [
+    {
+      "word": "beryllus",
+      "language": "Latin",
+      "definition": "beryl, precious stone",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

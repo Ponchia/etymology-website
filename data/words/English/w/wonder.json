@@ -1,0 +1,23 @@
+{
+  "word": "wonder",
+  "language": "English",
+  "year": 900,
+  "definition": "a feeling of surprise mingled with admiration, caused by something beautiful, unexpected, unfamiliar, or inexplicable",
+  "etymology": [
+    {
+      "word": "wundor",
+      "language": "Old English",
+      "year": 800,
+      "definition": "marvelous thing, marvel, surprise"
+    }
+  ],
+  "roots": [
+    {
+      "word": "wundor",
+      "language": "Proto-Germanic",
+      "definition": "wonder",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

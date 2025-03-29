@@ -1,0 +1,36 @@
+{
+  "word": "education",
+  "language": "English",
+  "year": 1530,
+  "definition": "the process of receiving or giving systematic instruction",
+  "etymology": [
+    {
+      "word": "educationem",
+      "language": "Latin",
+      "year": null,
+      "definition": "a rearing, training"
+    }
+  ],
+  "roots": [
+    {
+      "word": "educare",
+      "language": "Latin",
+      "definition": "to bring up, rear, educate",
+      "year": null,
+      "roots": [
+        {
+          "word": "e",
+          "language": "Latin",
+          "definition": "out",
+          "year": null
+        },
+        {
+          "word": "ducere",
+          "language": "Latin",
+          "definition": "to lead",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

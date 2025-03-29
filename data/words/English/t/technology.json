@@ -1,0 +1,30 @@
+{
+  "word": "technology",
+  "language": "English",
+  "year": 1615,
+  "definition": "the application of scientific knowledge for practical purposes",
+  "etymology": [
+    {
+      "word": "technologia",
+      "language": "Greek",
+      "year": null,
+      "definition": "systematic treatment of an art"
+    }
+  ],
+  "roots": [
+    {
+      "word": "tekhne",
+      "language": "Greek",
+      "definition": "art, skill, craft in work",
+      "year": null,
+      "roots": []
+    },
+    {
+      "word": "logia",
+      "language": "Greek",
+      "definition": "study of",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

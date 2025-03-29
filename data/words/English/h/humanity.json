@@ -1,0 +1,38 @@
+{
+  "word": "humanity",
+  "language": "English",
+  "year": 1350,
+  "definition": "the human race; human beings collectively",
+  "etymology": [
+    {
+      "word": "humanite",
+      "language": "French",
+      "year": 1300,
+      "definition": "human nature, humankind"
+    }
+  ],
+  "roots": [
+    {
+      "word": "humanitatem",
+      "language": "Latin",
+      "definition": "human nature, humanity",
+      "year": null,
+      "roots": [
+        {
+          "word": "humanus",
+          "language": "Latin",
+          "definition": "of man, human",
+          "year": null,
+          "roots": [
+            {
+              "word": "homo",
+              "language": "Latin",
+              "definition": "man, human being",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "word": "discovery",
+  "language": "English",
+  "year": 1550,
+  "definition": "the action or process of discovering or being discovered",
+  "etymology": [
+    {
+      "word": "discoverie",
+      "language": "French",
+      "year": 1500,
+      "definition": "uncovering"
+    }
+  ],
+  "roots": [
+    {
+      "word": "discover",
+      "language": "English",
+      "definition": "to find (something previously unseen or unknown)",
+      "year": 1300,
+      "roots": []
+    }
+  ]
+}

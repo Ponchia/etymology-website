@@ -1,0 +1,30 @@
+{
+  "word": "voice",
+  "language": "English",
+  "year": 1290,
+  "definition": "the sound produced in a person's larynx and uttered through the mouth, as speech or song",
+  "etymology": [
+    {
+      "word": "voiz",
+      "language": "French",
+      "year": 1200,
+      "definition": "voice, sound, noise"
+    }
+  ],
+  "roots": [
+    {
+      "word": "vocem",
+      "language": "Latin",
+      "definition": "voice, sound, utterance, cry",
+      "year": null,
+      "roots": [
+        {
+          "word": "vox",
+          "language": "Latin",
+          "definition": "voice",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

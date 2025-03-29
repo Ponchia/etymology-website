@@ -1,0 +1,36 @@
+{
+  "word": "elegant",
+  "language": "English",
+  "year": 1510,
+  "definition": "graceful and stylish in appearance or manner",
+  "etymology": [
+    {
+      "word": "elegans",
+      "language": "Latin",
+      "year": null,
+      "definition": "tasteful, elegant, choice, fine"
+    }
+  ],
+  "roots": [
+    {
+      "word": "elegans",
+      "language": "Latin",
+      "definition": "tasteful, elegant",
+      "year": null,
+      "roots": [
+        {
+          "word": "e",
+          "language": "Latin",
+          "definition": "out",
+          "year": null
+        },
+        {
+          "word": "legare",
+          "language": "Latin",
+          "definition": "to choose, appoint by legacy",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

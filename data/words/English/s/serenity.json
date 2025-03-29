@@ -1,0 +1,30 @@
+{
+  "word": "serenity",
+  "language": "English",
+  "year": 1430,
+  "definition": "the state of being calm, peaceful, and untroubled",
+  "etymology": [
+    {
+      "word": "serenite",
+      "language": "French",
+      "year": 1400,
+      "definition": "tranquility, peacefulness"
+    }
+  ],
+  "roots": [
+    {
+      "word": "serenitatem",
+      "language": "Latin",
+      "definition": "clearness, serenity",
+      "year": null,
+      "roots": [
+        {
+          "word": "serenus",
+          "language": "Latin",
+          "definition": "clear, fair, cloudless, untroubled",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

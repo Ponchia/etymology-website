@@ -1,0 +1,44 @@
+{
+  "word": "adventure",
+  "language": "English",
+  "year": 1200,
+  "definition": "a dangerous or exciting undertaking; risk; chance; a remarkable occurrence",
+  "etymology": [
+    {
+      "word": "aventure",
+      "language": "French",
+      "year": 1100,
+      "definition": "chance, accident, occurrence, event, happening"
+    }
+  ],
+  "roots": [
+    {
+      "word": "adventura",
+      "language": "Latin",
+      "definition": "a thing about to happen",
+      "year": null,
+      "roots": [
+        {
+          "word": "advenire",
+          "language": "Latin",
+          "definition": "to come to, reach, arrive at",
+          "year": null,
+          "roots": [
+            {
+              "word": "ad",
+              "language": "Latin",
+              "definition": "to, toward",
+              "year": null
+            },
+            {
+              "word": "venire",
+              "language": "Latin",
+              "definition": "to come",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+} 

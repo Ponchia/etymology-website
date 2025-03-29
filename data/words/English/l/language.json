@@ -1,0 +1,23 @@
+{
+  "word": "language",
+  "language": "English",
+  "year": 1290,
+  "definition": "the method of human communication, either spoken or written",
+  "etymology": [
+    {
+      "word": "langage",
+      "language": "French",
+      "year": 1220,
+      "definition": "speech, words, conversation"
+    }
+  ],
+  "roots": [
+    {
+      "word": "lingua",
+      "language": "Latin",
+      "definition": "tongue, speech, language",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

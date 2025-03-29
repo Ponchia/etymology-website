@@ -1,0 +1,30 @@
+{
+  "word": "ancient",
+  "language": "English",
+  "year": 1380,
+  "definition": "belonging to the very distant past and no longer in existence",
+  "etymology": [
+    {
+      "word": "ancien",
+      "language": "French",
+      "year": 1200,
+      "definition": "old, ancient, former, bygone"
+    }
+  ],
+  "roots": [
+    {
+      "word": "anteanus",
+      "language": "Latin",
+      "definition": "ancient, former",
+      "year": null,
+      "roots": [
+        {
+          "word": "ante",
+          "language": "Latin",
+          "definition": "before, in front of",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

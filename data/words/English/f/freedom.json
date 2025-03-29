@@ -1,0 +1,37 @@
+{
+  "word": "freedom",
+  "language": "English",
+  "year": 900,
+  "definition": "the power or right to act, speak, or think as one wants without hindrance or restraint",
+  "etymology": [
+    {
+      "word": "freodom",
+      "language": "Old English",
+      "year": 800,
+      "definition": "state of free will, charter, liberty"
+    }
+  ],
+  "roots": [
+    {
+      "word": "freo",
+      "language": "Old English",
+      "definition": "free, exempt from",
+      "year": null,
+      "roots": [
+        {
+          "word": "frei",
+          "language": "Proto-Germanic",
+          "definition": "beloved, friend",
+          "year": null
+        }
+      ]
+    },
+    {
+      "word": "dom",
+      "language": "Old English",
+      "definition": "statute, judgment",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

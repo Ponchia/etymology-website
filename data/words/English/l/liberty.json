@@ -1,0 +1,30 @@
+{
+  "word": "liberty",
+  "language": "English",
+  "year": 1375,
+  "definition": "freedom from arbitrary restriction; independence, sovereignty",
+  "etymology": [
+    {
+      "word": "liberte",
+      "language": "French",
+      "year": 1300,
+      "definition": "freedom, liberty, free will"
+    }
+  ],
+  "roots": [
+    {
+      "word": "libertatem",
+      "language": "Latin",
+      "definition": "freedom, condition of a free person",
+      "year": null,
+      "roots": [
+        {
+          "word": "liber",
+          "language": "Latin",
+          "definition": "free, unrestrained",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

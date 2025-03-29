@@ -1,0 +1,44 @@
+{
+  "word": "destiny",
+  "language": "English",
+  "year": 1330,
+  "definition": "the events that will necessarily happen to a particular person or thing in the future",
+  "etymology": [
+    {
+      "word": "destinee",
+      "language": "French",
+      "year": 1300,
+      "definition": "purpose, intent, fate, destiny"
+    }
+  ],
+  "roots": [
+    {
+      "word": "destinata",
+      "language": "Latin",
+      "definition": "things determined",
+      "year": null,
+      "roots": [
+        {
+          "word": "destinare",
+          "language": "Latin",
+          "definition": "to make firm, establish",
+          "year": null,
+          "roots": [
+            {
+              "word": "de",
+              "language": "Latin",
+              "definition": "down from, from",
+              "year": null
+            },
+            {
+              "word": "stare",
+              "language": "Latin",
+              "definition": "to stand",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

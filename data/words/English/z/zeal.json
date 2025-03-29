@@ -1,0 +1,30 @@
+{
+  "word": "zeal",
+  "language": "English",
+  "year": 1382,
+  "definition": "great energy or enthusiasm in pursuit of a cause or an objective",
+  "etymology": [
+    {
+      "word": "zele",
+      "language": "French",
+      "year": 1350,
+      "definition": "ardor, excitement of mind, fervor"
+    }
+  ],
+  "roots": [
+    {
+      "word": "zelus",
+      "language": "Latin",
+      "definition": "zeal, emulation",
+      "year": null,
+      "roots": [
+        {
+          "word": "zelos",
+          "language": "Greek",
+          "definition": "zeal, jealousy",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

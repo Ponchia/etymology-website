@@ -1,0 +1,30 @@
+{
+  "word": "orchestra",
+  "language": "English",
+  "year": 1600,
+  "definition": "a group of musicians playing various instruments together",
+  "etymology": [
+    {
+      "word": "orchestra",
+      "language": "Latin",
+      "year": null,
+      "definition": "area for the chorus in a theater"
+    }
+  ],
+  "roots": [
+    {
+      "word": "orkestra",
+      "language": "Greek",
+      "definition": "area for the chorus",
+      "year": null,
+      "roots": [
+        {
+          "word": "orkheisthai",
+          "language": "Greek",
+          "definition": "to dance",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

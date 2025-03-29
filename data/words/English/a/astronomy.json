@@ -1,0 +1,36 @@
+{
+  "word": "astronomy",
+  "language": "English",
+  "year": 1220,
+  "definition": "the branch of science that deals with celestial objects, space, and the physical universe as a whole",
+  "etymology": [
+    {
+      "word": "astronomie",
+      "language": "French",
+      "year": 1200,
+      "definition": "astronomy"
+    }
+  ],
+  "roots": [
+    {
+      "word": "astronomia",
+      "language": "Greek",
+      "definition": "astronomy, star arrangement",
+      "year": null,
+      "roots": [
+        {
+          "word": "astron",
+          "language": "Greek",
+          "definition": "star, constellation",
+          "year": null
+        },
+        {
+          "word": "nomos",
+          "language": "Greek",
+          "definition": "arranging, regulating",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

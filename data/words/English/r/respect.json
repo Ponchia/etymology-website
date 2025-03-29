@@ -1,0 +1,44 @@
+{
+  "word": "respect",
+  "language": "English",
+  "year": 1550,
+  "definition": "a feeling of deep admiration for someone or something elicited by their abilities, qualities, or achievements",
+  "etymology": [
+    {
+      "word": "respect",
+      "language": "French",
+      "year": 1500,
+      "definition": "regard, consideration"
+    }
+  ],
+  "roots": [
+    {
+      "word": "respectus",
+      "language": "Latin",
+      "definition": "regard, a looking at",
+      "year": null,
+      "roots": [
+        {
+          "word": "respicere",
+          "language": "Latin",
+          "definition": "to look back at, regard, consider",
+          "year": null,
+          "roots": [
+            {
+              "word": "re",
+              "language": "Latin",
+              "definition": "back",
+              "year": null
+            },
+            {
+              "word": "specere",
+              "language": "Latin",
+              "definition": "to look at",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

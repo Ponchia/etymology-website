@@ -1,0 +1,30 @@
+{
+  "word": "biology",
+  "language": "English",
+  "year": 1819,
+  "definition": "the study of living organisms",
+  "etymology": [
+    {
+      "word": "biologie",
+      "language": "French",
+      "year": 1802,
+      "definition": "biology"
+    }
+  ],
+  "roots": [
+    {
+      "word": "bios",
+      "language": "Greek",
+      "definition": "life",
+      "year": null,
+      "roots": []
+    },
+    {
+      "word": "logia",
+      "language": "Greek",
+      "definition": "study of",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

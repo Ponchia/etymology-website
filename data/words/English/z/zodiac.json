@@ -1,0 +1,46 @@
+{
+  "word": "zodiac",
+  "language": "English",
+  "year": 1390,
+  "definition": "a belt of the heavens divided into 12 equal parts, containing the constellations that the sun passes through in its apparent annual journey",
+  "etymology": [
+    {
+      "word": "zodiaque",
+      "language": "French",
+      "year": 1350,
+      "definition": "zodiac"
+    }
+  ],
+  "roots": [
+    {
+      "word": "zodiacus",
+      "language": "Latin",
+      "definition": "zodiac",
+      "year": null,
+      "roots": [
+        {
+          "word": "zodiakos",
+          "language": "Greek",
+          "definition": "zodiac, circle of little animals",
+          "year": null,
+          "roots": [
+            {
+              "word": "zodiakos kyklos",
+              "language": "Greek",
+              "definition": "zodiac circle",
+              "year": null,
+              "roots": [
+                {
+                  "word": "zoon",
+                  "language": "Greek",
+                  "definition": "animal",
+                  "year": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

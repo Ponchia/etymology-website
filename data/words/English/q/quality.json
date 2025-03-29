@@ -1,0 +1,30 @@
+{
+  "word": "quality",
+  "language": "English",
+  "year": 1300,
+  "definition": "the standard of something as measured against other things of a similar kind",
+  "etymology": [
+    {
+      "word": "qualite",
+      "language": "French",
+      "year": 1200,
+      "definition": "nature, characteristic"
+    }
+  ],
+  "roots": [
+    {
+      "word": "qualitatem",
+      "language": "Latin",
+      "definition": "quality, property, nature",
+      "year": null,
+      "roots": [
+        {
+          "word": "qualis",
+          "language": "Latin",
+          "definition": "of what kind",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

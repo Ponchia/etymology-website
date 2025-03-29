@@ -1,0 +1,30 @@
+{
+  "word": "xenophobia",
+  "language": "English",
+  "year": 1903,
+  "definition": "dislike of or prejudice against people from other countries",
+  "etymology": [
+    {
+      "word": "xenophobia",
+      "language": "New Latin",
+      "year": 1900,
+      "definition": "fear of strangers"
+    }
+  ],
+  "roots": [
+    {
+      "word": "xenos",
+      "language": "Greek",
+      "definition": "foreigner, stranger",
+      "year": null,
+      "roots": []
+    },
+    {
+      "word": "phobos",
+      "language": "Greek",
+      "definition": "fear, aversion",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

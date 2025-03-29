@@ -1,0 +1,30 @@
+{
+  "word": "victory",
+  "language": "English",
+  "year": 1350,
+  "definition": "an act of defeating an enemy or opponent in a battle, game, or contest",
+  "etymology": [
+    {
+      "word": "victorie",
+      "language": "French",
+      "year": 1300,
+      "definition": "victory, triumph"
+    }
+  ],
+  "roots": [
+    {
+      "word": "victoria",
+      "language": "Latin",
+      "definition": "victory, conquest",
+      "year": null,
+      "roots": [
+        {
+          "word": "vincere",
+          "language": "Latin",
+          "definition": "to conquer, overcome",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "word": "kindness",
+  "language": "English",
+  "year": 1300,
+  "definition": "the quality of being friendly, generous, and considerate",
+  "etymology": [
+    {
+      "word": "kyndeness",
+      "language": "Middle English",
+      "year": 1250,
+      "definition": "courtesy, noble deeds"
+    }
+  ],
+  "roots": [
+    {
+      "word": "kynd",
+      "language": "Old English",
+      "definition": "natural, native, innate",
+      "year": null,
+      "roots": [
+        {
+          "word": "gecynd",
+          "language": "Old English",
+          "definition": "nature, race, kind",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "word": "unity",
+  "language": "English",
+  "year": 1300,
+  "definition": "the state of being united or joined as a whole",
+  "etymology": [
+    {
+      "word": "unite",
+      "language": "French",
+      "year": 1250,
+      "definition": "unity, agreement, oneness"
+    }
+  ],
+  "roots": [
+    {
+      "word": "unitatem",
+      "language": "Latin",
+      "definition": "oneness, sameness, agreement",
+      "year": null,
+      "roots": [
+        {
+          "word": "unus",
+          "language": "Latin",
+          "definition": "one",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

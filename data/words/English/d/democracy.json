@@ -1,0 +1,36 @@
+{
+  "word": "democracy",
+  "language": "English",
+  "year": 1570,
+  "definition": "government by the people; a form of government in which the supreme power is vested in the people",
+  "etymology": [
+    {
+      "word": "democratie",
+      "language": "French",
+      "year": 1550,
+      "definition": "popular government"
+    }
+  ],
+  "roots": [
+    {
+      "word": "demokratia",
+      "language": "Greek",
+      "definition": "popular government",
+      "year": null,
+      "roots": [
+        {
+          "word": "demos",
+          "language": "Greek",
+          "definition": "people, common people",
+          "year": null
+        },
+        {
+          "word": "kratos",
+          "language": "Greek",
+          "definition": "rule, strength, power",
+          "year": null
+        }
+      ]
+    }
+  ]
+} 

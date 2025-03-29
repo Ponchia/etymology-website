@@ -1,0 +1,37 @@
+{
+  "word": "friendship",
+  "language": "English",
+  "year": 1000,
+  "definition": "the emotions or conduct of friends; the state of being friends",
+  "etymology": [
+    {
+      "word": "freondscipe",
+      "language": "Old English",
+      "year": 900,
+      "definition": "friendship, mutual affection"
+    }
+  ],
+  "roots": [
+    {
+      "word": "freond",
+      "language": "Old English",
+      "definition": "friend, lover",
+      "year": null,
+      "roots": [
+        {
+          "word": "freon",
+          "language": "Proto-Germanic",
+          "definition": "to love",
+          "year": null
+        }
+      ]
+    },
+    {
+      "word": "scipe",
+      "language": "Old English",
+      "definition": "state, condition of being",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

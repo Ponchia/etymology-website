@@ -1,0 +1,30 @@
+{
+  "word": "essential",
+  "language": "English",
+  "year": 1370,
+  "definition": "absolutely necessary; extremely important",
+  "etymology": [
+    {
+      "word": "essentialis",
+      "language": "Latin",
+      "year": null,
+      "definition": "belonging to the essence"
+    }
+  ],
+  "roots": [
+    {
+      "word": "essentia",
+      "language": "Latin",
+      "definition": "being, essence",
+      "year": null,
+      "roots": [
+        {
+          "word": "esse",
+          "language": "Latin",
+          "definition": "to be",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

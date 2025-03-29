@@ -1,0 +1,30 @@
+{
+  "word": "unique",
+  "language": "English",
+  "year": 1610,
+  "definition": "being the only one of its kind; unlike anything else",
+  "etymology": [
+    {
+      "word": "unique",
+      "language": "French",
+      "year": 1580,
+      "definition": "unique, singular"
+    }
+  ],
+  "roots": [
+    {
+      "word": "unicus",
+      "language": "Latin",
+      "definition": "only, sole, singular, unique",
+      "year": null,
+      "roots": [
+        {
+          "word": "unus",
+          "language": "Latin",
+          "definition": "one",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

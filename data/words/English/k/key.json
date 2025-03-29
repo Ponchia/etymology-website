@@ -1,0 +1,23 @@
+{
+  "word": "key",
+  "language": "English",
+  "year": 1100,
+  "definition": "a small piece of shaped metal with incisions cut to fit the wards of a particular lock",
+  "etymology": [
+    {
+      "word": "cæg",
+      "language": "Old English",
+      "year": 800,
+      "definition": "key, solution"
+    }
+  ],
+  "roots": [
+    {
+      "word": "caega",
+      "language": "Proto-Germanic",
+      "definition": "key",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

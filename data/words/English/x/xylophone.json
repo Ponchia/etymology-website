@@ -1,0 +1,30 @@
+{
+  "word": "xylophone",
+  "language": "English",
+  "year": 1866,
+  "definition": "a musical instrument played by striking a row of wooden bars of graduated length with one or more small wooden or plastic mallets",
+  "etymology": [
+    {
+      "word": "xylophon",
+      "language": "German",
+      "year": 1800,
+      "definition": "xylophone"
+    }
+  ],
+  "roots": [
+    {
+      "word": "xylon",
+      "language": "Greek",
+      "definition": "wood",
+      "year": null,
+      "roots": []
+    },
+    {
+      "word": "phone",
+      "language": "Greek",
+      "definition": "voice, sound",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

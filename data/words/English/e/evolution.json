@@ -1,0 +1,44 @@
+{
+  "word": "evolution",
+  "language": "English",
+  "year": 1620,
+  "definition": "the process by which different kinds of living organisms have developed from earlier forms",
+  "etymology": [
+    {
+      "word": "evolution",
+      "language": "French",
+      "year": 1600,
+      "definition": "unrolling or opening of a book"
+    }
+  ],
+  "roots": [
+    {
+      "word": "evolutionem",
+      "language": "Latin",
+      "definition": "unrolling (of a book)",
+      "year": null,
+      "roots": [
+        {
+          "word": "evolvere",
+          "language": "Latin",
+          "definition": "to unroll, unfold",
+          "year": null,
+          "roots": [
+            {
+              "word": "ex",
+              "language": "Latin",
+              "definition": "out",
+              "year": null
+            },
+            {
+              "word": "volvere",
+              "language": "Latin",
+              "definition": "to roll",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

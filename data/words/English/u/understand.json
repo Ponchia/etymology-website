@@ -1,0 +1,30 @@
+{
+  "word": "understand",
+  "language": "English",
+  "year": 900,
+  "definition": "perceive the meaning of; comprehend",
+  "etymology": [
+    {
+      "word": "understandan",
+      "language": "Old English",
+      "year": 800,
+      "definition": "comprehend, grasp the idea of"
+    }
+  ],
+  "roots": [
+    {
+      "word": "under",
+      "language": "Old English",
+      "definition": "among, between, under",
+      "year": null,
+      "roots": []
+    },
+    {
+      "word": "standan",
+      "language": "Old English",
+      "definition": "to stand",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

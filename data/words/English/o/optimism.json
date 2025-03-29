@@ -1,0 +1,23 @@
+{
+  "word": "optimism",
+  "language": "English",
+  "year": 1759,
+  "definition": "hopefulness and confidence about the future or the successful outcome of something",
+  "etymology": [
+    {
+      "word": "optimisme",
+      "language": "French",
+      "year": 1737,
+      "definition": "doctrine that this world is the best possible one"
+    }
+  ],
+  "roots": [
+    {
+      "word": "optimus",
+      "language": "Latin",
+      "definition": "best",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

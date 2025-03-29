@@ -1,0 +1,36 @@
+{
+  "word": "inspire",
+  "language": "English",
+  "year": 1300,
+  "definition": "fill someone with the urge or ability to do or feel something",
+  "etymology": [
+    {
+      "word": "inspirer",
+      "language": "French",
+      "year": 1250,
+      "definition": "blow into, breathe upon"
+    }
+  ],
+  "roots": [
+    {
+      "word": "inspirare",
+      "language": "Latin",
+      "definition": "inflame, blow into",
+      "year": null,
+      "roots": [
+        {
+          "word": "in",
+          "language": "Latin",
+          "definition": "in, into",
+          "year": null
+        },
+        {
+          "word": "spirare",
+          "language": "Latin",
+          "definition": "to breathe",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "word": "justice",
+  "language": "English",
+  "year": 1175,
+  "definition": "the quality of being fair and reasonable; the administration of the law or authority",
+  "etymology": [
+    {
+      "word": "justice",
+      "language": "French",
+      "year": 1140,
+      "definition": "uprightness, equity, legal justice"
+    }
+  ],
+  "roots": [
+    {
+      "word": "iustitia",
+      "language": "Latin",
+      "definition": "righteousness, equity",
+      "year": null,
+      "roots": [
+        {
+          "word": "iustus",
+          "language": "Latin",
+          "definition": "just, righteous, equitable",
+          "year": null,
+          "roots": [
+            {
+              "word": "ius",
+              "language": "Latin",
+              "definition": "law, right, justice",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

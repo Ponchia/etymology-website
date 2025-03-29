@@ -1,0 +1,44 @@
+{
+  "word": "opportunity",
+  "language": "English",
+  "year": 1375,
+  "definition": "a time or set of circumstances that makes it possible to do something",
+  "etymology": [
+    {
+      "word": "opportunite",
+      "language": "French",
+      "year": 1300,
+      "definition": "fitness, convenience"
+    }
+  ],
+  "roots": [
+    {
+      "word": "opportunitatem",
+      "language": "Latin",
+      "definition": "fitness, convenience, suitableness",
+      "year": null,
+      "roots": [
+        {
+          "word": "opportunus",
+          "language": "Latin",
+          "definition": "favorable, convenient",
+          "year": null,
+          "roots": [
+            {
+              "word": "ob",
+              "language": "Latin",
+              "definition": "in front of, before",
+              "year": null
+            },
+            {
+              "word": "portus",
+              "language": "Latin",
+              "definition": "harbor",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "word": "virtue",
+  "language": "English",
+  "year": 1225,
+  "definition": "behaviour showing high moral standards",
+  "etymology": [
+    {
+      "word": "vertu",
+      "language": "French",
+      "year": 1200,
+      "definition": "force, strength, vigor"
+    }
+  ],
+  "roots": [
+    {
+      "word": "virtutem",
+      "language": "Latin",
+      "definition": "moral strength, manliness, valor, excellence, worth",
+      "year": null,
+      "roots": [
+        {
+          "word": "vir",
+          "language": "Latin",
+          "definition": "man",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

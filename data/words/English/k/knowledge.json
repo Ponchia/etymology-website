@@ -1,0 +1,30 @@
+{
+  "word": "knowledge",
+  "language": "English",
+  "year": 1300,
+  "definition": "facts, information, and skills acquired through experience or education",
+  "etymology": [
+    {
+      "word": "cnawlece",
+      "language": "Middle English",
+      "year": 1200,
+      "definition": "acknowledgment of a superior"
+    }
+  ],
+  "roots": [
+    {
+      "word": "cnawan",
+      "language": "Old English",
+      "definition": "to know, perceive",
+      "year": null,
+      "roots": []
+    },
+    {
+      "word": "lac",
+      "language": "Old English",
+      "definition": "state or quality",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

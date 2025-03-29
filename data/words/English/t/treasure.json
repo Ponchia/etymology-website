@@ -1,0 +1,38 @@
+{
+  "word": "treasure",
+  "language": "English",
+  "year": 1200,
+  "definition": "valuable objects or money",
+  "etymology": [
+    {
+      "word": "tresor",
+      "language": "French",
+      "year": 1150,
+      "definition": "treasury, treasure"
+    }
+  ],
+  "roots": [
+    {
+      "word": "thesaurus",
+      "language": "Latin",
+      "definition": "treasury, storehouse",
+      "year": null,
+      "roots": [
+        {
+          "word": "thesauros",
+          "language": "Greek",
+          "definition": "treasure, store, treasure house",
+          "year": null,
+          "roots": [
+            {
+              "word": "tithenai",
+              "language": "Greek",
+              "definition": "to put, place",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

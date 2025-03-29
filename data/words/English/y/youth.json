@@ -1,0 +1,23 @@
+{
+  "word": "youth",
+  "language": "English",
+  "year": 900,
+  "definition": "the period between childhood and adult age",
+  "etymology": [
+    {
+      "word": "geoguth",
+      "language": "Old English",
+      "year": 800,
+      "definition": "youth, young people"
+    }
+  ],
+  "roots": [
+    {
+      "word": "juwunthiz",
+      "language": "Proto-Germanic",
+      "definition": "youth",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

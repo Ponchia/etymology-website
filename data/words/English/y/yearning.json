@@ -1,0 +1,23 @@
+{
+  "word": "yearning",
+  "language": "English",
+  "year": 1000,
+  "definition": "a feeling of intense longing for something",
+  "etymology": [
+    {
+      "word": "giernan",
+      "language": "Old English",
+      "year": 800,
+      "definition": "to desire, strive, yearn"
+    }
+  ],
+  "roots": [
+    {
+      "word": "gier",
+      "language": "Proto-Germanic",
+      "definition": "desire",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "word": "patience",
+  "language": "English",
+  "year": 1200,
+  "definition": "the capacity to accept or tolerate delay, trouble, or suffering without getting angry or upset",
+  "etymology": [
+    {
+      "word": "pacience",
+      "language": "French",
+      "year": 1150,
+      "definition": "patience, endurance"
+    }
+  ],
+  "roots": [
+    {
+      "word": "patientia",
+      "language": "Latin",
+      "definition": "patience, endurance, submission",
+      "year": null,
+      "roots": [
+        {
+          "word": "patiens",
+          "language": "Latin",
+          "definition": "bearing, supporting, suffering",
+          "year": null,
+          "roots": [
+            {
+              "word": "pati",
+              "language": "Latin",
+              "definition": "to suffer, endure",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

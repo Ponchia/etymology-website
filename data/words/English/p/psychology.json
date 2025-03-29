@@ -1,0 +1,30 @@
+{
+  "word": "psychology",
+  "language": "English",
+  "year": 1748,
+  "definition": "the scientific study of the human mind and its functions",
+  "etymology": [
+    {
+      "word": "psychologia",
+      "language": "Latin",
+      "year": 1580,
+      "definition": "study of the soul"
+    }
+  ],
+  "roots": [
+    {
+      "word": "psykhe",
+      "language": "Greek",
+      "definition": "soul, mind, spirit",
+      "year": null,
+      "roots": []
+    },
+    {
+      "word": "logia",
+      "language": "Greek",
+      "definition": "study of",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

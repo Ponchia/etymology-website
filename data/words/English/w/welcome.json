@@ -1,0 +1,30 @@
+{
+  "word": "welcome",
+  "language": "English",
+  "year": 900,
+  "definition": "an instance or manner of greeting someone",
+  "etymology": [
+    {
+      "word": "willcuma",
+      "language": "Old English",
+      "year": 800,
+      "definition": "welcome guest"
+    }
+  ],
+  "roots": [
+    {
+      "word": "willa",
+      "language": "Old English",
+      "definition": "pleasure, desire, wish",
+      "year": null,
+      "roots": []
+    },
+    {
+      "word": "cuma",
+      "language": "Old English",
+      "definition": "guest",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

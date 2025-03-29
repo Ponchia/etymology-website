@@ -1,0 +1,30 @@
+{
+  "word": "nostalgia",
+  "language": "English",
+  "year": 1770,
+  "definition": "a sentimental longing or wistful affection for the past",
+  "etymology": [
+    {
+      "word": "nostalgia",
+      "language": "New Latin",
+      "year": 1688,
+      "definition": "homesickness, acute longing for familiar surroundings"
+    }
+  ],
+  "roots": [
+    {
+      "word": "nostos",
+      "language": "Greek",
+      "definition": "homecoming",
+      "year": null,
+      "roots": []
+    },
+    {
+      "word": "algos",
+      "language": "Greek",
+      "definition": "pain, grief, distress",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

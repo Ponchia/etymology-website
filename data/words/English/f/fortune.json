@@ -1,0 +1,30 @@
+{
+  "word": "fortune",
+  "language": "English",
+  "year": 1300,
+  "definition": "chance or luck as an external, arbitrary force affecting human affairs",
+  "etymology": [
+    {
+      "word": "fortune",
+      "language": "French",
+      "year": 1200,
+      "definition": "chance, fate, luck"
+    }
+  ],
+  "roots": [
+    {
+      "word": "fortuna",
+      "language": "Latin",
+      "definition": "chance, fate, fortune",
+      "year": null,
+      "roots": [
+        {
+          "word": "fors",
+          "language": "Latin",
+          "definition": "chance, luck",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

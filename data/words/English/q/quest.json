@@ -1,0 +1,23 @@
+{
+  "word": "quest",
+  "language": "English",
+  "year": 1300,
+  "definition": "a long or arduous search for something",
+  "etymology": [
+    {
+      "word": "queste",
+      "language": "French",
+      "year": 1250,
+      "definition": "search, quest, chase, hunt"
+    }
+  ],
+  "roots": [
+    {
+      "word": "quaerere",
+      "language": "Latin",
+      "definition": "to ask, seek",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

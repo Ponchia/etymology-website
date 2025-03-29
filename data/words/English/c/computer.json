@@ -1,0 +1,36 @@
+{
+  "word": "computer",
+  "language": "English",
+  "year": 1613,
+  "definition": "electronic device for storing and processing data according to instructions given to it in a variable program",
+  "etymology": [
+    {
+      "word": "compute",
+      "language": "English",
+      "year": 1570,
+      "definition": "to calculate, to count or sum up"
+    }
+  ],
+  "roots": [
+    {
+      "word": "computare",
+      "language": "Latin",
+      "definition": "to count, sum up, reckon together",
+      "year": null,
+      "roots": [
+        {
+          "word": "com",
+          "language": "Latin",
+          "definition": "with, together",
+          "year": null
+        },
+        {
+          "word": "putare",
+          "language": "Latin",
+          "definition": "to reckon, to think, to prune",
+          "year": null
+        }
+      ]
+    }
+  ]
+} 

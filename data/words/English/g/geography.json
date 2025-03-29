@@ -1,0 +1,36 @@
+{
+  "word": "geography",
+  "language": "English",
+  "year": 1400,
+  "definition": "the study of the physical features of the earth and its atmosphere",
+  "etymology": [
+    {
+      "word": "geographie",
+      "language": "French",
+      "year": 1300,
+      "definition": "geography"
+    }
+  ],
+  "roots": [
+    {
+      "word": "geographia",
+      "language": "Greek",
+      "definition": "description of the earth's surface",
+      "year": null,
+      "roots": [
+        {
+          "word": "geo",
+          "language": "Greek",
+          "definition": "earth",
+          "year": null
+        },
+        {
+          "word": "graphia",
+          "language": "Greek",
+          "definition": "description",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

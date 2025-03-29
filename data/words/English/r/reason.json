@@ -1,0 +1,38 @@
+{
+  "word": "reason",
+  "language": "English",
+  "year": 1225,
+  "definition": "the power of the mind to think, understand, and form judgments by a process of logic",
+  "etymology": [
+    {
+      "word": "raison",
+      "language": "French",
+      "year": 1200,
+      "definition": "course of action, affair, matter"
+    }
+  ],
+  "roots": [
+    {
+      "word": "rationem",
+      "language": "Latin",
+      "definition": "reckoning, calculation, reason",
+      "year": null,
+      "roots": [
+        {
+          "word": "ratus",
+          "language": "Latin",
+          "definition": "reckoned, calculated",
+          "year": null,
+          "roots": [
+            {
+              "word": "reri",
+              "language": "Latin",
+              "definition": "to reckon, believe, think",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

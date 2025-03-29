@@ -1,0 +1,30 @@
+{
+  "word": "passion",
+  "language": "English",
+  "year": 1175,
+  "definition": "strong and barely controllable emotion; intense enthusiasm",
+  "etymology": [
+    {
+      "word": "passion",
+      "language": "French",
+      "year": 1100,
+      "definition": "Christ's suffering on the cross"
+    }
+  ],
+  "roots": [
+    {
+      "word": "passionem",
+      "language": "Latin",
+      "definition": "suffering, enduring",
+      "year": null,
+      "roots": [
+        {
+          "word": "pati",
+          "language": "Latin",
+          "definition": "to suffer, endure",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

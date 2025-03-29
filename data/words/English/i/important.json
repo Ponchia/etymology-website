@@ -1,0 +1,44 @@
+{
+  "word": "important",
+  "language": "English",
+  "year": 1580,
+  "definition": "of great significance or value; likely to have a profound effect",
+  "etymology": [
+    {
+      "word": "important",
+      "language": "French",
+      "year": 1500,
+      "definition": "significant, of consequence"
+    }
+  ],
+  "roots": [
+    {
+      "word": "importantem",
+      "language": "Latin",
+      "definition": "being of consequence",
+      "year": null,
+      "roots": [
+        {
+          "word": "importare",
+          "language": "Latin",
+          "definition": "bring in, convey, bring about",
+          "year": null,
+          "roots": [
+            {
+              "word": "in",
+              "language": "Latin",
+              "definition": "in, into",
+              "year": null
+            },
+            {
+              "word": "portare",
+              "language": "Latin",
+              "definition": "to carry",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

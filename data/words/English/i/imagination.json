@@ -1,0 +1,38 @@
+{
+  "word": "imagination",
+  "language": "English",
+  "year": 1340,
+  "definition": "the faculty or action of forming new ideas or images of external objects not present to the senses",
+  "etymology": [
+    {
+      "word": "imaginacion",
+      "language": "French",
+      "year": 1300,
+      "definition": "concept, mental picture"
+    }
+  ],
+  "roots": [
+    {
+      "word": "imaginationem",
+      "language": "Latin",
+      "definition": "imagination, a fancy",
+      "year": null,
+      "roots": [
+        {
+          "word": "imaginari",
+          "language": "Latin",
+          "definition": "to picture oneself",
+          "year": null,
+          "roots": [
+            {
+              "word": "imago",
+              "language": "Latin",
+              "definition": "image, picture",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "word": "alphabet",
+  "language": "English",
+  "year": 1570,
+  "definition": "a set of letters or symbols in a fixed order used to represent the basic sounds of a language",
+  "etymology": [
+    {
+      "word": "alphabetum",
+      "language": "Latin",
+      "year": 1500,
+      "definition": "alphabet"
+    }
+  ],
+  "roots": [
+    {
+      "word": "alphabetos",
+      "language": "Greek",
+      "definition": "alphabet",
+      "year": null,
+      "roots": [
+        {
+          "word": "alpha",
+          "language": "Greek",
+          "definition": "first letter of Greek alphabet",
+          "year": null
+        },
+        {
+          "word": "beta",
+          "language": "Greek",
+          "definition": "second letter of Greek alphabet",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

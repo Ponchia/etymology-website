@@ -1,0 +1,30 @@
+{
+  "word": "joy",
+  "language": "English",
+  "year": 1200,
+  "definition": "a feeling of great pleasure and happiness",
+  "etymology": [
+    {
+      "word": "joie",
+      "language": "French",
+      "year": 1100,
+      "definition": "pleasure, delight, erotic pleasure, bliss"
+    }
+  ],
+  "roots": [
+    {
+      "word": "gaudia",
+      "language": "Latin",
+      "definition": "joy",
+      "year": null,
+      "roots": [
+        {
+          "word": "gaudere",
+          "language": "Latin",
+          "definition": "to rejoice",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

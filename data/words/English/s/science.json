@@ -1,0 +1,38 @@
+{
+  "word": "science",
+  "language": "English",
+  "year": 1340,
+  "definition": "the intellectual and practical activity encompassing the systematic study of the structure and behaviour of the physical and natural world",
+  "etymology": [
+    {
+      "word": "science",
+      "language": "French",
+      "year": 1300,
+      "definition": "knowledge, learning, application"
+    }
+  ],
+  "roots": [
+    {
+      "word": "scientia",
+      "language": "Latin",
+      "definition": "knowledge, science",
+      "year": null,
+      "roots": [
+        {
+          "word": "sciens",
+          "language": "Latin",
+          "definition": "intelligent, skilled",
+          "year": null,
+          "roots": [
+            {
+              "word": "scire",
+              "language": "Latin",
+              "definition": "to know",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

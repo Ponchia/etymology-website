@@ -1,0 +1,23 @@
+{
+  "word": "honor",
+  "language": "English",
+  "year": 1200,
+  "definition": "high respect; great esteem",
+  "etymology": [
+    {
+      "word": "honor",
+      "language": "French",
+      "year": 1100,
+      "definition": "glory, renown, reputation"
+    }
+  ],
+  "roots": [
+    {
+      "word": "honor",
+      "language": "Latin",
+      "definition": "honor, dignity, office, reputation",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

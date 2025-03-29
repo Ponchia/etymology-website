@@ -1,0 +1,23 @@
+{
+  "word": "learning",
+  "language": "English",
+  "year": 1000,
+  "definition": "the acquisition of knowledge or skills through experience, study, or being taught",
+  "etymology": [
+    {
+      "word": "leornung",
+      "language": "Old English",
+      "year": 900,
+      "definition": "learning, study"
+    }
+  ],
+  "roots": [
+    {
+      "word": "leornian",
+      "language": "Old English",
+      "definition": "to acquire knowledge",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

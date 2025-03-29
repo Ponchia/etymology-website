@@ -1,0 +1,44 @@
+{
+  "word": "universe",
+  "language": "English",
+  "year": 1580,
+  "definition": "all existing matter and space considered as a whole; the cosmos",
+  "etymology": [
+    {
+      "word": "univers",
+      "language": "French",
+      "year": 1500,
+      "definition": "universe, world"
+    }
+  ],
+  "roots": [
+    {
+      "word": "universum",
+      "language": "Latin",
+      "definition": "all things, all people, the whole world",
+      "year": null,
+      "roots": [
+        {
+          "word": "unus",
+          "language": "Latin",
+          "definition": "one",
+          "year": null
+        },
+        {
+          "word": "versus",
+          "language": "Latin",
+          "definition": "turned into",
+          "year": null,
+          "roots": [
+            {
+              "word": "vertere",
+              "language": "Latin",
+              "definition": "to turn",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

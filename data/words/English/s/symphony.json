@@ -1,0 +1,36 @@
+{
+  "word": "symphony",
+  "language": "English",
+  "year": 1600,
+  "definition": "an elaborate musical composition for full orchestra",
+  "etymology": [
+    {
+      "word": "symphonie",
+      "language": "French",
+      "year": 1300,
+      "definition": "harmony of sounds"
+    }
+  ],
+  "roots": [
+    {
+      "word": "symphonia",
+      "language": "Greek",
+      "definition": "harmony, concert",
+      "year": null,
+      "roots": [
+        {
+          "word": "sym",
+          "language": "Greek",
+          "definition": "together",
+          "year": null
+        },
+        {
+          "word": "phone",
+          "language": "Greek",
+          "definition": "sound, voice",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

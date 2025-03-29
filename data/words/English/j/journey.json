@@ -1,0 +1,38 @@
+{
+  "word": "journey",
+  "language": "English",
+  "year": 1225,
+  "definition": "an act of traveling from one place to another",
+  "etymology": [
+    {
+      "word": "journee",
+      "language": "French",
+      "year": 1100,
+      "definition": "day's travel, day's work"
+    }
+  ],
+  "roots": [
+    {
+      "word": "diurnum",
+      "language": "Latin",
+      "definition": "daily portion, day",
+      "year": null,
+      "roots": [
+        {
+          "word": "diurnus",
+          "language": "Latin",
+          "definition": "of the day",
+          "year": null,
+          "roots": [
+            {
+              "word": "dies",
+              "language": "Latin",
+              "definition": "day",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

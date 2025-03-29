@@ -1,0 +1,30 @@
+{
+  "word": "galaxy",
+  "language": "English",
+  "year": 1384,
+  "definition": "a system of millions or billions of stars, together with gas and dust",
+  "etymology": [
+    {
+      "word": "galaxias",
+      "language": "Greek",
+      "year": null,
+      "definition": "Milky Way"
+    }
+  ],
+  "roots": [
+    {
+      "word": "galaxias",
+      "language": "Greek",
+      "definition": "milky",
+      "year": null,
+      "roots": [
+        {
+          "word": "gala",
+          "language": "Greek",
+          "definition": "milk",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

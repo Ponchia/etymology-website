@@ -1,0 +1,30 @@
+{
+  "word": "harmony",
+  "language": "English",
+  "year": 1398,
+  "definition": "agreement or concord, a pleasing arrangement of parts",
+  "etymology": [
+    {
+      "word": "harmonie",
+      "language": "French",
+      "year": 1300,
+      "definition": "music, musical sound; agreement, accord"
+    }
+  ],
+  "roots": [
+    {
+      "word": "harmonia",
+      "language": "Greek",
+      "definition": "means of joining, joint, concord, agreement",
+      "year": null,
+      "roots": [
+        {
+          "word": "harmos",
+          "language": "Greek",
+          "definition": "joint, shoulder",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

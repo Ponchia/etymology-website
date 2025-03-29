@@ -1,0 +1,44 @@
+{
+  "word": "intelligence",
+  "language": "English",
+  "year": 1384,
+  "definition": "the ability to acquire and apply knowledge and skills",
+  "etymology": [
+    {
+      "word": "intelligence",
+      "language": "French",
+      "year": 1300,
+      "definition": "understanding, knowledge"
+    }
+  ],
+  "roots": [
+    {
+      "word": "intelligentia",
+      "language": "Latin",
+      "definition": "understanding, faculty of perceiving",
+      "year": null,
+      "roots": [
+        {
+          "word": "intelligere",
+          "language": "Latin",
+          "definition": "to understand, perceive",
+          "year": null,
+          "roots": [
+            {
+              "word": "inter",
+              "language": "Latin",
+              "definition": "between",
+              "year": null
+            },
+            {
+              "word": "legere",
+              "language": "Latin",
+              "definition": "to choose, pick out, read",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

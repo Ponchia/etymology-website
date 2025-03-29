@@ -1,0 +1,44 @@
+{
+  "word": "revolution",
+  "language": "English",
+  "year": 1390,
+  "definition": "a forcible overthrow of a government or social order, or a dramatic change in the ideas about something",
+  "etymology": [
+    {
+      "word": "revolution",
+      "language": "French",
+      "year": 1350,
+      "definition": "course, revolution of celestial bodies"
+    }
+  ],
+  "roots": [
+    {
+      "word": "revolutionem",
+      "language": "Latin",
+      "definition": "a revolving",
+      "year": null,
+      "roots": [
+        {
+          "word": "revolvere",
+          "language": "Latin",
+          "definition": "to turn, roll back",
+          "year": null,
+          "roots": [
+            {
+              "word": "re",
+              "language": "Latin",
+              "definition": "back, again",
+              "year": null
+            },
+            {
+              "word": "volvere",
+              "language": "Latin",
+              "definition": "to roll",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

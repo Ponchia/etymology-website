@@ -1,0 +1,30 @@
+{
+  "word": "beauty",
+  "language": "English",
+  "year": 1300,
+  "definition": "physical attractiveness; that quality which gives pleasure to the senses or pleasurably exalts the mind or spirit",
+  "etymology": [
+    {
+      "word": "beaute",
+      "language": "French",
+      "year": 1200,
+      "definition": "physical attractiveness, goodness, courtesy"
+    }
+  ],
+  "roots": [
+    {
+      "word": "bellus",
+      "language": "Latin",
+      "definition": "handsome, pretty, charming",
+      "year": null,
+      "roots": [
+        {
+          "word": "bonus",
+          "language": "Latin",
+          "definition": "good",
+          "year": null
+        }
+      ]
+    }
+  ]
+} 

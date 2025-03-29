@@ -1,0 +1,23 @@
+{
+  "word": "digital",
+  "language": "English",
+  "year": 1650,
+  "definition": "relating to or using signals or information represented by discrete values",
+  "etymology": [
+    {
+      "word": "digitalis",
+      "language": "Latin",
+      "year": 1600,
+      "definition": "of or belonging to the finger"
+    }
+  ],
+  "roots": [
+    {
+      "word": "digitus",
+      "language": "Latin",
+      "definition": "finger, toe",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

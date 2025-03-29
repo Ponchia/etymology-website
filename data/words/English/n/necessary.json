@@ -1,0 +1,44 @@
+{
+  "word": "necessary",
+  "language": "English",
+  "year": 1380,
+  "definition": "needed to be done, achieved, or present; required",
+  "etymology": [
+    {
+      "word": "necessaire",
+      "language": "French",
+      "year": 1300,
+      "definition": "necessary, needful"
+    }
+  ],
+  "roots": [
+    {
+      "word": "necessarius",
+      "language": "Latin",
+      "definition": "unavoidable, indispensable",
+      "year": null,
+      "roots": [
+        {
+          "word": "necesse",
+          "language": "Latin",
+          "definition": "unavoidable, necessary",
+          "year": null,
+          "roots": [
+            {
+              "word": "ne",
+              "language": "Latin",
+              "definition": "not",
+              "year": null
+            },
+            {
+              "word": "cedere",
+              "language": "Latin",
+              "definition": "to yield, withdraw",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

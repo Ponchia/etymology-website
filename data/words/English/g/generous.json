@@ -1,0 +1,30 @@
+{
+  "word": "generous",
+  "language": "English",
+  "year": 1580,
+  "definition": "showing a readiness to give more of something than is expected",
+  "etymology": [
+    {
+      "word": "generosus",
+      "language": "Latin",
+      "year": null,
+      "definition": "of noble birth, noble-minded, magnanimous"
+    }
+  ],
+  "roots": [
+    {
+      "word": "genus",
+      "language": "Latin",
+      "definition": "birth, race, stock, kind",
+      "year": null,
+      "roots": [
+        {
+          "word": "gen",
+          "language": "Indo-European",
+          "definition": "to produce, give birth",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

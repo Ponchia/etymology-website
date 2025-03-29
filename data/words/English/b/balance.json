@@ -1,0 +1,36 @@
+{
+  "word": "balance",
+  "language": "English",
+  "year": 1275,
+  "definition": "an even distribution of weight enabling someone or something to remain upright and steady",
+  "etymology": [
+    {
+      "word": "balance",
+      "language": "French",
+      "year": 1200,
+      "definition": "scales, weighing device"
+    }
+  ],
+  "roots": [
+    {
+      "word": "bilancem",
+      "language": "Latin",
+      "definition": "having two scales",
+      "year": null,
+      "roots": [
+        {
+          "word": "bi",
+          "language": "Latin",
+          "definition": "two",
+          "year": null
+        },
+        {
+          "word": "lanx",
+          "language": "Latin",
+          "definition": "plate, scale",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

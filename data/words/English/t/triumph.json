@@ -1,0 +1,23 @@
+{
+  "word": "triumph",
+  "language": "English",
+  "year": 1374,
+  "definition": "a great victory or achievement",
+  "etymology": [
+    {
+      "word": "triumphe",
+      "language": "French",
+      "year": 1350,
+      "definition": "victory, triumph"
+    }
+  ],
+  "roots": [
+    {
+      "word": "triumphus",
+      "language": "Latin",
+      "definition": "a celebration for a victory",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

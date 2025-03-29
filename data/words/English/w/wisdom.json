@@ -1,0 +1,30 @@
+{
+  "word": "wisdom",
+  "language": "English",
+  "year": 900,
+  "definition": "the quality of having experience, knowledge, and good judgement",
+  "etymology": [
+    {
+      "word": "wisdom",
+      "language": "Old English",
+      "year": 800,
+      "definition": "knowledge, learning, experience"
+    }
+  ],
+  "roots": [
+    {
+      "word": "wis",
+      "language": "Old English",
+      "definition": "wise, learned",
+      "year": null,
+      "roots": []
+    },
+    {
+      "word": "dom",
+      "language": "Old English",
+      "definition": "condition",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

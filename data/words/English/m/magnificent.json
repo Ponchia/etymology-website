@@ -1,0 +1,36 @@
+{
+  "word": "magnificent",
+  "language": "English",
+  "year": 1510,
+  "definition": "extremely beautiful, elaborate, or impressive",
+  "etymology": [
+    {
+      "word": "magnificens",
+      "language": "Latin",
+      "year": null,
+      "definition": "doing great deeds, splendid"
+    }
+  ],
+  "roots": [
+    {
+      "word": "magnificus",
+      "language": "Latin",
+      "definition": "great in deeds or character",
+      "year": null,
+      "roots": [
+        {
+          "word": "magnus",
+          "language": "Latin",
+          "definition": "great",
+          "year": null
+        },
+        {
+          "word": "facere",
+          "language": "Latin",
+          "definition": "to do, make",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

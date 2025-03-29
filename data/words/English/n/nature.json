@@ -1,0 +1,38 @@
+{
+  "word": "nature",
+  "language": "English",
+  "year": 1300,
+  "definition": "the phenomena of the physical world collectively; the basic or inherent features of something",
+  "etymology": [
+    {
+      "word": "nature",
+      "language": "French",
+      "year": 1200,
+      "definition": "nature, being, principle of life"
+    }
+  ],
+  "roots": [
+    {
+      "word": "natura",
+      "language": "Latin",
+      "definition": "course of things, natural character, constitution",
+      "year": null,
+      "roots": [
+        {
+          "word": "natus",
+          "language": "Latin",
+          "definition": "born",
+          "year": null,
+          "roots": [
+            {
+              "word": "nasci",
+              "language": "Latin",
+              "definition": "to be born",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

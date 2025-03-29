@@ -1,0 +1,36 @@
+{
+  "word": "world",
+  "language": "English",
+  "year": 900,
+  "definition": "the earth, together with all of its countries, peoples, and natural features",
+  "etymology": [
+    {
+      "word": "woruld",
+      "language": "Old English",
+      "year": 800,
+      "definition": "human existence, the affairs of life"
+    }
+  ],
+  "roots": [
+    {
+      "word": "weraldi",
+      "language": "Proto-Germanic",
+      "definition": "age of man",
+      "year": null,
+      "roots": [
+        {
+          "word": "wer",
+          "language": "Proto-Germanic",
+          "definition": "man",
+          "year": null
+        },
+        {
+          "word": "ald",
+          "language": "Proto-Germanic",
+          "definition": "age",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

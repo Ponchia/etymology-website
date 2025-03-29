@@ -1,0 +1,30 @@
+{
+  "word": "vision",
+  "language": "English",
+  "year": 1290,
+  "definition": "the faculty or state of being able to see",
+  "etymology": [
+    {
+      "word": "vision",
+      "language": "French",
+      "year": 1200,
+      "definition": "something seen in the imagination or in the supernatural"
+    }
+  ],
+  "roots": [
+    {
+      "word": "visionem",
+      "language": "Latin",
+      "definition": "act of seeing, sight, thing seen",
+      "year": null,
+      "roots": [
+        {
+          "word": "videre",
+          "language": "Latin",
+          "definition": "to see",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

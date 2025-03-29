@@ -1,0 +1,30 @@
+{
+  "word": "heritage",
+  "language": "English",
+  "year": 1380,
+  "definition": "property that is or may be inherited",
+  "etymology": [
+    {
+      "word": "eritage",
+      "language": "French",
+      "year": 1200,
+      "definition": "that which may be inherited"
+    }
+  ],
+  "roots": [
+    {
+      "word": "hereditare",
+      "language": "Latin",
+      "definition": "to inherit",
+      "year": null,
+      "roots": [
+        {
+          "word": "heres",
+          "language": "Latin",
+          "definition": "heir",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

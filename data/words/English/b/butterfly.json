@@ -1,0 +1,36 @@
+{
+  "word": "butterfly",
+  "language": "English",
+  "year": 1000,
+  "definition": "insect with four broad wings that flies chiefly during the day",
+  "etymology": [
+    {
+      "word": "buterfleoge",
+      "language": "Old English",
+      "year": 900,
+      "definition": "butterfly"
+    }
+  ],
+  "roots": [
+    {
+      "word": "butorfleoge",
+      "language": "Old English",
+      "definition": "butterfly",
+      "year": null,
+      "roots": [
+        {
+          "word": "butor",
+          "language": "Old English",
+          "definition": "butter",
+          "year": null
+        },
+        {
+          "word": "fleoge",
+          "language": "Old English",
+          "definition": "fly",
+          "year": null
+        }
+      ]
+    }
+  ]
+} 

@@ -1,0 +1,30 @@
+{
+  "word": "literature",
+  "language": "English",
+  "year": 1375,
+  "definition": "written works, especially those considered of superior or lasting artistic merit",
+  "etymology": [
+    {
+      "word": "litterature",
+      "language": "French",
+      "year": 1300,
+      "definition": "book-learning"
+    }
+  ],
+  "roots": [
+    {
+      "word": "literatura",
+      "language": "Latin",
+      "definition": "learning, a writing, grammar",
+      "year": null,
+      "roots": [
+        {
+          "word": "littera",
+          "language": "Latin",
+          "definition": "letter",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

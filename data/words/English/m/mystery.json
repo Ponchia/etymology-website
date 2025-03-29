@@ -1,0 +1,38 @@
+{
+  "word": "mystery",
+  "language": "English",
+  "year": 1350,
+  "definition": "something that is difficult or impossible to understand or explain",
+  "etymology": [
+    {
+      "word": "mystere",
+      "language": "French",
+      "year": 1300,
+      "definition": "secret rites, secret, religious mystery"
+    }
+  ],
+  "roots": [
+    {
+      "word": "mysterium",
+      "language": "Latin",
+      "definition": "secret rite, secret worship",
+      "year": null,
+      "roots": [
+        {
+          "word": "mysterion",
+          "language": "Greek",
+          "definition": "secret rite or doctrine",
+          "year": null,
+          "roots": [
+            {
+              "word": "mystes",
+              "language": "Greek",
+              "definition": "one who has been initiated",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

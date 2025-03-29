@@ -1,0 +1,30 @@
+{
+  "word": "gratitude",
+  "language": "English",
+  "year": 1500,
+  "definition": "the quality of being thankful; readiness to show appreciation",
+  "etymology": [
+    {
+      "word": "gratitude",
+      "language": "French",
+      "year": 1450,
+      "definition": "thankfulness"
+    }
+  ],
+  "roots": [
+    {
+      "word": "gratitudinem",
+      "language": "Latin",
+      "definition": "thankfulness",
+      "year": null,
+      "roots": [
+        {
+          "word": "gratus",
+          "language": "Latin",
+          "definition": "pleasing, thankful",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

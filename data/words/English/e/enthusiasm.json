@@ -1,0 +1,44 @@
+{
+  "word": "enthusiasm",
+  "language": "English",
+  "year": 1603,
+  "definition": "intense and eager enjoyment, interest, or approval",
+  "etymology": [
+    {
+      "word": "enthusiasme",
+      "language": "French",
+      "year": 1580,
+      "definition": "divine inspiration"
+    }
+  ],
+  "roots": [
+    {
+      "word": "enthousiasmos",
+      "language": "Greek",
+      "definition": "inspiration, enthusiasm",
+      "year": null,
+      "roots": [
+        {
+          "word": "entheos",
+          "language": "Greek",
+          "definition": "divinely inspired, possessed by a god",
+          "year": null,
+          "roots": [
+            {
+              "word": "en",
+              "language": "Greek",
+              "definition": "in",
+              "year": null
+            },
+            {
+              "word": "theos",
+              "language": "Greek",
+              "definition": "god",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

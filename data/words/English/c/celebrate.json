@@ -1,0 +1,30 @@
+{
+  "word": "celebrate",
+  "language": "English",
+  "year": 1520,
+  "definition": "acknowledge a significant or happy day or event with a social gathering or enjoyable activity",
+  "etymology": [
+    {
+      "word": "celebratus",
+      "language": "Latin",
+      "year": null,
+      "definition": "frequented, honored, famous"
+    }
+  ],
+  "roots": [
+    {
+      "word": "celebrare",
+      "language": "Latin",
+      "definition": "to frequent, to honor",
+      "year": null,
+      "roots": [
+        {
+          "word": "celeber",
+          "language": "Latin",
+          "definition": "frequented, populous",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

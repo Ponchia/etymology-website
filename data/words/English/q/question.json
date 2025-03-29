@@ -1,0 +1,30 @@
+{
+  "word": "question",
+  "language": "English",
+  "year": 1300,
+  "definition": "a sentence worded or expressed so as to elicit information",
+  "etymology": [
+    {
+      "word": "question",
+      "language": "French",
+      "year": 1200,
+      "definition": "questioning, inquiry"
+    }
+  ],
+  "roots": [
+    {
+      "word": "quaestionem",
+      "language": "Latin",
+      "definition": "a seeking, inquiry, investigating",
+      "year": null,
+      "roots": [
+        {
+          "word": "quaerere",
+          "language": "Latin",
+          "definition": "to seek, ask",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

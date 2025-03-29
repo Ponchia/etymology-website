@@ -1,0 +1,36 @@
+{
+  "word": "amazing",
+  "language": "English",
+  "year": 1590,
+  "definition": "causing great surprise or wonder; astonishing",
+  "etymology": [
+    {
+      "word": "amaze",
+      "language": "English",
+      "year": 1300,
+      "definition": "overwhelm with wonder"
+    }
+  ],
+  "roots": [
+    {
+      "word": "amasian",
+      "language": "Old English",
+      "definition": "to confound, perplex",
+      "year": 900,
+      "roots": [
+        {
+          "word": "a",
+          "language": "Old English",
+          "definition": "on, in, at",
+          "year": null
+        },
+        {
+          "word": "masian",
+          "language": "Old English",
+          "definition": "to confuse, confound",
+          "year": null
+        }
+      ]
+    }
+  ]
+} 

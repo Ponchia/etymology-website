@@ -1,0 +1,36 @@
+{
+  "word": "discover",
+  "language": "English",
+  "year": 1300,
+  "definition": "find unexpectedly or during a search",
+  "etymology": [
+    {
+      "word": "descovrir",
+      "language": "French",
+      "year": 1200,
+      "definition": "uncover, unroof, unveil, reveal"
+    }
+  ],
+  "roots": [
+    {
+      "word": "discooperire",
+      "language": "Latin",
+      "definition": "uncover, expose",
+      "year": null,
+      "roots": [
+        {
+          "word": "dis",
+          "language": "Latin",
+          "definition": "opposite of",
+          "year": null
+        },
+        {
+          "word": "cooperire",
+          "language": "Latin",
+          "definition": "to cover up",
+          "year": null
+        }
+      ]
+    }
+  ]
+}

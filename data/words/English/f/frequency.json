@@ -1,0 +1,23 @@
+{
+  "word": "frequency",
+  "language": "English",
+  "year": 1550,
+  "definition": "the rate at which something occurs over a particular period of time",
+  "etymology": [
+    {
+      "word": "frequentia",
+      "language": "Latin",
+      "year": null,
+      "definition": "crowdedness, multitude, crowd"
+    }
+  ],
+  "roots": [
+    {
+      "word": "frequens",
+      "language": "Latin",
+      "definition": "crowded, repeated",
+      "year": null,
+      "roots": []
+    }
+  ]
+}

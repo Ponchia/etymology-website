@@ -1,0 +1,44 @@
+{
+  "word": "tradition",
+  "language": "English",
+  "year": 1380,
+  "definition": "the transmission of customs or beliefs from generation to generation",
+  "etymology": [
+    {
+      "word": "tradicion",
+      "language": "French",
+      "year": 1300,
+      "definition": "transmission, handing over"
+    }
+  ],
+  "roots": [
+    {
+      "word": "traditionem",
+      "language": "Latin",
+      "definition": "delivery, surrender, a handing down",
+      "year": null,
+      "roots": [
+        {
+          "word": "tradere",
+          "language": "Latin",
+          "definition": "to hand over, deliver, surrender",
+          "year": null,
+          "roots": [
+            {
+              "word": "trans",
+              "language": "Latin",
+              "definition": "over, across",
+              "year": null
+            },
+            {
+              "word": "dare",
+              "language": "Latin",
+              "definition": "to give",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
