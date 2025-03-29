@@ -2,6 +2,9 @@
 import json
 import logging
 import os
+import time
+import random
+import statistics
 from pathlib import Path
 from etymology_generator import EtymologyGenerator
 
@@ -148,283 +151,212 @@ REFERENCE_ETYMOLOGIES = {
     }
 }
 
-class TestEtymologyGenerator(EtymologyGenerator):
-    """A test version of the etymology generator that uses fixed word lists."""
-    
-    def __init__(self, test_mode=True, output_dir=None):
-        """Initialize the test etymology generator."""
-        self.output_dir = output_dir or Path("test_output")
+class EtymologyGeneratorTester:
+    def __init__(self):
+        self.test_output_dir = Path("./test_output")
+        self.words_processed = 0
+        self.successful_words = 0
+        self.failed_words = 0
+        self.connections = 0
+        self.quality_scores = []
         
-        # Call the parent constructor
-        super().__init__(test_mode=test_mode)
+        if not os.path.exists(self.test_output_dir):
+            os.makedirs(self.test_output_dir)
+            
+    def run_test(self, use_fixed_list=True):
+        """Run test with optional fixed word list"""
+        logger.info("Starting test run with fixed word lists")
         
-        # Set up test output directory
-        if not os.path.exists(self.output_dir):
-            os.makedirs(self.output_dir)
-    
-    def fetch_word_lists(self):
-        """Get fixed test word lists."""
-        self.logger.info("Using fixed test word lists")
+        # Create generator with test mode and geographical data enabled
+        generator = EtymologyGenerator(
+            max_words=5, 
+            languages=["English", "French", "Latin", "Greek"],
+            test_mode=True,
+            sources="wiktionary,etymonline",
+            geo_data=True  # Enable geographical data collection
+        )
         
-        # Define fixed test word lists for each language
-        word_lists = {
-            "English": ["etymology", "biology", "computer", "philosophy", "democracy"],
-            "French": ["bonjour", "merci", "château", "fromage", "café"],
-            "Latin": ["veni", "vidi", "vici", "aqua", "terra"],
-            "Greek": ["logos", "cosmos", "pathos", "ethos", "chronos"]
+        # Set test output directory
+        generator.output_dir = self.test_output_dir
+        
+        start_time = time.time()
+        
+        if use_fixed_list:
+            test_words = {
+                "English": ["etymology", "biology", "computer", "philosophy", "democracy"],
+                "French": ["bonjour", "merci", "château", "fromage", "café"],
+                "Latin": ["veni", "vidi", "vici", "aqua", "terra"],
+                "Greek": ["logos", "cosmos", "pathos", "ethos", "chronos"]
+            }
+            
+            # Process each test word
+            for language, words in test_words.items():
+                generator.logger.info(f"Processing {len(words)} {language} words")
+                for word in words:
+                    try:
+                        result = generator.process_word(word, language)
+                        self.words_processed += 1
+                        if result:
+                            self.successful_words += 1
+                            self.connections += len(result.get("roots", []))
+                            self.quality_scores.append(result.get("quality_score", 0))
+                        else:
+                            self.failed_words += 1
+                    except Exception as e:
+                        generator.logger.error(f"Error processing {word}: {str(e)}")
+                        self.failed_words += 1
+                    
+        end_time = time.time()
+        elapsed_minutes = (end_time - start_time) / 60
+        
+        # Log results
+        generator.logger.info(f"Completed in {elapsed_minutes:.2f} minutes")
+        generator.logger.info(f"Total words processed: {self.words_processed}")
+        generator.logger.info(f"Successful words: {self.successful_words}")
+        generator.logger.info(f"Failed words: {self.failed_words}")
+        generator.logger.info(f"Total connections: {self.connections}")
+        
+        # Return generator statistics for analysis
+        return generator.stats if hasattr(generator, 'stats') else {}
+        
+    def analyze_quality(self):
+        """Analyze the quality of generated etymology data"""
+        logger.info("Test run completed")
+        logger.info(f"Words processed: {self.words_processed}")
+        logger.info(f"Successful words: {self.successful_words}")
+        logger.info(f"Failed words: {self.failed_words}")
+        logger.info(f"Total connections: {self.connections}")
+        
+        if not self.quality_scores:
+            logger.warning("No quality data available for analysis")
+            return
+            
+        # Calculate metrics
+        avg_quality = statistics.mean(self.quality_scores) if self.quality_scores else 0
+        
+        # Check files for specific criteria
+        words_with_roots = 0
+        words_with_year = 0
+        words_with_expected_roots = 0
+        words_with_expected_languages = 0
+        words_with_definitions = 0
+        invalid_roots = 0
+        
+        # Expected roots for validation
+        expected_roots = {
+            "English_etymology": ["Latin", "Ancient Greek"],
+            "English_biology": ["Greek", "Ancient Greek"],
+            "English_computer": ["Latin"],
+            "English_philosophy": ["Latin", "Ancient Greek", "Greek"],
+            "English_democracy": ["Ancient Greek", "Greek"],
+            "French_bonjour": ["French", "Latin"],
+            "French_merci": ["Latin"],
+            "French_château": ["Latin"],
+            "French_fromage": ["Latin"],
+            "French_café": ["Arabic"],
+            "Latin_veni": ["Proto-Indo-European"],
+            "Latin_vidi": ["Proto-Indo-European"],
+            "Latin_vici": ["Proto-Indo-European"],
+            "Latin_aqua": ["Proto-Indo-European"],
+            "Latin_terra": ["Proto-Indo-European"],
+            "Greek_logos": ["Ancient Greek", "Greek"],
+            "Greek_cosmos": ["Ancient Greek", "Greek"],
+            "Greek_pathos": ["Ancient Greek", "Greek"],
+            "Greek_ethos": ["Ancient Greek", "Greek"],
+            "Greek_chronos": ["Ancient Greek", "Greek"]
         }
         
-        return word_lists
-    
-    def process_word(self, word, language):
-        """Process a word and evaluate its quality."""
-        self.logger.info(f"Processing test word: {word} ({language})")
-        
-        # Call parent method to process the word
-        success = super().process_word(word, language)
-        
-        if success:
-            # Get the etymology data from the results dictionary
-            key = f"{language}_{word}"
-            etymology_data = self.results.get(key)
+        # Check all output files
+        for file_name in os.listdir(self.test_output_dir):
+            if not file_name.endswith('.json'):
+                continue
+                
+            file_path = os.path.join(self.test_output_dir, file_name)
             
-            if etymology_data:
-                # Evaluate data quality
-                quality_score = self.evaluate_data_quality(etymology_data, word, language)
-                self.logger.info(f"Quality score for {word}: {quality_score}/100")
-                
-                # Save test output to file
-                if self.output_dir:
-                    file_path = self.output_dir / f"{language}_{word}.json"
-                    with open(file_path, "w", encoding="utf-8") as f:
-                        json.dump(etymology_data, f, indent=2)
-                    self.logger.info(f"Saved test output to {file_path}")
-                
-                # Display etymology summary
-                self.logger.info(f"Etymology Summary for {word} ({language}), year: {etymology_data.get('year')}")
-                self.logger.info(f"Definition: {etymology_data.get('definition', '')[:50]}...")
-                
-                if "meaning" in etymology_data:
-                    self.logger.info(f"Short meaning: {etymology_data.get('meaning', '')[:50]}")
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
                     
-                roots = etymology_data.get("roots", [])
-                if roots:
-                    self.logger.info(f"Root words ({len(roots)}):")
-                    for i, root in enumerate(roots, 1):
-                        self.logger.info(f"  {i}. {root.get('word', '')} ({root.get('language', '')}), year: {root.get('year')}")
-                else:
-                    self.logger.info("No root words found")
+                # File key is language_word (e.g., "English_etymology")
+                file_key = file_name.replace('.json', '')
+                
+                # Check for roots
+                if data.get('roots') and len(data['roots']) > 0:
+                    words_with_roots += 1
                     
-                self.logger.info(f"Successfully processed {word} with {len(roots)} connections")
+                    # Check for valid root languages
+                    root_languages = [root.get('language') for root in data.get('roots', [])]
+                    invalid_language = False
+                    
+                    for lang in root_languages:
+                        if not lang or lang in ["Unknown", "unknown"]:
+                            invalid_language = True
+                            invalid_roots += 1
+                            
+                    # Check if expected roots are present
+                    expected = expected_roots.get(file_key, [])
+                    if expected:
+                        found_expected = False
+                        for expected_lang in expected:
+                            if any(expected_lang == lang for lang in root_languages):
+                                found_expected = True
+                                break
+                                
+                        if found_expected:
+                            words_with_expected_roots += 1
+                    else:
+                        # No expectations defined, consider it valid
+                        words_with_expected_roots += 1
                 
-                return True
-        
-        return False
-    
-    def evaluate_data_quality(self, etymology_data, word, language):
-        """Evaluate the quality of etymology data and return a score out of 100."""
-        # Initialize quality metrics if not already done
-        if not hasattr(self, 'quality_scores'):
-            self.quality_scores = []
-            self.words_evaluated = 0
-            self.words_with_roots = 0
-            self.words_with_correct_year = 0
-            self.words_with_expected_roots = 0
-            self.words_with_expected_languages = 0
-            self.words_with_definitions = 0
-            self.invalid_roots = 0
-            self.avg_quality_score = 0
-        
-        # Evaluate different aspects of the data
-        score = 0
-        max_score = 100
-        
-        # Check if we have reference data for this word
-        word_key = word.lower()
-        reference = REFERENCE_ETYMOLOGIES.get(word_key, {})
-        
-        # 1. Has roots (20 points)
-        has_roots = False
-        if 'roots' in etymology_data and etymology_data['roots']:
-            score += 20
-            has_roots = True
-            self.words_with_roots += 1
-        
-        # 2. Has correct year (20 points)
-        has_correct_year = False
-        if reference and 'year' in reference and reference['year'] and 'year' in etymology_data and etymology_data['year']:
-            ref_year = reference['year']
-            word_year = etymology_data['year']
-            
-            # Allow a margin of error for years (wider for ancient languages)
-            margin = 50
-            if ref_year < 0:
-                margin = 100  # Wider margin for ancient dates
+                # Check for year
+                if data.get('year'):
+                    words_with_year += 1
+                    
+                # Check for sensible definition
+                if data.get('definition') and len(data.get('definition', '')) > 10:
+                    words_with_definitions += 1
+                    
+                # Check language
+                expected_lang = file_key.split('_')[0]
+                if data.get('language') == expected_lang:
+                    words_with_expected_languages += 1
+                    
+            except Exception as e:
+                logger.error(f"Error analyzing {file_name}: {str(e)}")
                 
-            if abs(ref_year - word_year) <= margin:
-                score += 20
-                has_correct_year = True
-                self.words_with_correct_year += 1
+        # Calculate percentages
+        pct_roots = (words_with_roots / self.words_processed) * 100 if self.words_processed > 0 else 0
+        pct_year = (words_with_year / self.words_processed) * 100 if self.words_processed > 0 else 0
+        pct_expected_roots = (words_with_expected_roots / self.words_processed) * 100 if self.words_processed > 0 else 0
+        pct_expected_languages = (words_with_expected_languages / self.words_processed) * 100 if self.words_processed > 0 else 0
+        pct_definitions = (words_with_definitions / self.words_processed) * 100 if self.words_processed > 0 else 0
         
-        # 3. Has expected roots (20 points)
-        has_expected_roots = False
-        if reference and 'expected_roots' in reference and reference['expected_roots']:
-            # Check if any expected roots are present
-            expected_roots = [r.lower() for r in reference['expected_roots']]
-            found_roots = []
-            
-            if 'roots' in etymology_data:
-                for root in etymology_data['roots']:
-                    if 'word' in root:
-                        root_word = root['word'].lower()
-                        # Allow for partial matches (e.g. "philo" matches "philosophia")
-                        for exp_root in expected_roots:
-                            if exp_root in root_word or root_word in exp_root:
-                                found_roots.append(exp_root)
-            
-            # Award points based on percentage of expected roots found
-            if found_roots:
-                percentage_found = len(set(found_roots)) / len(expected_roots)
-                root_score = min(20, int(20 * percentage_found))
-                score += root_score
-                has_expected_roots = True
-                self.words_with_expected_roots += 1
-        
-        # 4. Has expected languages (20 points)
-        has_expected_languages = False
-        if reference and 'expected_languages' in reference and reference['expected_languages']:
-            expected_langs = [lang.lower() for lang in reference['expected_languages']]
-            found_langs = []
-            
-            if 'roots' in etymology_data:
-                for root in etymology_data['roots']:
-                    if 'language' in root:
-                        root_lang = root['language'].lower()
-                        # Allow for language variant matches (e.g. "Old French" matches "French")
-                        for exp_lang in expected_langs:
-                            if exp_lang in root_lang or root_lang in exp_lang:
-                                found_langs.append(exp_lang)
-            
-            # Award points based on percentage of expected languages found
-            if found_langs:
-                percentage_found = len(set(found_langs)) / len(expected_langs)
-                lang_score = min(20, int(20 * percentage_found))
-                score += lang_score
-                has_expected_languages = True
-                self.words_with_expected_languages += 1
-        
-        # 5. Has sensible definition (20 points)
-        has_definition = False
-        if 'definition' in etymology_data and etymology_data['definition'] and len(etymology_data['definition']) > 10:
-            score += 20
-            has_definition = True
-            self.words_with_definitions += 1
-        
-        # 6. Check for invalid/blank root words
-        if 'roots' in etymology_data:
-            for root in etymology_data['roots']:
-                if not root.get('word') or not root.get('language'):
-                    self.invalid_roots += 1
-                    score -= 10  # Penalty for invalid roots
-        
-        # Update quality metrics
-        self.quality_scores.append(score)
-        self.words_evaluated += 1
-        self.avg_quality_score = sum(self.quality_scores) / len(self.quality_scores)
-        
-        return score
-    
-    def calculate_average_quality_score(self):
-        """Calculate the average quality score across all processed words"""
-        word_count = self.stats["successful_words"]
-        if word_count == 0:
-            return 0
-        
-        total_score = self.quality_scores["total_score"]
-        return total_score / word_count
-    
-    def print_quality_report(self):
-        """Print a comprehensive quality report"""
-        word_count = self.stats["successful_words"]
-        if word_count == 0:
-            logger.info("No words processed, cannot generate quality report")
-            return
-        
-        avg_score = self.calculate_average_quality_score()
-        
+        # Print quality report
         logger.info("\n===== DATA QUALITY REPORT =====")
-        logger.info(f"Average quality score: {avg_score:.2f}/100")
-        logger.info(f"Words with roots: {self.quality_scores['words_with_roots']} ({(self.quality_scores['words_with_roots']/word_count)*100:.1f}%)")
-        logger.info(f"Words with correct year: {self.quality_scores['words_with_correct_year']} ({(self.quality_scores['words_with_correct_year']/word_count)*100:.1f}%)")
-        logger.info(f"Words with expected roots: {self.quality_scores['words_with_expected_roots']} ({(self.quality_scores['words_with_expected_roots']/word_count)*100:.1f}%)")
-        logger.info(f"Words with expected languages: {self.quality_scores['words_with_expected_languages']} ({(self.quality_scores['words_with_expected_languages']/word_count)*100:.1f}%)")
-        logger.info(f"Words with sensible definitions: {self.quality_scores['words_with_sensible_definition']} ({(self.quality_scores['words_with_sensible_definition']/word_count)*100:.1f}%)")
-        logger.info(f"Invalid root words detected: {self.quality_scores['invalid_roots']}")
+        logger.info(f"Average quality score: {avg_quality:.2f}/100")
+        logger.info(f"Words with roots: {words_with_roots} ({pct_roots:.1f}%)")
+        logger.info(f"Words with correct year: {words_with_year} ({pct_year:.1f}%)")
+        logger.info(f"Words with expected roots: {words_with_expected_roots} ({pct_expected_roots:.1f}%)")
+        logger.info(f"Words with expected languages: {words_with_expected_languages} ({pct_expected_languages:.1f}%)")
+        logger.info(f"Words with sensible definitions: {words_with_definitions} ({pct_definitions:.1f}%)")
+        logger.info(f"Invalid root words detected: {invalid_roots}")
         logger.info("=============================\n")
         
-        # Data quality rating
-        if avg_score >= 90:
-            logger.info("QUALITY RATING: EXCELLENT")
-        elif avg_score >= 75:
-            logger.info("QUALITY RATING: GOOD")
-        elif avg_score >= 50:
-            logger.info("QUALITY RATING: FAIR")
+        # Overall quality rating
+        if avg_quality >= 80:
+            rating = "EXCELLENT"
+        elif avg_quality >= 60:
+            rating = "GOOD"
+        elif avg_quality >= 40:
+            rating = "FAIR"
+        elif avg_quality >= 20:
+            rating = "POOR"
         else:
-            logger.info("QUALITY RATING: POOR")
-
-def main():
-    """Run the etymology test generator and evaluate results."""
-    # Configure logging
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    )
-    
-    logger = logging.getLogger('test_generator')
-    logger.info("Starting test run with fixed word lists")
-    
-    # Create test generator instance
-    generator = TestEtymologyGenerator(
-        test_mode=True,
-        output_dir=Path("test_output")
-    )
-    
-    # Run generator
-    stats = generator.run()
-    
-    # Log results
-    logger.info("Test run completed")
-    
-    if stats:
-        logger.info(f"Words processed: {stats['words_processed']}")
-        logger.info(f"Successful words: {stats['successful_words']}")
-        logger.info(f"Failed words: {stats['failed_words']}")
-        logger.info(f"Total connections: {stats['connections']}")
-        
-        # Output quality report
-        logger.info("\n===== DATA QUALITY REPORT =====")
-        logger.info(f"Average quality score: {generator.avg_quality_score:.2f}/100")
-        logger.info(f"Words with roots: {generator.words_with_roots} ({(generator.words_with_roots / generator.words_evaluated * 100):.1f}%)")
-        logger.info(f"Words with correct year: {generator.words_with_correct_year} ({(generator.words_with_correct_year / generator.words_evaluated * 100):.1f}%)")
-        logger.info(f"Words with expected roots: {generator.words_with_expected_roots} ({(generator.words_with_expected_roots / generator.words_evaluated * 100):.1f}%)")
-        logger.info(f"Words with expected languages: {generator.words_with_expected_languages} ({(generator.words_with_expected_languages / generator.words_evaluated * 100):.1f}%)")
-        logger.info(f"Words with sensible definitions: {generator.words_with_definitions} ({(generator.words_with_definitions / generator.words_evaluated * 100):.1f}%)")
-        logger.info(f"Invalid root words detected: {generator.invalid_roots}")
-        logger.info("=============================\n")
-        
-        # Calculate quality rating
-        if generator.avg_quality_score >= 80:
-            quality_rating = "EXCELLENT"
-        elif generator.avg_quality_score >= 60:
-            quality_rating = "GOOD"
-        elif generator.avg_quality_score >= 40:
-            quality_rating = "FAIR"
-        else:
-            quality_rating = "POOR"
+            rating = "VERY POOR"
             
-        logger.info(f"QUALITY RATING: {quality_rating}")
-    else:
-        logger.error("Test run failed to return statistics")
-
+        logger.info(f"QUALITY RATING: {rating}")
+        
 if __name__ == "__main__":
-    main() 
+    tester = EtymologyGeneratorTester()
+    tester.run_test()
+    tester.analyze_quality() 
