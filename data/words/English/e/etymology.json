@@ -1,0 +1,51 @@
+{
+  "word": "etymology",
+  "language": "English",
+  "year": 1398,
+  "definition": "the study of the origin and history of words",
+  "etymology": [
+    {
+      "word": "etymologia",
+      "language": "Latin",
+      "year": 1350
+    }
+  ],
+  "roots": [
+    {
+      "word": "etymologia",
+      "language": "Latin",
+      "definition": "origin of words",
+      "year": 1350,
+      "roots": [
+        {
+          "word": "etymon",
+          "language": "Greek",
+          "definition": "true sense",
+          "year": null,
+          "roots": [
+            {
+              "word": "etymos",
+              "language": "Greek",
+              "definition": "true, real, actual",
+              "year": null
+            }
+          ]
+        },
+        {
+          "word": "logia",
+          "language": "Greek",
+          "definition": "study of",
+          "year": null,
+          "roots": [
+            {
+              "word": "logos",
+              "language": "Greek",
+              "definition": "word, speech, discourse, reason",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+} 

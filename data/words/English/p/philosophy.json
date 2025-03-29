@@ -1,0 +1,52 @@
+{
+  "word": "philosophy",
+  "language": "English",
+  "year": 1340,
+  "definition": "love or pursuit of wisdom; systematic investigation of the nature of truth",
+  "etymology": [
+    {
+      "word": "philosophie",
+      "language": "French",
+      "year": 1290,
+      "definition": "love of wisdom"
+    }
+  ],
+  "roots": [
+    {
+      "word": "philosophia",
+      "language": "Latin",
+      "definition": "the study of philosophy",
+      "year": null,
+      "roots": [
+        {
+          "word": "philosophos",
+          "language": "Greek",
+          "definition": "lover of wisdom",
+          "year": null,
+          "roots": [
+            {
+              "word": "philos",
+              "language": "Greek",
+              "definition": "loving, dear",
+              "year": null
+            },
+            {
+              "word": "sophia",
+              "language": "Greek",
+              "definition": "knowledge, wisdom",
+              "year": null,
+              "roots": [
+                {
+                  "word": "sophos",
+                  "language": "Greek",
+                  "definition": "wise",
+                  "year": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+} 

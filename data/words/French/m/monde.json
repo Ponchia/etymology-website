@@ -1,0 +1,31 @@
+{
+  "word": "monde",
+  "language": "French",
+  "year": 1050,
+  "definition": "world, universe, earth",
+  "etymology": [],
+  "roots": [
+    {
+      "word": "mundus",
+      "language": "Latin",
+      "definition": "world, universe, the heavens",
+      "year": null,
+      "roots": [
+        {
+          "word": "mundus",
+          "language": "Latin",
+          "definition": "clean, elegant",
+          "year": null,
+          "roots": [
+            {
+              "word": "munde",
+              "language": "Latin",
+              "definition": "cleanly, neatly",
+              "year": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+} 

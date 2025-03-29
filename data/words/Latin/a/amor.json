@@ -1,0 +1,23 @@
+{
+  "word": "amor",
+  "language": "Latin",
+  "year": -100,
+  "definition": "love, affection, passion",
+  "etymology": [],
+  "roots": [
+    {
+      "word": "ama",
+      "language": "Proto-Italic",
+      "definition": "love",
+      "year": null,
+      "roots": [
+        {
+          "word": "am-",
+          "language": "Proto-Indo-European",
+          "definition": "mother, nurse",
+          "year": null
+        }
+      ]
+    }
+  ]
+} 
