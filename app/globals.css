@@ -3,8 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-rgb: 24, 24, 27;
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 245, 245, 245;
+  
+  /* ReactFlow variables */
+  --edge-stroke: red;
+  --edge-stroke-width: 5;
+  --edge-path-stroke: red;
+  --edge-path-stroke-width: 5;
 }
 
 html, body {
@@ -44,6 +50,23 @@ body > div:first-child {
 .react-flow__node {
   max-width: 250px;
   width: auto !important;
+}
+
+/* Critical ReactFlow styles */
+.react-flow__edge-path {
+  stroke: #000 !important;
+  stroke-width: 3 !important;
+}
+
+.react-flow__edge.animated path {
+  stroke-dasharray: 5;
+  animation: dashdraw 0.5s linear infinite;
+}
+
+@keyframes dashdraw {
+  from {
+    stroke-dashoffset: 10;
+  }
 }
 
 #__next {

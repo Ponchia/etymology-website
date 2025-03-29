@@ -1,0 +1,594 @@
+2025-03-29 12:03:34,072 - test_generator - INFO - Starting test run with fixed word lists
+2025-03-29 12:03:34,072 - etymology_generator - INFO - Starting etymology generator (test mode: True)
+2025-03-29 12:03:34,072 - test_generator - INFO - Using fixed test word lists
+2025-03-29 12:03:34,072 - etymology_generator - INFO - Estimated dataset size: 0.01 MB
+2025-03-29 12:03:34,073 - etymology_generator - INFO - Estimated total words: 20
+2025-03-29 12:03:34,073 - etymology_generator - INFO - Estimated total connections: 60
+2025-03-29 12:03:34,073 - etymology_generator - INFO - Estimated processing time: 0.01 days
+2025-03-29 12:03:34,073 - etymology_generator - INFO - Processing 5 English words
+2025-03-29 12:03:35,121 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:03:36,122 - etymology_generator - INFO - Processing 5 French words
+2025-03-29 12:03:37,388 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:03:38,393 - etymology_generator - INFO - Processing 5 Latin words
+2025-03-29 12:03:39,322 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:03:40,324 - etymology_generator - INFO - Processing 5 Greek words
+2025-03-29 12:03:41,202 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:03:42,206 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:03:42,206 - etymology_generator - INFO - Completed in 0.14 minutes
+2025-03-29 12:03:42,206 - etymology_generator - INFO - Total words processed: 20
+2025-03-29 12:03:42,206 - etymology_generator - INFO - Successful words: 20
+2025-03-29 12:03:42,206 - etymology_generator - INFO - Failed words: 0
+2025-03-29 12:03:42,206 - etymology_generator - INFO - Total connections: 0
+2025-03-29 12:03:42,206 - test_generator - INFO - Test run completed
+2025-03-29 12:03:42,206 - test_generator - INFO - Words processed: 20
+2025-03-29 12:03:42,206 - test_generator - INFO - Successful words: 20
+2025-03-29 12:03:42,206 - test_generator - INFO - Failed words: 0
+2025-03-29 12:03:45,566 - etymology_generator - INFO - Starting etymology generator (test mode: True)
+2025-03-29 12:03:46,562 - etymology_generator - INFO - Fetched 370105 English words from https://raw.githubusercontent.com/dwyl/english-words/master/words_alpha.txt
+2025-03-29 12:03:47,143 - etymology_generator - INFO - Estimated dataset size: 176.48 MB
+2025-03-29 12:03:47,143 - etymology_generator - INFO - Estimated total words: 370105
+2025-03-29 12:03:47,143 - etymology_generator - INFO - Estimated total connections: 1110315
+2025-03-29 12:03:47,143 - etymology_generator - INFO - Estimated processing time: 257.02 days
+2025-03-29 12:03:47,143 - etymology_generator - INFO - Processing 370105 English words
+2025-03-29 12:03:51,483 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:04:49,829 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:08:26,314 - test_generator - INFO - Starting test run with fixed word lists
+2025-03-29 12:08:26,314 - etymology_generator - INFO - Starting etymology generator (test mode: True)
+2025-03-29 12:08:26,314 - test_generator - INFO - Using fixed test word lists
+2025-03-29 12:08:26,314 - etymology_generator - INFO - Estimated dataset size: 0.01 MB
+2025-03-29 12:08:26,314 - etymology_generator - INFO - Estimated total words: 20
+2025-03-29 12:08:26,314 - etymology_generator - INFO - Estimated total connections: 60
+2025-03-29 12:08:26,314 - etymology_generator - INFO - Estimated processing time: 0.01 days
+2025-03-29 12:08:26,314 - etymology_generator - INFO - Processing 5 English words
+2025-03-29 12:08:26,325 - test_generator - INFO - Processing test word: democracy (English)
+2025-03-29 12:08:26,325 - test_generator - INFO - Processing test word: etymology (English)
+2025-03-29 12:08:27,374 - test_generator - INFO - Saved test output to test_output/English_etymology.json
+2025-03-29 12:08:27,374 - test_generator - INFO - Etymology Summary for etymology (English), year: None
+2025-03-29 12:08:27,374 - test_generator - INFO - Definition: ...
+2025-03-29 12:08:27,374 - test_generator - INFO - No root words found
+2025-03-29 12:08:27,374 - test_generator - INFO - Successfully processed etymology with 0 connections
+2025-03-29 12:08:27,374 - test_generator - INFO - Processing test word: biology (English)
+2025-03-29 12:08:27,880 - test_generator - INFO - Saved test output to test_output/English_democracy.json
+2025-03-29 12:08:27,880 - test_generator - INFO - Etymology Summary for democracy (English), year: None
+2025-03-29 12:08:27,880 - test_generator - INFO - Definition: <span class="usage-label-sense" about="#mwt21" typeof="mw:Tr...
+2025-03-29 12:08:27,880 - test_generator - INFO - Short meaning: <span class="usage-label-sense" about="#mwt21" ...
+2025-03-29 12:08:27,880 - test_generator - INFO - No root words found
+2025-03-29 12:08:27,880 - test_generator - INFO - Successfully processed democracy with 0 connections
+2025-03-29 12:08:27,880 - test_generator - INFO - Processing test word: philosophy (English)
+2025-03-29 12:08:28,799 - test_generator - INFO - Saved test output to test_output/English_biology.json
+2025-03-29 12:08:28,799 - test_generator - INFO - Etymology Summary for biology (English), year: None
+2025-03-29 12:08:28,799 - test_generator - INFO - Definition: ...
+2025-03-29 12:08:28,799 - test_generator - INFO - No root words found
+2025-03-29 12:08:28,799 - test_generator - INFO - Successfully processed biology with 0 connections
+2025-03-29 12:08:28,799 - test_generator - INFO - Processing test word: computer (English)
+2025-03-29 12:08:30,275 - test_generator - INFO - Saved test output to test_output/English_computer.json
+2025-03-29 12:08:30,275 - test_generator - INFO - Etymology Summary for computer (English), year: None
+2025-03-29 12:08:30,275 - test_generator - INFO - Definition: <span class="usage-label-sense" about="#mwt30" typeof="mw:Tr...
+2025-03-29 12:08:30,275 - test_generator - INFO - Short meaning: <span class="usage-label-sense" about="#mwt30" ...
+2025-03-29 12:08:30,275 - test_generator - INFO - No root words found
+2025-03-29 12:08:30,275 - test_generator - INFO - Successfully processed computer with 0 connections
+2025-03-29 12:08:31,347 - test_generator - INFO - Saved test output to test_output/English_philosophy.json
+2025-03-29 12:08:31,347 - test_generator - INFO - Etymology Summary for philosophy (English), year: 1300
+2025-03-29 12:08:31,347 - test_generator - INFO - Definition: <span class="usage-label-sense" about="#mwt21" typeof="mw:Tr...
+2025-03-29 12:08:31,347 - test_generator - INFO - Short meaning: <span class="usage-label-sense" about="#mwt21" ...
+2025-03-29 12:08:31,347 - test_generator - INFO - Root words (6):
+2025-03-29 12:08:31,347 - test_generator - INFO -   1. a (Latin), year: 1300
+2025-03-29 12:08:31,347 - test_generator - INFO -   2. a (Latin), year: 1300
+2025-03-29 12:08:31,347 - test_generator - INFO -   3. a (Greek), year: 1300
+2025-03-29 12:08:31,347 - test_generator - INFO -   ...and 3 more roots
+2025-03-29 12:08:31,347 - test_generator - INFO - Successfully processed philosophy with 6 connections
+2025-03-29 12:08:31,347 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:08:32,348 - etymology_generator - INFO - Processing 5 French words
+2025-03-29 12:08:32,348 - test_generator - INFO - Processing test word: château (French)
+2025-03-29 12:08:32,348 - test_generator - INFO - Processing test word: bonjour (French)
+2025-03-29 12:08:32,880 - test_generator - INFO - Saved test output to test_output/French_bonjour.json
+2025-03-29 12:08:32,880 - test_generator - INFO - Etymology Summary for bonjour (French), year: None
+2025-03-29 12:08:32,880 - test_generator - INFO - Definition: <a rel="mw:WikiLink" href="/wiki/greetings" title="greetings...
+2025-03-29 12:08:32,880 - test_generator - INFO - Short meaning: <a rel="mw:WikiLink" href="/wiki/greetings" tit...
+2025-03-29 12:08:32,880 - test_generator - INFO - No root words found
+2025-03-29 12:08:32,880 - test_generator - INFO - Successfully processed bonjour with 0 connections
+2025-03-29 12:08:32,880 - test_generator - INFO - Processing test word: fromage (French)
+2025-03-29 12:08:33,160 - test_generator - INFO - Saved test output to test_output/French_château.json
+2025-03-29 12:08:33,160 - test_generator - INFO - Etymology Summary for château (French), year: None
+2025-03-29 12:08:33,160 - test_generator - INFO - Definition: <a rel="mw:WikiLink" href="/wiki/castle" title="castle">cast...
+2025-03-29 12:08:33,160 - test_generator - INFO - Short meaning: <a rel="mw:WikiLink" href="/wiki/castle" title=...
+2025-03-29 12:08:33,160 - test_generator - INFO - No root words found
+2025-03-29 12:08:33,160 - test_generator - INFO - Successfully processed château with 0 connections
+2025-03-29 12:08:33,160 - test_generator - INFO - Processing test word: merci (French)
+2025-03-29 12:08:33,581 - test_generator - INFO - Saved test output to test_output/French_fromage.json
+2025-03-29 12:08:33,582 - test_generator - INFO - Etymology Summary for fromage (French), year: None
+2025-03-29 12:08:33,582 - test_generator - INFO - Definition: <a rel="mw:WikiLink" href="/wiki/cheese" title="cheese">chee...
+2025-03-29 12:08:33,582 - test_generator - INFO - Short meaning: <a rel="mw:WikiLink" href="/wiki/cheese" title=...
+2025-03-29 12:08:33,582 - test_generator - INFO - No root words found
+2025-03-29 12:08:33,582 - test_generator - INFO - Successfully processed fromage with 0 connections
+2025-03-29 12:08:33,582 - test_generator - INFO - Processing test word: café (French)
+2025-03-29 12:08:33,824 - test_generator - INFO - Saved test output to test_output/French_merci.json
+2025-03-29 12:08:33,824 - test_generator - INFO - Etymology Summary for merci (French), year: None
+2025-03-29 12:08:33,824 - test_generator - INFO - Definition: <a rel="mw:WikiLink" href="/wiki/thank_you" title="thank you...
+2025-03-29 12:08:33,824 - test_generator - INFO - Short meaning: <a rel="mw:WikiLink" href="/wiki/thank_you" tit...
+2025-03-29 12:08:33,824 - test_generator - INFO - No root words found
+2025-03-29 12:08:33,824 - test_generator - INFO - Successfully processed merci with 0 connections
+2025-03-29 12:08:34,845 - test_generator - INFO - Saved test output to test_output/French_café.json
+2025-03-29 12:08:34,845 - test_generator - INFO - Etymology Summary for café (French), year: None
+2025-03-29 12:08:34,845 - test_generator - INFO - Definition: <a rel="mw:WikiLink" href="/wiki/coffee" title="coffee">coff...
+2025-03-29 12:08:34,845 - test_generator - INFO - Short meaning: <a rel="mw:WikiLink" href="/wiki/coffee" title=...
+2025-03-29 12:08:34,845 - test_generator - INFO - No root words found
+2025-03-29 12:08:34,845 - test_generator - INFO - Successfully processed café with 0 connections
+2025-03-29 12:08:34,845 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:08:35,850 - etymology_generator - INFO - Processing 5 Latin words
+2025-03-29 12:08:35,850 - test_generator - INFO - Processing test word: vici (Latin)
+2025-03-29 12:08:35,850 - test_generator - INFO - Processing test word: veni (Latin)
+2025-03-29 12:08:36,379 - test_generator - INFO - Saved test output to test_output/Latin_vici.json
+2025-03-29 12:08:36,379 - test_generator - INFO - Etymology Summary for vici (Latin), year: None
+2025-03-29 12:08:36,379 - test_generator - INFO - Definition: <span class="form-of-definition use-with-mention" about="#mw...
+2025-03-29 12:08:36,379 - test_generator - INFO - Short meaning: <span class="form-of-definition use-with-mentio...
+2025-03-29 12:08:36,379 - test_generator - INFO - No root words found
+2025-03-29 12:08:36,379 - test_generator - INFO - Successfully processed vici with 0 connections
+2025-03-29 12:08:36,379 - test_generator - INFO - Processing test word: terra (Latin)
+2025-03-29 12:08:36,571 - test_generator - INFO - Saved test output to test_output/Latin_veni.json
+2025-03-29 12:08:36,571 - test_generator - INFO - Etymology Summary for veni (Latin), year: None
+2025-03-29 12:08:36,571 - test_generator - INFO - Definition: <span class="form-of-definition use-with-mention" about="#mw...
+2025-03-29 12:08:36,571 - test_generator - INFO - Short meaning: <span class="form-of-definition use-with-mentio...
+2025-03-29 12:08:36,571 - test_generator - INFO - No root words found
+2025-03-29 12:08:36,572 - test_generator - INFO - Successfully processed veni with 0 connections
+2025-03-29 12:08:36,572 - test_generator - INFO - Processing test word: vidi (Latin)
+2025-03-29 12:08:37,308 - test_generator - INFO - Saved test output to test_output/Latin_vidi.json
+2025-03-29 12:08:37,308 - test_generator - INFO - Etymology Summary for vidi (Latin), year: None
+2025-03-29 12:08:37,308 - test_generator - INFO - Definition: <span class="form-of-definition use-with-mention" about="#mw...
+2025-03-29 12:08:37,308 - test_generator - INFO - Short meaning: <span class="form-of-definition use-with-mentio...
+2025-03-29 12:08:37,308 - test_generator - INFO - No root words found
+2025-03-29 12:08:37,308 - test_generator - INFO - Successfully processed vidi with 0 connections
+2025-03-29 12:08:37,308 - test_generator - INFO - Processing test word: aqua (Latin)
+2025-03-29 12:08:37,647 - test_generator - INFO - Saved test output to test_output/Latin_terra.json
+2025-03-29 12:08:37,647 - test_generator - INFO - Etymology Summary for terra (Latin), year: None
+2025-03-29 12:08:37,647 - test_generator - INFO - Definition: <a rel="mw:WikiLink" href="/wiki/dry_land" title="dry land">...
+2025-03-29 12:08:37,647 - test_generator - INFO - Short meaning: <a rel="mw:WikiLink" href="/wiki/dry_land" titl...
+2025-03-29 12:08:37,647 - test_generator - INFO - No root words found
+2025-03-29 12:08:37,647 - test_generator - INFO - Successfully processed terra with 0 connections
+2025-03-29 12:08:38,299 - test_generator - INFO - Saved test output to test_output/Latin_aqua.json
+2025-03-29 12:08:38,299 - test_generator - INFO - Etymology Summary for aqua (Latin), year: None
+2025-03-29 12:08:38,299 - test_generator - INFO - Definition: <a rel="mw:WikiLink" href="/wiki/water" title="water">water<...
+2025-03-29 12:08:38,299 - test_generator - INFO - Short meaning: <a rel="mw:WikiLink" href="/wiki/water" title="...
+2025-03-29 12:08:38,299 - test_generator - INFO - No root words found
+2025-03-29 12:08:38,299 - test_generator - INFO - Successfully processed aqua with 0 connections
+2025-03-29 12:08:38,299 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:08:39,304 - etymology_generator - INFO - Processing 5 Greek words
+2025-03-29 12:08:39,304 - test_generator - INFO - Processing test word: ethos (Greek)
+2025-03-29 12:08:39,305 - test_generator - INFO - Processing test word: logos (Greek)
+2025-03-29 12:08:39,928 - test_generator - INFO - Saved test output to test_output/Greek_ethos.json
+2025-03-29 12:08:39,928 - test_generator - INFO - Etymology Summary for ethos (Greek), year: None
+2025-03-29 12:08:39,928 - test_generator - INFO - Definition: ...
+2025-03-29 12:08:39,928 - test_generator - INFO - No root words found
+2025-03-29 12:08:39,928 - test_generator - INFO - Successfully processed ethos with 0 connections
+2025-03-29 12:08:39,928 - test_generator - INFO - Processing test word: chronos (Greek)
+2025-03-29 12:08:40,421 - test_generator - INFO - Saved test output to test_output/Greek_chronos.json
+2025-03-29 12:08:40,421 - test_generator - INFO - Etymology Summary for chronos (Greek), year: None
+2025-03-29 12:08:40,421 - test_generator - INFO - Definition: ...
+2025-03-29 12:08:40,421 - test_generator - INFO - No root words found
+2025-03-29 12:08:40,421 - test_generator - INFO - Successfully processed chronos with 0 connections
+2025-03-29 12:08:40,421 - test_generator - INFO - Processing test word: cosmos (Greek)
+2025-03-29 12:08:40,817 - test_generator - INFO - Saved test output to test_output/Greek_logos.json
+2025-03-29 12:08:40,817 - test_generator - INFO - Etymology Summary for logos (Greek), year: None
+2025-03-29 12:08:40,817 - test_generator - INFO - Definition: ...
+2025-03-29 12:08:40,817 - test_generator - INFO - No root words found
+2025-03-29 12:08:40,817 - test_generator - INFO - Successfully processed logos with 0 connections
+2025-03-29 12:08:40,817 - test_generator - INFO - Processing test word: pathos (Greek)
+2025-03-29 12:08:41,676 - test_generator - INFO - Saved test output to test_output/Greek_cosmos.json
+2025-03-29 12:08:41,676 - test_generator - INFO - Etymology Summary for cosmos (Greek), year: None
+2025-03-29 12:08:41,676 - test_generator - INFO - Definition: ...
+2025-03-29 12:08:41,676 - test_generator - INFO - No root words found
+2025-03-29 12:08:41,676 - test_generator - INFO - Successfully processed cosmos with 0 connections
+2025-03-29 12:08:41,755 - test_generator - INFO - Saved test output to test_output/Greek_pathos.json
+2025-03-29 12:08:41,755 - test_generator - INFO - Etymology Summary for pathos (Greek), year: None
+2025-03-29 12:08:41,755 - test_generator - INFO - Definition: ...
+2025-03-29 12:08:41,755 - test_generator - INFO - No root words found
+2025-03-29 12:08:41,756 - test_generator - INFO - Successfully processed pathos with 0 connections
+2025-03-29 12:08:41,756 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:08:42,756 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:08:42,756 - etymology_generator - INFO - Completed in 0.27 minutes
+2025-03-29 12:08:42,756 - etymology_generator - INFO - Total words processed: 20
+2025-03-29 12:08:42,756 - etymology_generator - INFO - Successful words: 20
+2025-03-29 12:08:42,756 - etymology_generator - INFO - Failed words: 0
+2025-03-29 12:08:42,756 - etymology_generator - INFO - Total connections: 6
+2025-03-29 12:08:42,756 - test_generator - INFO - Test run completed
+2025-03-29 12:08:42,756 - test_generator - INFO - Words processed: 20
+2025-03-29 12:08:42,756 - test_generator - INFO - Successful words: 20
+2025-03-29 12:08:42,756 - test_generator - INFO - Failed words: 0
+2025-03-29 12:08:42,756 - test_generator - INFO - Total connections: 6
+2025-03-29 12:09:24,314 - test_generator - INFO - Starting test run with fixed word lists
+2025-03-29 12:09:24,315 - etymology_generator - INFO - Starting etymology generator (test mode: True)
+2025-03-29 12:09:24,315 - test_generator - INFO - Using fixed test word lists
+2025-03-29 12:09:24,315 - etymology_generator - INFO - Estimated dataset size: 0.01 MB
+2025-03-29 12:09:24,315 - etymology_generator - INFO - Estimated total words: 20
+2025-03-29 12:09:24,315 - etymology_generator - INFO - Estimated total connections: 60
+2025-03-29 12:09:24,315 - etymology_generator - INFO - Estimated processing time: 0.01 days
+2025-03-29 12:09:24,315 - etymology_generator - INFO - Processing 5 English words
+2025-03-29 12:09:24,325 - test_generator - INFO - Processing test word: democracy (English)
+2025-03-29 12:09:24,326 - test_generator - INFO - Processing test word: computer (English)
+2025-03-29 12:09:25,599 - test_generator - INFO - Saved test output to test_output/English_democracy.json
+2025-03-29 12:09:25,599 - test_generator - INFO - Etymology Summary for democracy (English), year: None
+2025-03-29 12:09:25,599 - test_generator - INFO - Definition:  Rule by the people, especially as a form of government; eit...
+2025-03-29 12:09:25,600 - test_generator - INFO - Short meaning:  Rule by the people, especially as a form of go...
+2025-03-29 12:09:25,600 - test_generator - INFO - No root words found
+2025-03-29 12:09:25,600 - test_generator - INFO - Successfully processed democracy with 0 connections
+2025-03-29 12:09:25,600 - test_generator - INFO - Processing test word: philosophy (English)
+2025-03-29 12:09:25,869 - test_generator - INFO - Saved test output to test_output/English_computer.json
+2025-03-29 12:09:25,869 - test_generator - INFO - Etymology Summary for computer (English), year: None
+2025-03-29 12:09:25,869 - test_generator - INFO - Definition:  A person employed to perform computations; one who computes...
+2025-03-29 12:09:25,869 - test_generator - INFO - Short meaning:  A person employed to perform computations; one...
+2025-03-29 12:09:25,869 - test_generator - INFO - No root words found
+2025-03-29 12:09:25,869 - test_generator - INFO - Successfully processed computer with 0 connections
+2025-03-29 12:09:25,869 - test_generator - INFO - Processing test word: biology (English)
+2025-03-29 12:09:26,804 - test_generator - INFO - Saved test output to test_output/English_biology.json
+2025-03-29 12:09:26,805 - test_generator - INFO - Etymology Summary for biology (English), year: None
+2025-03-29 12:09:26,805 - test_generator - INFO - Definition: ...
+2025-03-29 12:09:26,805 - test_generator - INFO - No root words found
+2025-03-29 12:09:26,805 - test_generator - INFO - Successfully processed biology with 0 connections
+2025-03-29 12:09:26,805 - test_generator - INFO - Processing test word: etymology (English)
+2025-03-29 12:09:27,755 - test_generator - INFO - Saved test output to test_output/English_etymology.json
+2025-03-29 12:09:27,755 - test_generator - INFO - Etymology Summary for etymology (English), year: None
+2025-03-29 12:09:27,755 - test_generator - INFO - Definition: ...
+2025-03-29 12:09:27,755 - test_generator - INFO - No root words found
+2025-03-29 12:09:27,755 - test_generator - INFO - Successfully processed etymology with 0 connections
+2025-03-29 12:09:28,690 - test_generator - INFO - Saved test output to test_output/English_philosophy.json
+2025-03-29 12:09:28,690 - test_generator - INFO - Etymology Summary for philosophy (English), year: 1300
+2025-03-29 12:09:28,690 - test_generator - INFO - Definition:  An academic discipline that seeks truth through reasoning r...
+2025-03-29 12:09:28,690 - test_generator - INFO - Short meaning:  An academic discipline that seeks truth throug...
+2025-03-29 12:09:28,690 - test_generator - INFO - Root words (6):
+2025-03-29 12:09:28,690 - test_generator - INFO -   1. a (Latin), year: 1300
+2025-03-29 12:09:28,690 - test_generator - INFO -   2. a (Latin), year: 1300
+2025-03-29 12:09:28,690 - test_generator - INFO -   3. a (Greek), year: 1300
+2025-03-29 12:09:28,690 - test_generator - INFO -   ...and 3 more roots
+2025-03-29 12:09:28,690 - test_generator - INFO - Successfully processed philosophy with 6 connections
+2025-03-29 12:09:28,690 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:09:29,696 - etymology_generator - INFO - Processing 5 French words
+2025-03-29 12:09:29,696 - test_generator - INFO - Processing test word: café (French)
+2025-03-29 12:09:29,696 - test_generator - INFO - Processing test word: château (French)
+2025-03-29 12:09:30,351 - test_generator - INFO - Saved test output to test_output/French_château.json
+2025-03-29 12:09:30,351 - test_generator - INFO - Etymology Summary for château (French), year: None
+2025-03-29 12:09:30,351 - test_generator - INFO - Definition: castle (fortified building or similar structure; winegrower'...
+2025-03-29 12:09:30,351 - test_generator - INFO - Short meaning: castle (fortified building or similar structure...
+2025-03-29 12:09:30,351 - test_generator - INFO - No root words found
+2025-03-29 12:09:30,351 - test_generator - INFO - Successfully processed château with 0 connections
+2025-03-29 12:09:30,351 - test_generator - INFO - Processing test word: merci (French)
+2025-03-29 12:09:30,993 - test_generator - INFO - Saved test output to test_output/French_café.json
+2025-03-29 12:09:30,993 - test_generator - INFO - Etymology Summary for café (French), year: None
+2025-03-29 12:09:30,993 - test_generator - INFO - Definition: coffee...
+2025-03-29 12:09:30,993 - test_generator - INFO - Short meaning: coffee
+2025-03-29 12:09:30,993 - test_generator - INFO - No root words found
+2025-03-29 12:09:30,993 - test_generator - INFO - Successfully processed café with 0 connections
+2025-03-29 12:09:30,993 - test_generator - INFO - Processing test word: fromage (French)
+2025-03-29 12:09:31,203 - test_generator - INFO - Saved test output to test_output/French_merci.json
+2025-03-29 12:09:31,203 - test_generator - INFO - Etymology Summary for merci (French), year: None
+2025-03-29 12:09:31,203 - test_generator - INFO - Definition: thank you...
+2025-03-29 12:09:31,203 - test_generator - INFO - Short meaning: thank you
+2025-03-29 12:09:31,203 - test_generator - INFO - No root words found
+2025-03-29 12:09:31,203 - test_generator - INFO - Successfully processed merci with 0 connections
+2025-03-29 12:09:31,203 - test_generator - INFO - Processing test word: bonjour (French)
+2025-03-29 12:09:31,771 - test_generator - INFO - Saved test output to test_output/French_fromage.json
+2025-03-29 12:09:31,771 - test_generator - INFO - Etymology Summary for fromage (French), year: None
+2025-03-29 12:09:31,771 - test_generator - INFO - Definition: cheese...
+2025-03-29 12:09:31,771 - test_generator - INFO - Short meaning: cheese
+2025-03-29 12:09:31,771 - test_generator - INFO - No root words found
+2025-03-29 12:09:31,771 - test_generator - INFO - Successfully processed fromage with 0 connections
+2025-03-29 12:09:31,987 - test_generator - INFO - Saved test output to test_output/French_bonjour.json
+2025-03-29 12:09:31,987 - test_generator - INFO - Etymology Summary for bonjour (French), year: None
+2025-03-29 12:09:31,987 - test_generator - INFO - Definition: greetings; hello (general salutation)...
+2025-03-29 12:09:31,987 - test_generator - INFO - Short meaning: greetings; hello (general salutation)
+2025-03-29 12:09:31,987 - test_generator - INFO - No root words found
+2025-03-29 12:09:31,987 - test_generator - INFO - Successfully processed bonjour with 0 connections
+2025-03-29 12:09:31,988 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:09:32,993 - etymology_generator - INFO - Processing 5 Latin words
+2025-03-29 12:09:32,993 - test_generator - INFO - Processing test word: veni (Latin)
+2025-03-29 12:09:32,993 - test_generator - INFO - Processing test word: vidi (Latin)
+2025-03-29 12:09:33,589 - test_generator - INFO - Saved test output to test_output/Latin_veni.json
+2025-03-29 12:09:33,589 - test_generator - INFO - Etymology Summary for veni (Latin), year: None
+2025-03-29 12:09:33,589 - test_generator - INFO - Definition: first-person singular perfect active indicative of veniō...
+2025-03-29 12:09:33,589 - test_generator - INFO - Short meaning: first-person singular perfect active indicative...
+2025-03-29 12:09:33,589 - test_generator - INFO - No root words found
+2025-03-29 12:09:33,589 - test_generator - INFO - Successfully processed veni with 0 connections
+2025-03-29 12:09:33,589 - test_generator - INFO - Processing test word: vici (Latin)
+2025-03-29 12:09:33,772 - test_generator - INFO - Saved test output to test_output/Latin_vidi.json
+2025-03-29 12:09:33,772 - test_generator - INFO - Etymology Summary for vidi (Latin), year: None
+2025-03-29 12:09:33,772 - test_generator - INFO - Definition: first-person singular perfect active indicative of videō...
+2025-03-29 12:09:33,772 - test_generator - INFO - Short meaning: first-person singular perfect active indicative...
+2025-03-29 12:09:33,772 - test_generator - INFO - No root words found
+2025-03-29 12:09:33,772 - test_generator - INFO - Successfully processed vidi with 0 connections
+2025-03-29 12:09:33,772 - test_generator - INFO - Processing test word: aqua (Latin)
+2025-03-29 12:09:34,098 - test_generator - INFO - Saved test output to test_output/Latin_vici.json
+2025-03-29 12:09:34,098 - test_generator - INFO - Etymology Summary for vici (Latin), year: None
+2025-03-29 12:09:34,098 - test_generator - INFO - Definition: dative singular of vicis...
+2025-03-29 12:09:34,098 - test_generator - INFO - Short meaning: dative singular of vicis
+2025-03-29 12:09:34,098 - test_generator - INFO - No root words found
+2025-03-29 12:09:34,098 - test_generator - INFO - Successfully processed vici with 0 connections
+2025-03-29 12:09:34,098 - test_generator - INFO - Processing test word: terra (Latin)
+2025-03-29 12:09:34,708 - test_generator - INFO - Saved test output to test_output/Latin_aqua.json
+2025-03-29 12:09:34,708 - test_generator - INFO - Etymology Summary for aqua (Latin), year: None
+2025-03-29 12:09:34,708 - test_generator - INFO - Definition: water ...
+2025-03-29 12:09:34,708 - test_generator - INFO - Short meaning: water 
+2025-03-29 12:09:34,708 - test_generator - INFO - No root words found
+2025-03-29 12:09:34,708 - test_generator - INFO - Successfully processed aqua with 0 connections
+2025-03-29 12:09:35,209 - test_generator - INFO - Saved test output to test_output/Latin_terra.json
+2025-03-29 12:09:35,209 - test_generator - INFO - Etymology Summary for terra (Latin), year: None
+2025-03-29 12:09:35,209 - test_generator - INFO - Definition: dry land (as opposed to watery parts of the Earth)...
+2025-03-29 12:09:35,209 - test_generator - INFO - Short meaning: dry land (as opposed to watery parts of the Earth)
+2025-03-29 12:09:35,209 - test_generator - INFO - No root words found
+2025-03-29 12:09:35,209 - test_generator - INFO - Successfully processed terra with 0 connections
+2025-03-29 12:09:35,210 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:09:36,215 - etymology_generator - INFO - Processing 5 Greek words
+2025-03-29 12:09:36,215 - test_generator - INFO - Processing test word: pathos (Greek)
+2025-03-29 12:09:36,215 - test_generator - INFO - Processing test word: ethos (Greek)
+2025-03-29 12:09:36,934 - test_generator - INFO - Saved test output to test_output/Greek_ethos.json
+2025-03-29 12:09:36,934 - test_generator - INFO - Etymology Summary for ethos (Greek), year: None
+2025-03-29 12:09:36,934 - test_generator - INFO - Definition: ...
+2025-03-29 12:09:36,934 - test_generator - INFO - No root words found
+2025-03-29 12:09:36,934 - test_generator - INFO - Successfully processed ethos with 0 connections
+2025-03-29 12:09:36,934 - test_generator - INFO - Processing test word: logos (Greek)
+2025-03-29 12:09:36,981 - test_generator - INFO - Saved test output to test_output/Greek_pathos.json
+2025-03-29 12:09:36,981 - test_generator - INFO - Etymology Summary for pathos (Greek), year: None
+2025-03-29 12:09:36,981 - test_generator - INFO - Definition: ...
+2025-03-29 12:09:36,981 - test_generator - INFO - No root words found
+2025-03-29 12:09:36,981 - test_generator - INFO - Successfully processed pathos with 0 connections
+2025-03-29 12:09:36,981 - test_generator - INFO - Processing test word: cosmos (Greek)
+2025-03-29 12:09:37,814 - test_generator - INFO - Saved test output to test_output/Greek_logos.json
+2025-03-29 12:09:37,814 - test_generator - INFO - Etymology Summary for logos (Greek), year: None
+2025-03-29 12:09:37,814 - test_generator - INFO - Definition: ...
+2025-03-29 12:09:37,814 - test_generator - INFO - No root words found
+2025-03-29 12:09:37,814 - test_generator - INFO - Successfully processed logos with 0 connections
+2025-03-29 12:09:37,814 - test_generator - INFO - Processing test word: chronos (Greek)
+2025-03-29 12:09:37,909 - test_generator - INFO - Saved test output to test_output/Greek_cosmos.json
+2025-03-29 12:09:37,909 - test_generator - INFO - Etymology Summary for cosmos (Greek), year: None
+2025-03-29 12:09:37,909 - test_generator - INFO - Definition: ...
+2025-03-29 12:09:37,909 - test_generator - INFO - No root words found
+2025-03-29 12:09:37,909 - test_generator - INFO - Successfully processed cosmos with 0 connections
+2025-03-29 12:09:38,391 - test_generator - INFO - Saved test output to test_output/Greek_chronos.json
+2025-03-29 12:09:38,391 - test_generator - INFO - Etymology Summary for chronos (Greek), year: None
+2025-03-29 12:09:38,391 - test_generator - INFO - Definition: ...
+2025-03-29 12:09:38,391 - test_generator - INFO - No root words found
+2025-03-29 12:09:38,391 - test_generator - INFO - Successfully processed chronos with 0 connections
+2025-03-29 12:09:38,392 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:09:39,397 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:09:39,397 - etymology_generator - INFO - Completed in 0.25 minutes
+2025-03-29 12:09:39,397 - etymology_generator - INFO - Total words processed: 20
+2025-03-29 12:09:39,397 - etymology_generator - INFO - Successful words: 20
+2025-03-29 12:09:39,397 - etymology_generator - INFO - Failed words: 0
+2025-03-29 12:09:39,397 - etymology_generator - INFO - Total connections: 6
+2025-03-29 12:09:39,397 - test_generator - INFO - Test run completed
+2025-03-29 12:09:39,397 - test_generator - INFO - Words processed: 20
+2025-03-29 12:09:39,397 - test_generator - INFO - Successful words: 20
+2025-03-29 12:09:39,397 - test_generator - INFO - Failed words: 0
+2025-03-29 12:09:39,397 - test_generator - INFO - Total connections: 6
+2025-03-29 12:10:25,036 - test_generator - INFO - Starting test run with fixed word lists
+2025-03-29 12:10:25,036 - etymology_generator - INFO - Starting etymology generator (test mode: True)
+2025-03-29 12:10:25,036 - test_generator - INFO - Using fixed test word lists
+2025-03-29 12:10:25,036 - etymology_generator - INFO - Estimated dataset size: 0.01 MB
+2025-03-29 12:10:25,036 - etymology_generator - INFO - Estimated total words: 20
+2025-03-29 12:10:25,036 - etymology_generator - INFO - Estimated total connections: 60
+2025-03-29 12:10:25,036 - etymology_generator - INFO - Estimated processing time: 0.01 days
+2025-03-29 12:10:25,036 - etymology_generator - INFO - Processing 5 English words
+2025-03-29 12:10:25,044 - test_generator - INFO - Processing test word: computer (English)
+2025-03-29 12:10:25,044 - test_generator - INFO - Processing test word: biology (English)
+2025-03-29 12:10:27,118 - test_generator - INFO - Saved test output to test_output/English_biology.json
+2025-03-29 12:10:27,118 - test_generator - INFO - Etymology Summary for biology (English), year: None
+2025-03-29 12:10:27,118 - test_generator - INFO - Definition: ...
+2025-03-29 12:10:27,118 - test_generator - INFO - Root words (3):
+2025-03-29 12:10:27,118 - test_generator - INFO -   1. a biographical history (Unknown), year: 1799
+2025-03-29 12:10:27,118 - test_generator - INFO -   2. plural (Unknown), year: None
+2025-03-29 12:10:27,118 - test_generator - INFO -   3. see also (Unknown), year: None
+2025-03-29 12:10:27,118 - test_generator - INFO - Successfully processed biology with 3 connections
+2025-03-29 12:10:27,118 - test_generator - INFO - Processing test word: etymology (English)
+2025-03-29 12:10:29,589 - test_generator - INFO - Saved test output to test_output/English_etymology.json
+2025-03-29 12:10:29,589 - test_generator - INFO - Etymology Summary for etymology (English), year: None
+2025-03-29 12:10:29,589 - test_generator - INFO - Definition: ...
+2025-03-29 12:10:29,589 - test_generator - INFO - Root words (4):
+2025-03-29 12:10:29,589 - test_generator - INFO -   1. plural (Unknown), year: None
+2025-03-29 12:10:29,589 - test_generator - INFO -   2. lead (Unknown), year: None
+2025-03-29 12:10:29,589 - test_generator - INFO -   3. Japlish (Unknown), year: None
+2025-03-29 12:10:29,589 - test_generator - INFO -   ...and 1 more roots
+2025-03-29 12:10:29,589 - test_generator - INFO - Successfully processed etymology with 4 connections
+2025-03-29 12:10:29,589 - test_generator - INFO - Processing test word: philosophy (English)
+2025-03-29 12:10:33,410 - test_generator - INFO - Saved test output to test_output/English_philosophy.json
+2025-03-29 12:10:33,410 - test_generator - INFO - Etymology Summary for philosophy (English), year: None
+2025-03-29 12:10:33,410 - test_generator - INFO - Definition:  An academic discipline that seeks truth through reasoning r...
+2025-03-29 12:10:33,410 - test_generator - INFO - Short meaning:  An academic discipline that seeks truth throug...
+2025-03-29 12:10:33,410 - test_generator - INFO - Root words (6):
+2025-03-29 12:10:33,410 - test_generator - INFO -   1. plural (Unknown), year: None
+2025-03-29 12:10:33,410 - test_generator - INFO -   2. third-person singular simple present (Unknown), year: None
+2025-03-29 12:10:33,410 - test_generator - INFO -   3. present participle (Unknown), year: None
+2025-03-29 12:10:33,410 - test_generator - INFO -   ...and 3 more roots
+2025-03-29 12:10:33,410 - test_generator - INFO - Successfully processed philosophy with 6 connections
+2025-03-29 12:10:33,410 - test_generator - INFO - Processing test word: democracy (English)
+2025-03-29 12:10:35,056 - test_generator - INFO - Saved test output to test_output/English_democracy.json
+2025-03-29 12:10:35,056 - test_generator - INFO - Etymology Summary for democracy (English), year: None
+2025-03-29 12:10:35,056 - test_generator - INFO - Definition:  Rule by the people, especially as a form of government; eit...
+2025-03-29 12:10:35,056 - test_generator - INFO - Short meaning:  Rule by the people, especially as a form of go...
+2025-03-29 12:10:35,056 - test_generator - INFO - Root words (5):
+2025-03-29 12:10:35,056 - test_generator - INFO -   1. See also (Unknown), year: None
+2025-03-29 12:10:35,056 - test_generator - INFO -   2. plural (Unknown), year: None
+2025-03-29 12:10:35,056 - test_generator - INFO -   3. is at one with (Unknown), year: None
+2025-03-29 12:10:35,056 - test_generator - INFO -   ...and 2 more roots
+2025-03-29 12:10:35,056 - test_generator - INFO - Successfully processed democracy with 5 connections
+2025-03-29 12:10:49,395 - test_generator - INFO - Saved test output to test_output/English_computer.json
+2025-03-29 12:10:49,395 - test_generator - INFO - Etymology Summary for computer (English), year: None
+2025-03-29 12:10:49,395 - test_generator - INFO - Definition:  A person employed to perform computations; one who computes...
+2025-03-29 12:10:49,395 - test_generator - INFO - Short meaning:  A person employed to perform computations; one...
+2025-03-29 12:10:49,395 - test_generator - INFO - Root words (11):
+2025-03-29 12:10:49,395 - test_generator - INFO -   1. See also (Unknown), year: None
+2025-03-29 12:10:49,395 - test_generator - INFO -   2. and (Unknown), year: None
+2025-03-29 12:10:49,395 - test_generator - INFO -   3. plural (Unknown), year: None
+2025-03-29 12:10:49,395 - test_generator - INFO -   ...and 8 more roots
+2025-03-29 12:10:49,395 - test_generator - INFO - Successfully processed computer with 11 connections
+2025-03-29 12:10:49,395 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:10:50,397 - etymology_generator - INFO - Processing 5 French words
+2025-03-29 12:10:50,397 - test_generator - INFO - Processing test word: château (French)
+2025-03-29 12:10:50,398 - test_generator - INFO - Processing test word: bonjour (French)
+2025-03-29 12:10:52,477 - test_generator - INFO - Saved test output to test_output/French_château.json
+2025-03-29 12:10:52,477 - test_generator - INFO - Etymology Summary for château (French), year: None
+2025-03-29 12:10:52,477 - test_generator - INFO - Definition: castle (fortified building or similar structure; winegrower'...
+2025-03-29 12:10:52,477 - test_generator - INFO - Short meaning: castle (fortified building or similar structure...
+2025-03-29 12:10:52,477 - test_generator - INFO - Root words (4):
+2025-03-29 12:10:52,477 - test_generator - INFO -   1. See also (Unknown), year: None
+2025-03-29 12:10:52,477 - test_generator - INFO -   2. plural (Unknown), year: None
+2025-03-29 12:10:52,477 - test_generator - INFO -   3. WordNet 2.0 (Unknown), year: 2003
+2025-03-29 12:10:52,477 - test_generator - INFO -   ...and 1 more roots
+2025-03-29 12:10:52,477 - test_generator - INFO - Successfully processed château with 4 connections
+2025-03-29 12:10:52,477 - test_generator - INFO - Processing test word: café (French)
+2025-03-29 12:10:54,223 - test_generator - INFO - Saved test output to test_output/French_bonjour.json
+2025-03-29 12:10:54,223 - test_generator - INFO - Etymology Summary for bonjour (French), year: None
+2025-03-29 12:10:54,223 - test_generator - INFO - Definition: greetings; hello (general salutation)...
+2025-03-29 12:10:54,223 - test_generator - INFO - Short meaning: greetings; hello (general salutation)
+2025-03-29 12:10:54,223 - test_generator - INFO - Root words (6):
+2025-03-29 12:10:54,223 - test_generator - INFO -   1. See also (Unknown), year: None
+2025-03-29 12:10:54,223 - test_generator - INFO -   2. see  (Unknown), year: None
+2025-03-29 12:10:54,223 - test_generator - INFO -   3. third-person singular simple present (Unknown), year: None
+2025-03-29 12:10:54,223 - test_generator - INFO -   ...and 3 more roots
+2025-03-29 12:10:54,223 - test_generator - INFO - Successfully processed bonjour with 6 connections
+2025-03-29 12:10:54,223 - test_generator - INFO - Processing test word: merci (French)
+2025-03-29 12:13:57,463 - test_generator - INFO - Saved test output to test_output/French_merci.json
+2025-03-29 12:13:57,464 - test_generator - INFO - Etymology Summary for merci (French), year: None
+2025-03-29 12:13:57,464 - test_generator - INFO - Definition: thank you...
+2025-03-29 12:13:57,464 - test_generator - INFO - Short meaning: thank you
+2025-03-29 12:13:57,464 - test_generator - INFO - Root words (7):
+2025-03-29 12:13:57,464 - test_generator - INFO -   1. See also (Unknown), year: None
+2025-03-29 12:13:57,464 - test_generator - INFO -   2. and (Unknown), year: None
+2025-03-29 12:13:57,464 - test_generator - INFO -   3. plural (Unknown), year: None
+2025-03-29 12:13:57,464 - test_generator - INFO -   ...and 4 more roots
+2025-03-29 12:13:57,464 - test_generator - INFO - Successfully processed merci with 7 connections
+2025-03-29 12:13:57,464 - test_generator - INFO - Processing test word: fromage (French)
+2025-03-29 12:14:04,895 - test_generator - INFO - Saved test output to test_output/French_fromage.json
+2025-03-29 12:14:04,895 - test_generator - INFO - Etymology Summary for fromage (French), year: None
+2025-03-29 12:14:04,895 - test_generator - INFO - Definition: cheese...
+2025-03-29 12:14:04,895 - test_generator - INFO - Short meaning: cheese
+2025-03-29 12:14:04,895 - test_generator - INFO - Root words (8):
+2025-03-29 12:14:04,895 - test_generator - INFO -   1. plural (Unknown), year: None
+2025-03-29 12:14:04,895 - test_generator - INFO -   2. Author (Unknown), year: None
+2025-03-29 12:14:04,895 - test_generator - INFO -   3. on mission to inform public about ‘real’ cheese (Unknown), year: None
+2025-03-29 12:14:04,895 - test_generator - INFO -   ...and 5 more roots
+2025-03-29 12:14:04,895 - test_generator - INFO - Successfully processed fromage with 8 connections
+2025-03-29 12:14:25,719 - test_generator - INFO - Saved test output to test_output/French_café.json
+2025-03-29 12:14:25,719 - test_generator - INFO - Etymology Summary for café (French), year: None
+2025-03-29 12:14:25,719 - test_generator - INFO - Definition: coffee...
+2025-03-29 12:14:25,719 - test_generator - INFO - Short meaning: coffee
+2025-03-29 12:14:25,719 - test_generator - INFO - Root words (12):
+2025-03-29 12:14:25,719 - test_generator - INFO -   1. See also (Unknown), year: None
+2025-03-29 12:14:25,719 - test_generator - INFO -   2. and (Unknown), year: None
+2025-03-29 12:14:25,719 - test_generator - INFO -   3. plural (Unknown), year: None
+2025-03-29 12:14:25,719 - test_generator - INFO -   ...and 9 more roots
+2025-03-29 12:14:25,719 - test_generator - INFO - Successfully processed café with 12 connections
+2025-03-29 12:14:25,719 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:14:26,719 - etymology_generator - INFO - Processing 5 Latin words
+2025-03-29 12:14:26,720 - test_generator - INFO - Processing test word: aqua (Latin)
+2025-03-29 12:14:26,720 - test_generator - INFO - Processing test word: terra (Latin)
+2025-03-29 12:14:45,461 - test_generator - INFO - Saved test output to test_output/Latin_aqua.json
+2025-03-29 12:14:45,461 - test_generator - INFO - Etymology Summary for aqua (Latin), year: None
+2025-03-29 12:14:45,461 - test_generator - INFO - Definition: water ...
+2025-03-29 12:14:45,461 - test_generator - INFO - Short meaning: water 
+2025-03-29 12:14:45,461 - test_generator - INFO - Root words (10):
+2025-03-29 12:14:45,461 - test_generator - INFO -   1. See also (Unknown), year: None
+2025-03-29 12:14:45,461 - test_generator - INFO -   2. and (Unknown), year: None
+2025-03-29 12:14:45,461 - test_generator - INFO -   3. plural (Unknown), year: None
+2025-03-29 12:14:45,461 - test_generator - INFO -   ...and 7 more roots
+2025-03-29 12:14:45,461 - test_generator - INFO - Successfully processed aqua with 10 connections
+2025-03-29 12:14:45,462 - test_generator - INFO - Processing test word: veni (Latin)
+2025-03-29 12:14:52,632 - test_generator - INFO - Saved test output to test_output/Latin_veni.json
+2025-03-29 12:14:52,632 - test_generator - INFO - Etymology Summary for veni (Latin), year: None
+2025-03-29 12:14:52,632 - test_generator - INFO - Definition: first-person singular perfect active indicative of veniō...
+2025-03-29 12:14:52,632 - test_generator - INFO - Short meaning: first-person singular perfect active indicative...
+2025-03-29 12:14:52,632 - test_generator - INFO - Root words (11):
+2025-03-29 12:14:52,632 - test_generator - INFO -   1. See also (Unknown), year: None
+2025-03-29 12:14:52,632 - test_generator - INFO -   2. and (Unknown), year: None
+2025-03-29 12:14:52,632 - test_generator - INFO -   3. present (Unknown), year: None
+2025-03-29 12:14:52,632 - test_generator - INFO -   ...and 8 more roots
+2025-03-29 12:14:52,633 - test_generator - INFO - Successfully processed veni with 11 connections
+2025-03-29 12:14:52,633 - test_generator - INFO - Processing test word: vidi (Latin)
+2025-03-29 12:14:56,068 - test_generator - INFO - Saved test output to test_output/Latin_vidi.json
+2025-03-29 12:14:56,068 - test_generator - INFO - Etymology Summary for vidi (Latin), year: None
+2025-03-29 12:14:56,068 - test_generator - INFO - Definition: first-person singular perfect active indicative of videō...
+2025-03-29 12:14:56,068 - test_generator - INFO - Short meaning: first-person singular perfect active indicative...
+2025-03-29 12:14:56,068 - test_generator - INFO - Root words (10):
+2025-03-29 12:14:56,068 - test_generator - INFO -   1. See also (Unknown), year: None
+2025-03-29 12:14:56,068 - test_generator - INFO -   2. and (Unknown), year: None
+2025-03-29 12:14:56,068 - test_generator - INFO -   3. present (Unknown), year: None
+2025-03-29 12:14:56,068 - test_generator - INFO -   ...and 7 more roots
+2025-03-29 12:14:56,068 - test_generator - INFO - Successfully processed vidi with 10 connections
+2025-03-29 12:14:56,068 - test_generator - INFO - Processing test word: vici (Latin)
+2025-03-29 12:14:57,174 - test_generator - INFO - Saved test output to test_output/Latin_vici.json
+2025-03-29 12:14:57,174 - test_generator - INFO - Etymology Summary for vici (Latin), year: None
+2025-03-29 12:14:57,174 - test_generator - INFO - Definition: dative singular of vicis...
+2025-03-29 12:14:57,174 - test_generator - INFO - Short meaning: dative singular of vicis
+2025-03-29 12:14:57,174 - test_generator - INFO - Root words (4):
+2025-03-29 12:14:57,174 - test_generator - INFO -   1. See also (Unknown), year: None
+2025-03-29 12:14:57,174 - test_generator - INFO -   2. and (Unknown), year: None
+2025-03-29 12:14:57,174 - test_generator - INFO -   3. plural (Unknown), year: None
+2025-03-29 12:14:57,174 - test_generator - INFO -   ...and 1 more roots
+2025-03-29 12:14:57,174 - test_generator - INFO - Successfully processed vici with 4 connections
+2025-03-29 12:15:33,380 - test_generator - INFO - Saved test output to test_output/Latin_terra.json
+2025-03-29 12:15:33,380 - test_generator - INFO - Etymology Summary for terra (Latin), year: None
+2025-03-29 12:15:33,380 - test_generator - INFO - Definition: dry land (as opposed to watery parts of the Earth)...
+2025-03-29 12:15:33,380 - test_generator - INFO - Short meaning: dry land (as opposed to watery parts of the Earth)
+2025-03-29 12:15:33,380 - test_generator - INFO - Root words (18):
+2025-03-29 12:15:33,380 - test_generator - INFO -   1. See also (Unknown), year: None
+2025-03-29 12:15:33,380 - test_generator - INFO -   2. and (Unknown), year: None
+2025-03-29 12:15:33,380 - test_generator - INFO -   3. plural (Unknown), year: None
+2025-03-29 12:15:33,380 - test_generator - INFO -   ...and 15 more roots
+2025-03-29 12:15:33,380 - test_generator - INFO - Successfully processed terra with 18 connections
+2025-03-29 12:15:33,380 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:15:34,386 - etymology_generator - INFO - Processing 5 Greek words
+2025-03-29 12:15:34,386 - test_generator - INFO - Processing test word: chronos (Greek)
+2025-03-29 12:15:34,386 - test_generator - INFO - Processing test word: ethos (Greek)
+2025-03-29 12:15:34,850 - test_generator - INFO - Saved test output to test_output/Greek_chronos.json
+2025-03-29 12:15:34,850 - test_generator - INFO - Etymology Summary for chronos (Greek), year: None
+2025-03-29 12:15:34,850 - test_generator - INFO - Definition: ...
+2025-03-29 12:15:34,850 - test_generator - INFO - No root words found
+2025-03-29 12:15:34,850 - test_generator - INFO - Successfully processed chronos with 0 connections
+2025-03-29 12:15:34,850 - test_generator - INFO - Processing test word: logos (Greek)
+2025-03-29 12:15:38,161 - test_generator - INFO - Saved test output to test_output/Greek_ethos.json
+2025-03-29 12:15:38,161 - test_generator - INFO - Etymology Summary for ethos (Greek), year: None
+2025-03-29 12:15:38,162 - test_generator - INFO - Definition: ...
+2025-03-29 12:15:38,162 - test_generator - INFO - Root words (5):
+2025-03-29 12:15:38,162 - test_generator - INFO -   1. plural (Unknown), year: None
+2025-03-29 12:15:38,162 - test_generator - INFO -   2. Housing Problems (Unknown), year: None
+2025-03-29 12:15:38,162 - test_generator - INFO -   3. please add this translation if you can (Unknown), year: None
+2025-03-29 12:15:38,162 - test_generator - INFO -   ...and 2 more roots
+2025-03-29 12:15:38,162 - test_generator - INFO - Successfully processed ethos with 5 connections
+2025-03-29 12:15:38,162 - test_generator - INFO - Processing test word: pathos (Greek)
+2025-03-29 12:15:41,432 - test_generator - INFO - Saved test output to test_output/Greek_pathos.json
+2025-03-29 12:15:41,432 - test_generator - INFO - Etymology Summary for pathos (Greek), year: None
+2025-03-29 12:15:41,432 - test_generator - INFO - Definition: ...
+2025-03-29 12:15:41,432 - test_generator - INFO - Root words (4):
+2025-03-29 12:15:41,432 - test_generator - INFO -   1. See also (Unknown), year: None
+2025-03-29 12:15:41,432 - test_generator - INFO -   2. and (Unknown), year: None
+2025-03-29 12:15:41,432 - test_generator - INFO -   3. plural (Unknown), year: None
+2025-03-29 12:15:41,432 - test_generator - INFO -   ...and 1 more roots
+2025-03-29 12:15:41,432 - test_generator - INFO - Successfully processed pathos with 4 connections
+2025-03-29 12:15:41,432 - test_generator - INFO - Processing test word: cosmos (Greek)
+2025-03-29 12:15:44,215 - test_generator - INFO - Saved test output to test_output/Greek_logos.json
+2025-03-29 12:15:44,216 - test_generator - INFO - Etymology Summary for logos (Greek), year: None
+2025-03-29 12:15:44,216 - test_generator - INFO - Definition: ...
+2025-03-29 12:15:44,216 - test_generator - INFO - Root words (6):
+2025-03-29 12:15:44,216 - test_generator - INFO -   1. See also (Unknown), year: None
+2025-03-29 12:15:44,216 - test_generator - INFO -   2. and (Unknown), year: None
+2025-03-29 12:15:44,216 - test_generator - INFO -   3. plural (Unknown), year: None
+2025-03-29 12:15:44,216 - test_generator - INFO -   ...and 3 more roots
+2025-03-29 12:15:44,216 - test_generator - INFO - Successfully processed logos with 6 connections
+2025-03-29 12:16:06,077 - test_generator - INFO - Saved test output to test_output/Greek_cosmos.json
+2025-03-29 12:16:06,078 - test_generator - INFO - Etymology Summary for cosmos (Greek), year: None
+2025-03-29 12:16:06,078 - test_generator - INFO - Definition: ...
+2025-03-29 12:16:06,078 - test_generator - INFO - Root words (16):
+2025-03-29 12:16:06,078 - test_generator - INFO -   1. See also (Unknown), year: None
+2025-03-29 12:16:06,078 - test_generator - INFO -   2. plural (Unknown), year: None
+2025-03-29 12:16:06,078 - test_generator - INFO -   3. possible world (Unknown), year: None
+2025-03-29 12:16:06,078 - test_generator - INFO -   ...and 13 more roots
+2025-03-29 12:16:06,078 - test_generator - INFO - Successfully processed cosmos with 16 connections
+2025-03-29 12:16:06,078 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:16:07,084 - etymology_generator - INFO - Test mode: state not saved
+2025-03-29 12:16:07,084 - etymology_generator - INFO - Completed in 5.70 minutes
+2025-03-29 12:16:07,084 - etymology_generator - INFO - Total words processed: 20
+2025-03-29 12:16:07,084 - etymology_generator - INFO - Successful words: 20
+2025-03-29 12:16:07,084 - etymology_generator - INFO - Failed words: 0
+2025-03-29 12:16:07,084 - etymology_generator - INFO - Total connections: 150
+2025-03-29 12:16:07,084 - test_generator - INFO - Test run completed
+2025-03-29 12:16:07,084 - test_generator - INFO - Words processed: 20
+2025-03-29 12:16:07,084 - test_generator - INFO - Successful words: 20
+2025-03-29 12:16:07,084 - test_generator - INFO - Failed words: 0
+2025-03-29 12:16:07,084 - test_generator - INFO - Total connections: 150
