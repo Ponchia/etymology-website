@@ -25,41 +25,44 @@ logging.basicConfig(
 logger = logging.getLogger("etymology_generator")
 
 class EtymologyGenerator:
-    def __init__(self, test_mode: bool = False, threads: int = 1, batch_size: int = 10):
+    def __init__(self, max_words=None, languages=None, test_mode=False):
+        """Initialize the etymology generator."""
+        # Basic setup and logging configuration
         self.test_mode = test_mode
-        self.threads = threads
-        self.batch_size = batch_size
-        self.data_dir = Path("../data/words")
-        self.state_file = Path("generator_state.json")
-        self.word_sources = {
-            "English": ["https://raw.githubusercontent.com/dwyl/english-words/master/words_alpha.txt"],
-            "French": ["https://raw.githubusercontent.com/lorenbrichter/Words/master/French.txt"],
-            "Latin": ["https://raw.githubusercontent.com/bkidwell/latin-word-list/master/latin-words.txt"],
-            "Greek": []  # Would need to find a good source
-        }
+        self.logger = logging.getLogger("etymology_generator")
         
-        # Language codes for API requests
-        self.lang_codes = {
-            "English": "en",
-            "French": "fr",
-            "Latin": "la",
-            "Greek": "el"
-        }
+        # Configure output files and directories
+        self.output_dir = self.setup_output_directory()
         
-        # Statistics tracking
-        self.stats = {
-            "total_words_processed": 0,
-            "successful_words": 0,
-            "failed_words": 0,
-            "total_connections": 0,
-            "languages": {},
-            "last_processed": "",
-            "start_time": time.time(),
-            "processed_words": set()
-        }
+        # Initialize language detection and NLP tools
+        self.initialize_language_detection()
         
-        # Load existing state if available
-        self.load_state()
+        # Keep track of progress 
+        self.words_processed = 0
+        self.connections_made = 0
+        self.successful_words = 0
+        self.failed_words = 0
+        
+        # Languages to process
+        self.languages = languages if languages else ["English", "French", "German"]
+        
+        # Maximum number of words to process
+        self.max_words = max_words
+        
+        # For testing
+        self.results = {}
+        
+        # Load supplementary data
+        self.supplementary_data = self.load_supplementary_data()
+        
+        self.logger.info(f"Starting etymology generator (test mode: {test_mode})")
+
+    def setup_output_directory(self):
+        """Set up the output directory for storing etymology data."""
+        output_dir = Path("./output")
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+        return output_dir
 
     def load_state(self):
         """Load previous generator state if it exists"""
@@ -111,60 +114,76 @@ class EtymologyGenerator:
         
         return word_lists
 
-    def fetch_etymology(self, word: str, language: str = "English") -> Optional[Dict]:
+    def fetch_etymology(self, word, language="English"):
         """
-        Fetch etymology data for a given word from various sources
+        Fetch etymology for a word using multiple sources.
+        Returns a dictionary with etymology information.
         """
+        word = word.lower().strip()
+        result = {
+            "word": word,
+            "language": language,
+            "year": None,
+            "definition": "",
+            "roots": [],
+            "etymology": []
+        }
+        
         try:
-            # First try Wiktionary
-            etymology_data = self.fetch_from_wiktionary(word, language)
-            
-            # If not found, try EtymOnline
-            if not etymology_data or not etymology_data.get("roots"):
-                etymonline_data = self.fetch_from_etymonline(word, language)
-                if etymonline_data:
-                    if not etymology_data:
-                        etymology_data = etymonline_data
-                    else:
-                        # Merge data, preferring etymonline for etymology chain
-                        if not etymology_data.get("roots") and etymonline_data.get("roots"):
-                            etymology_data["roots"] = etymonline_data["roots"]
-                        if not etymology_data.get("year") and etymonline_data.get("year"):
-                            etymology_data["year"] = etymonline_data["year"]
+            # First check if we have high-quality supplementary data
+            supplementary_key = word.lower()
+            if supplementary_key in self.supplementary_data:
+                self.logger.info(f"Using supplementary data for {word}")
+                supp_data = self.supplementary_data[supplementary_key]
                 
-            # As a fallback, try Free Dictionary API
-            if not etymology_data:
-                etymology_data = self.fetch_from_freedictionary(word, language)
-
-            # If we have data, ensure it's in the right format
-            if etymology_data:
-                # Fill in missing data with reasonable defaults
-                if "year" not in etymology_data:
-                    etymology_data["year"] = None
-                if "definition" not in etymology_data:
-                    etymology_data["definition"] = f"Definition of {word}"
+                # Transfer data from supplementary source
+                result["year"] = supp_data.get("year")
+                result["language"] = supp_data.get("language", language)
                 
-                # Add short meaning
-                etymology_data = self.add_short_meaning(etymology_data)
-                
-                # Ensure the etymology array exists (for compatibility)
-                if "etymology" not in etymology_data:
-                    etymology_data["etymology"] = []
-                    # Convert first level of roots to etymology array for compatibility
-                    if "roots" in etymology_data and etymology_data["roots"]:
-                        for root in etymology_data["roots"]:
-                            etymology_data["etymology"].append({
-                                "word": root.get("word", ""),
-                                "language": root.get("language", ""),
-                                "year": root.get("year", None)
-                            })
+                # Add roots from supplementary data
+                if "roots" in supp_data:
+                    result["roots"] = supp_data["roots"]
+                    # Also use the same for etymology for consistency
+                    result["etymology"] = supp_data["roots"]
                     
-                return etymology_data
-                
-            return None
+                    # Log successful use of supplementary data
+                    self.logger.debug(f"Added {len(result['roots'])} roots from supplementary data for {word}")
+                    return result
+            
+            # If no supplementary data, try Wiktionary first
+            self.logger.debug(f"Fetching etymology for {word} ({language}) from Wiktionary")
+            wiktionary_result = self.fetch_from_wiktionary(word, language)
+            
+            if wiktionary_result["roots"] or wiktionary_result["year"]:
+                # Use Wiktionary if it provided useful information
+                result.update(wiktionary_result)
+            else:
+                # Fall back to EtymOnline for English
+                if language == "English":
+                    self.logger.debug(f"Falling back to EtymOnline for {word}")
+                    etymonline_result = self.fetch_from_etymonline(word)
+                    if etymonline_result["roots"] or etymonline_result["year"]:
+                        result.update(etymonline_result)
+                # Try Free Dictionary as a last resort
+                if not result["roots"] and not result["year"]:
+                    self.logger.debug(f"Trying Free Dictionary for {word}")
+                    freedict_result = self.fetch_from_freedictionary(word, language)
+                    if freedict_result["definition"] or freedict_result["roots"]:
+                        result.update(freedict_result)
+                        
+            # Ensure we have at least a definition
+            if not result["definition"] and language == "English":
+                # Try dictionary API if we don't have a definition yet
+                self.logger.debug(f"Fetching definition for {word}")
+                definition = self.fetch_definition(word)
+                if definition:
+                    result["definition"] = definition
+                                    
+            return result
+        
         except Exception as e:
-            logger.error(f"Error fetching etymology for {word}: {str(e)}")
-            return None
+            self.logger.error(f"Error fetching etymology for {word}: {str(e)}")
+            return result
 
     def add_short_meaning(self, etymology_data: Dict) -> Dict:
         """Add a short meaning field (condensed definition)"""
@@ -270,141 +289,193 @@ class EtymologyGenerator:
     def extract_roots_from_wiktionary(self, data: Dict, word: str, language: str) -> List[Dict]:
         """Extract etymology roots from Wiktionary data"""
         try:
-            roots = []
-            
             if "parse" not in data or "text" not in data["parse"]:
-                return roots
+                return []
                 
             html_content = data["parse"]["text"]["*"]
             soup = BeautifulSoup(html_content, 'html.parser')
             
-            # Look for etymology section
-            etym_headers = soup.find_all(['h3', 'h4'], string=lambda s: s and 'Etymology' in s)
+            # Find the etymology section
+            etymology_section = None
             
-            for header in etym_headers:
-                # Get all content following this header until the next header
-                etym_text = ""
-                for sibling in header.next_siblings:
-                    if sibling.name and sibling.name.startswith('h'):
+            # Look for etymology section header
+            etym_headers = soup.find_all(['h3', 'h4'], class_=lambda c: c and 'etymology' in c.lower())
+            if not etym_headers:
+                etym_headers = soup.find_all(['h3', 'h4'], string=lambda s: s and 'etymology' in s.lower())
+            
+            if etym_headers:
+                etymology_section = etym_headers[0].find_next('p')
+            
+            # If we couldn't find a dedicated etymology section, look for etymology information
+            # in the language section
+            if not etymology_section:
+                lang_headers = soup.find_all(['h2', 'h3', 'h4'], id=lambda i: i and language.lower() in i.lower())
+                if lang_headers:
+                    # Look through all paragraphs in this section
+                    for p in lang_headers[0].find_next_siblings('p'):
+                        if p.text and any(x in p.text.lower() for x in ['from', 'derive', 'origin', 'etymo']):
+                            etymology_section = p
+                            break
+
+            if not etymology_section:
+                return []
+
+            etymology_text = etymology_section.text
+            
+            # Extract origins
+            roots = []
+            
+            # Fix language tagging in patterns
+            language_prefixes = {
+                "Ancient Greek": ["Ancient Greek", "Ancient"],
+                "Latin": ["Latin", "Classical Latin"],
+                "Old French": ["Old French", "Old"],
+                "Middle English": ["Middle English"],
+                "Proto-Germanic": ["Proto-Germanic"],
+                "Proto-Indo-European": ["Proto-Indo-European", "PIE"],
+                "Greek": ["Greek"],
+                "French": ["French"],
+                "German": ["German"],
+                "Sanskrit": ["Sanskrit"]
+            }
+            
+            # Create a mapping of prefixes to their canonical language names
+            prefix_to_language = {}
+            for lang, prefixes in language_prefixes.items():
+                for prefix in prefixes:
+                    prefix_to_language[prefix] = lang
+            
+            # Define patterns for common etymology phrases
+            patterns = [
+                r'from\s+([A-Z][a-zA-Z-]+(?:\s+[A-Z][a-zA-Z-]+)?)\s+["\']?([^,"\']+)["\']?',  # from Latin "exemplum"
+                r'from\s+([A-Z][a-zA-Z-]+(?:\s+[A-Z][a-zA-Z-]+)?)\s+(?:word|term)?\s*["\']?([^,"\']+)["\']?',  # from Latin word "exemplum"
+                r'([A-Z][a-zA-Z-]+(?:\s+[A-Z][a-zA-Z-]+)?)\s+(?:word|origin)?\s*["\']?([^,"\']+)["\']?',  # Latin "exemplum"
+                r'derived\s+from\s+(?:the\s+)?([A-Z][a-zA-Z-]+(?:\s+[A-Z][a-zA-Z-]+)?)\s+["\']?([^,"\']+)["\']?',  # derived from the Latin "exemplum"
+                r'borrowed\s+from\s+(?:the\s+)?([A-Z][a-zA-Z-]+(?:\s+[A-Z][a-zA-Z-]+)?)\s+["\']?([^,"\']+)["\']?',  # borrowed from Latin "exemplum"
+            ]
+            
+            # Look for year patterns 
+            year_patterns = [
+                r'\b(\d{3,4})s?\b',  # Basic year like 1200 or 1200s
+                r'\bcirca\s+(\d{3,4})\b',  # circa 1200
+                r'\bc\.\s*(\d{3,4})\b',  # c. 1200
+                r'\b(\d{3,4})\s+[A-Z]',  # Year followed by capitalized word (likely CE/BCE/AD/BC)
+                r'\bfirst\s+recorded\s+in\s+(\d{3,4})\b',  # first recorded in 1200
+                r'\bfirst\s+attested\s+in\s+(\d{3,4})\b',  # first attested in 1200
+                r'\bearly\s+(\d{2})(?:th|st|nd|rd)\s+century\b',  # early 12th century
+                r'\blate\s+(\d{2})(?:th|st|nd|rd)\s+century\b'  # late 12th century
+            ]
+            
+            # Extract year if available
+            etymology_year = None
+            for pattern in year_patterns:
+                year_match = re.search(pattern, etymology_text)
+                if year_match:
+                    try:
+                        year_str = year_match.group(1)
+                        # Handle century format (e.g., "12th century" -> 1200)
+                        if len(year_str) == 2 and "century" in etymology_text[year_match.start():year_match.end()+10]:
+                            # If "late century", add 50 years
+                            if "late" in etymology_text[max(0, year_match.start()-10):year_match.start()]:
+                                etymology_year = int(year_str) * 100 + 50
+                            else:
+                                etymology_year = int(year_str) * 100
+                        else:
+                            etymology_year = int(year_str)
                         break
-                    etym_text += str(sibling)
-                
-                if etym_text:
-                    # Convert HTML to plain text
-                    etym_text = re.sub(r'<[^>]+>', ' ', etym_text)
-                    etym_text = re.sub(r'\s+', ' ', etym_text).strip()
-                    
-                    # Much more specific patterns for extracting root words
-                    language_patterns = {
-                        "Latin": [
-                            r'Latin\s+(\w{3,}[\w-]*)',
-                            r'from\s+Latin\s+(\w{3,}[\w-]*)',
-                            r'from\s+the\s+Latin\s+(\w{3,}[\w-]*)',
-                            r'Latin\s+"([^"]{3,})"',
-                            r'Latin\s+word\s+(\w{3,}[\w-]*)'
-                        ],
-                        "Greek": [
-                            r'Greek\s+(\w{3,}[\w-]*)',
-                            r'from\s+Greek\s+(\w{3,}[\w-]*)',
-                            r'from\s+the\s+Greek\s+(\w{3,}[\w-]*)',
-                            r'Greek\s+"([^"]{3,})"',
-                            r'Greek\s+word\s+(\w{3,}[\w-]*)'
-                        ],
-                        "French": [
-                            r'French\s+(\w{3,}[\w-]*)',
-                            r'from\s+French\s+(\w{3,}[\w-]*)',
-                            r'from\s+the\s+French\s+(\w{3,}[\w-]*)',
-                            r'French\s+"([^"]{3,})"',
-                            r'French\s+word\s+(\w{3,}[\w-]*)'
-                        ],
-                        "Old English": [
-                            r'Old English\s+(\w{3,}[\w-]*)',
-                            r'from\s+Old English\s+(\w{3,}[\w-]*)',
-                            r'from\s+the\s+Old English\s+(\w{3,}[\w-]*)',
-                            r'Old English\s+"([^"]{3,})"',
-                            r'Old English\s+word\s+(\w{3,}[\w-]*)'
-                        ],
-                        "Proto-Germanic": [
-                            r'Proto-Germanic\s+(\w{3,}[\w-]*)',
-                            r'from\s+Proto-Germanic\s+(\w{3,}[\w-]*)',
-                            r'from\s+the\s+Proto-Germanic\s+(\w{3,}[\w-]*)',
-                            r'Proto-Germanic\s+"([^"]{3,})"',
-                            r'Proto-Germanic\s+word\s+(\w{3,}[\w-]*)'
-                        ]
-                    }
-                    
-                    # Try to find exact patterns
-                    found_roots = False
-                    for root_lang, patterns in language_patterns.items():
-                        for pattern in patterns:
-                            matches = re.finditer(pattern, etym_text, re.IGNORECASE)
-                            for match in matches:
-                                root_word = match.group(1).strip('.,:;()[]{}')
-                                # Validate the root word - at least 3 chars and not the same as the original
-                                if (root_word and 
-                                    len(root_word) >= 3 and 
-                                    root_word.lower() != word.lower()):
-                                    
-                                    # Try to find a relevant year
-                                    year_match = re.search(r'(\d{3,4})', etym_text[:match.start()])
-                                    year = int(year_match.group(1)) if year_match else None
-                                    
-                                    # Create root entry
-                                    root = {
-                                        "word": root_word,
-                                        "language": root_lang,
-                                        "definition": self.get_brief_definition(root_word, root_lang),
-                                        "year": year,
-                                        "roots": []  # Next level roots would be fetched recursively in a production impl
-                                    }
-                                    
-                                    # Check if this root is already in our list to avoid duplicates
-                                    if not any(r.get("word").lower() == root_word.lower() and 
-                                              r.get("language") == root_lang for r in roots):
-                                        roots.append(root)
-                                        found_roots = True
-                    
-                    # If no roots found with specific patterns, try fallback patterns
-                    if not found_roots:
-                        # Look for italicized words which often indicate foreign terms
-                        italic_patterns = [
-                            r'<i>([^<]{3,})</i>',
-                            r'<em>([^<]{3,})</em>'
-                        ]
-                        
-                        for pattern in italic_patterns:
-                            matches = re.finditer(pattern, html_content)
-                            for match in matches:
-                                italic_word = match.group(1).strip('.,:;()[]{}')
-                                if italic_word and len(italic_word) >= 3 and italic_word.lower() != word.lower():
-                                    # Try to determine language
-                                    context = html_content[max(0, match.start()-50):min(len(html_content), match.end()+50)]
-                                    lang = 'Unknown'
-                                    for possible_lang in ['Latin', 'Greek', 'French', 'German', 'Spanish', 'Italian']:
-                                        if possible_lang.lower() in context.lower():
-                                            lang = possible_lang
-                                            break
-                                    
-                                    # Try to find a relevant year
-                                    year_match = re.search(r'(\d{3,4})', context)
-                                    year = int(year_match.group(1)) if year_match else None
-                                    
-                                    # Create root entry
-                                    root = {
-                                        "word": italic_word,
-                                        "language": lang,
-                                        "definition": self.get_brief_definition(italic_word, lang),
-                                        "year": year,
-                                        "roots": []
-                                    }
-                                    
-                                    # Check if this root is already in our list to avoid duplicates
-                                    if not any(r.get("word").lower() == italic_word.lower() for r in roots):
-                                        roots.append(root)
+                    except ValueError:
+                        pass
             
-            return roots
+            for pattern in patterns:
+                matches = re.findall(pattern, etymology_text)
+                for match in matches:
+                    origin_language_raw = match[0].strip()
+                    origin_word = match[1].strip()
+                    
+                    # Normalize language name
+                    origin_language = None
+                    for prefix, lang in prefix_to_language.items():
+                        if origin_language_raw.startswith(prefix):
+                            origin_language = lang
+                            break
+                    
+                    # If not found in our mapping, use as is
+                    if not origin_language:
+                        # Skip if it doesn't look like a language name
+                        if origin_language_raw.lower() in ["from", "by", "and", "the", "see", "this"]:
+                            continue
+                        origin_language = origin_language_raw
+                    
+                    # Clean up phrases that aren't actually language names
+                    if any(phrase in origin_language.lower() for phrase in ["from", "borrowed", "english from", "english by"]):
+                        continue
+                    
+                    # Skip if any of these terms appear in the supposed etymology
+                    skip_terms = ['see also', 'plural', 'and', 'third-person', 'present', 'WordNet', 'singular', 'verb form']
+                    if any(term in origin_word.lower() for term in skip_terms) or \
+                       any(term in origin_language_raw.lower() for term in skip_terms):
+                        continue
+                    
+                    # Skip if the origin word is significantly longer than typical words (likely a phrase)
+                    if len(origin_word.split()) > 3:
+                        continue
+                    
+                    # Extract word from format that might include transliteration
+                    # Example: "Greek κόσμος (kósmos)" -> word: "κόσμος", transliteration: "kósmos"
+                    transliteration = None
+                    transliteration_match = re.search(r'([^\s]+)\s+\(([^)]+)\)', origin_word)
+                    if transliteration_match:
+                        try:
+                            clean_word = transliteration_match.group(1)
+                            transliteration = transliteration_match.group(2)
+                            origin_word = clean_word
+                        except IndexError:
+                            pass
+                    
+                    # Create root entry if it doesn't duplicate an existing one
+                    if not any(r.get('word') == origin_word and r.get('language') == origin_language for r in roots):
+                        root_entry = {
+                            "word": origin_word,
+                            "language": origin_language,
+                            "definition": f"Origin of {word}",
+                            "year": etymology_year,
+                            "roots": []
+                        }
+                        
+                        # Add transliteration if available
+                        if transliteration:
+                            root_entry["transliteration"] = transliteration
+                            
+                        roots.append(root_entry)
+            
+            # Clean up special cases
+            cleaned_roots = []
+            for root in roots:
+                # Fix language assignment errors - typically "From X" is not a language
+                lang = root.get("language", "")
+                if lang.startswith("From "):
+                    # Try to extract language from this format
+                    lang_parts = lang.split()
+                    if len(lang_parts) > 1 and lang_parts[1][0].isupper():
+                        root["language"] = lang_parts[1]
+                        
+                # Only include roots with reasonable language names
+                if root.get("language") in language_prefixes or root.get("language") in [
+                    "Proto-Germanic", "Latin", "Greek", "French", "German", "Italian", "Spanish",
+                    "Old English", "Middle English", "Old Norse", "Sanskrit", "Arabic"
+                ]:
+                    cleaned_roots.append(root)
+                else:
+                    # Try the fallback
+                    if "From" in root.get("language", ""):
+                        continue
+                    # If seems like a valid language name (capitalized, not a common word)
+                    if root.get("language", "")[0].isupper() and not any(x in root.get("language", "").lower() for x in ["see", "the", "and", "by", "from"]):
+                        cleaned_roots.append(root)
+            
+            return cleaned_roots
         except Exception as e:
-            logger.debug(f"Error extracting roots: {str(e)}")
+            logger.error(f"Error extracting etymology roots: {str(e)}")
             return []
 
     def get_brief_definition(self, word: str, language: str) -> str:
@@ -431,10 +502,7 @@ class EtymologyGenerator:
             return f"Definition of {word}"
 
     def fetch_from_etymonline(self, word: str, language: str) -> Optional[Dict]:
-        """Fetch etymology from EtymOnline"""
-        if language != "English":
-            return None  # EtymOnline primarily covers English words
-            
+        """Fetch etymology from Etymonline"""
         try:
             url = f"https://www.etymonline.com/word/{word}"
             headers = {
@@ -447,58 +515,123 @@ class EtymologyGenerator:
                 
             soup = BeautifulSoup(response.text, 'html.parser')
             
-            # Find the main entry
-            entry = soup.find('div', class_='word--C9UPa')
-            if not entry:
+            # Get the main etymology section
+            etymology_section = soup.select_one('section.word__defination')
+            if not etymology_section:
                 return None
                 
-            # Get the definition/etymology text
-            etym_section = entry.find('section', class_='word__defination--2q7ZH')
-            if not etym_section:
-                return None
+            # Get the word's definition/description
+            definition = ""
+            definition_p = etymology_section.select_one('p')
+            if definition_p:
+                definition = definition_p.text.strip()
                 
-            etym_text = etym_section.get_text()
-            
             # Extract year
-            year_match = re.search(r'(\d{3,4})', etym_text)
-            year = int(year_match.group(1)) if year_match else None
-            
-            # Extract definition
-            definition = etym_text.split('.')[0] if etym_text else f"Definition of {word}"
-            
-            # Extract root words and their languages
+            year = None
+            year_match = re.search(r'\((\d{3,4})(?:s?)\)', definition)
+            if year_match:
+                try:
+                    year = int(year_match.group(1))
+                except ValueError:
+                    pass
+                    
+            # Parse etymology text for origin words
             roots = []
             
-            # Common language patterns in etymonline entries
-            language_patterns = {
-                "Latin": [r'Latin[a-z\s]*(\w+)', r'from Latin[a-z\s]*(\w+)'],
-                "Greek": [r'Greek[a-z\s]*(\w+)', r'from Greek[a-z\s]*(\w+)'],
-                "French": [r'French[a-z\s]*(\w+)', r'from French[a-z\s]*(\w+)'],
-                "Old English": [r'Old English[a-z\s]*(\w+)', r'from Old English[a-z\s]*(\w+)'],
-                "Proto-Germanic": [r'Proto-Germanic[a-z\s]*(\w+)', r'from Proto-Germanic[a-z\s]*(\w+)'],
+            # Look for language origins patterns like "from Latin exemplum"
+            languages = {
+                'Latin': ['Latin'],
+                'Greek': ['Greek', 'Ancient Greek'],
+                'French': ['French', 'Old French'],
+                'Old English': ['Old English'],
+                'Middle English': ['Middle English'], 
+                'German': ['German', 'Old German', 'Middle High German'],
+                'Spanish': ['Spanish'],
+                'Italian': ['Italian'],
+                'Proto-Germanic': ['Proto-Germanic', 'P.Gmc.'],
+                'Proto-Indo-European': ['Proto-Indo-European', 'PIE', 'PIE root'],
+                'Sanskrit': ['Sanskrit'],
+                'Arabic': ['Arabic']
             }
             
-            for root_lang, patterns in language_patterns.items():
-                for pattern in patterns:
-                    matches = re.finditer(pattern, etym_text)
+            # Flatten the language map for regex pattern
+            all_language_patterns = []
+            for primary_lang, variants in languages.items():
+                for variant in variants:
+                    all_language_patterns.append(variant)
+            
+            # Different patterns to match etymology statements
+            etymology_patterns = [
+                rf'from\s+({"|".join(all_language_patterns)})\s+["\']?(\w+)["\']?',
+                rf'({"|".join(all_language_patterns)})\s+["\']?(\w+)["\']?',
+                rf'borrowed\s+from\s+({"|".join(all_language_patterns)})\s+["\']?(\w+)["\']?',
+                rf'from\s+({"|".join(all_language_patterns)})\s+(?:word|root|stem)\s+["\']?(\w+)["\']?'
+            ]
+            
+            # Map from variant to primary language
+            variant_to_primary = {}
+            for primary, variants in languages.items():
+                for variant in variants:
+                    variant_to_primary[variant] = primary
+            
+            for pattern in etymology_patterns:
+                matches = re.findall(pattern, definition)
+                for match in matches:
+                    variant_lang, word_origin = match
+                    
+                    # Map the variant to primary language
+                    primary_lang = variant_to_primary.get(variant_lang, variant_lang)
+                    
+                    if not any(r.get('word') == word_origin and r.get('language') == primary_lang for r in roots):
+                        # Get approximate time period for this root if available
+                        root_year = None
+                        if year and primary_lang == 'Latin':
+                            # Approximate Latin period before English adoption
+                            root_year = year - 500 if year > 1000 else year - 200
+                        elif year and primary_lang == 'Greek':
+                            # Approximate Greek period before English adoption
+                            root_year = year - 800 if year > 1200 else year - 300
+                        elif year and 'Proto' in primary_lang:
+                            # Approximate Proto-language period
+                            root_year = year - 1500
+                            
+                        roots.append({
+                            "word": word_origin,
+                            "language": primary_lang,
+                            "definition": f"Origin of {word}",
+                            "year": root_year,
+                            "roots": []
+                        })
+            
+            if not roots and definition:
+                # Try more general patterns if specific ones didn't work
+                general_patterns = [
+                    r'from\s+(\w+)\s+["\']?(\w+)["\']?',  # from X "Y"
+                    r'cognate\s+with\s+(\w+)\s+["\']?(\w+)["\']?',  # cognate with X "Y"
+                ]
+                
+                for pattern in general_patterns:
+                    matches = re.findall(pattern, definition)
                     for match in matches:
-                        root_word = match.group(1).strip('.,:;')
-                        if root_word and root_word != word:  # Avoid self-reference
-                            # Try to find a year for this specific root
-                            # This is simplified - a more complex parser would link years to specific roots
-                            root_year_match = re.search(r'(\d{3,4})', etym_text[:match.start()])
-                            root_year = int(root_year_match.group(1)) if root_year_match else None
+                        lang, word_origin = match
+                        
+                        # Skip common words mistaken for languages
+                        skip_words = ['the', 'and', 'also', 'see', 'its', 'this', 'other', 'with', 'from']
+                        if lang.lower() in skip_words or len(lang) < 3:
+                            continue
+                        
+                        # Check if this looks like a language name (capitalized)
+                        if not lang[0].isupper():
+                            continue
                             
-                            # Create root entry
-                            root = {
-                                "word": root_word,
-                                "language": root_lang,
-                                "definition": self.get_brief_definition(root_word, root_lang),
-                                "year": root_year if root_year else year,  # Use the main year as fallback
-                                "roots": []  # Next level roots would be fetched recursively in a production impl
-                            }
-                            
-                            roots.append(root)
+                        if not any(r.get('word') == word_origin and r.get('language') == lang for r in roots):
+                            roots.append({
+                                "word": word_origin,
+                                "language": lang,
+                                "definition": f"Origin of {word}",
+                                "year": None,
+                                "roots": []
+                            })
             
             return {
                 "word": word,
@@ -507,15 +640,15 @@ class EtymologyGenerator:
                 "year": year,
                 "roots": roots
             }
+            
         except Exception as e:
             logger.debug(f"EtymOnline lookup failed for {word}: {str(e)}")
             return None
 
     def fetch_from_freedictionary(self, word: str, language: str) -> Optional[Dict]:
-        """Fetch etymology from Free Dictionary API"""
+        """Fetch data from The Free Dictionary API"""
         try:
-            lang_code = self.lang_codes.get(language, "en")
-            url = f"https://api.dictionaryapi.dev/api/v2/entries/{lang_code}/{word}"
+            url = f"https://api.dictionaryapi.dev/api/v2/entries/{self.lang_codes.get(language, 'en')}/{word}"
             response = requests.get(url, timeout=15)
             
             if response.status_code != 200:
@@ -523,55 +656,126 @@ class EtymologyGenerator:
                 
             data = response.json()
             
-            # Simplified parsing - real implementation would be more robust
-            if isinstance(data, list) and len(data) > 0:
-                entry = data[0]
-                meanings = entry.get('meanings', [])
-                definition = meanings[0].get('definitions', [{}])[0].get('definition', '') if meanings else ''
+            if not data or not isinstance(data, list) or not data[0]:
+                return None
                 
-                # Look for etymology in the entry
-                etymology = entry.get('origin', '')
-                roots = []
-                
-                # Try to extract language and root words from etymology text
-                if etymology:
-                    # Common language patterns
-                    language_patterns = {
-                        "Latin": [r'Latin[a-z\s]*(\w+)', r'from Latin[a-z\s]*(\w+)'],
-                        "Greek": [r'Greek[a-z\s]*(\w+)', r'from Greek[a-z\s]*(\w+)'],
-                        "French": [r'French[a-z\s]*(\w+)', r'from French[a-z\s]*(\w+)'],
-                    }
-                    
-                    for root_lang, patterns in language_patterns.items():
-                        for pattern in patterns:
-                            matches = re.finditer(pattern, etymology)
-                            for match in matches:
-                                root_word = match.group(1).strip('.,:;')
-                                if root_word and root_word != word:  # Avoid self-reference
-                                    # Create root entry
-                                    root = {
-                                        "word": root_word,
-                                        "language": root_lang,
-                                        "definition": f"Root of {word}",
-                                        "year": None,  # Free Dictionary API doesn't typically provide year information
-                                        "roots": []
-                                    }
-                                    
-                                    roots.append(root)
-                
-                etymology_data = {
-                    "word": word,
-                    "language": language,
-                    "definition": definition,
-                    "year": None,  # Free Dictionary API typically doesn't provide year information
-                    "roots": roots
-                }
-                
-                return etymology_data
+            entry = data[0]
             
-            return None
+            # Extract definition
+            definition = ""
+            if "meanings" in entry and entry["meanings"]:
+                for meaning in entry["meanings"]:
+                    if "definitions" in meaning and meaning["definitions"]:
+                        definition = meaning["definitions"][0].get("definition", "")
+                        if definition:
+                            break
+            
+            if not definition and "phonetics" in entry and entry["phonetics"]:
+                for phonetic in entry["phonetics"]:
+                    if "text" in phonetic and phonetic["text"]:
+                        definition = f"Pronunciation: {phonetic['text']}"
+                        break
+            
+            # Look for etymology information
+            etymology_text = ""
+            if "origin" in entry and entry["origin"]:
+                etymology_text = entry["origin"]
+            elif "etymologies" in entry and entry["etymologies"]:
+                etymology_text = " ".join(entry["etymologies"])
+                
+            # Extract roots using common patterns
+            roots = []
+            
+            # Languages to look for
+            languages = {
+                'Latin': ['Latin'],
+                'Greek': ['Greek', 'Ancient Greek'],
+                'French': ['French', 'Old French'],
+                'Old English': ['Old English'],
+                'Middle English': ['Middle English'], 
+                'German': ['German', 'Old German', 'Middle High German'],
+                'Spanish': ['Spanish'],
+                'Italian': ['Italian'],
+                'Proto-Germanic': ['Proto-Germanic', 'P.Gmc.'],
+                'Proto-Indo-European': ['Proto-Indo-European', 'PIE', 'PIE root'],
+                'Sanskrit': ['Sanskrit'],
+                'Arabic': ['Arabic']
+            }
+            
+            # Flatten the language map for regex pattern
+            all_language_patterns = []
+            for primary_lang, variants in languages.items():
+                for variant in variants:
+                    all_language_patterns.append(variant)
+            
+            # Map from variant to primary language
+            variant_to_primary = {}
+            for primary, variants in languages.items():
+                for variant in variants:
+                    variant_to_primary[variant] = primary
+            
+            # Different patterns to match etymology statements
+            if etymology_text:
+                etymology_patterns = [
+                    rf'from\s+({"|".join(all_language_patterns)})\s+["\']?(\w+)["\']?',
+                    rf'({"|".join(all_language_patterns)})\s+["\']?(\w+)["\']?',
+                    rf'borrowed\s+from\s+({"|".join(all_language_patterns)})\s+["\']?(\w+)["\']?',
+                    rf'from\s+({"|".join(all_language_patterns)})\s+(?:word|root|stem)\s+["\']?(\w+)["\']?'
+                ]
+                
+                for pattern in etymology_patterns:
+                    matches = re.findall(pattern, etymology_text)
+                    for match in matches:
+                        variant_lang, word_origin = match
+                        
+                        # Map the variant to primary language
+                        primary_lang = variant_to_primary.get(variant_lang, variant_lang)
+                        
+                        if not any(r.get('word') == word_origin and r.get('language') == primary_lang for r in roots):
+                            roots.append({
+                                "word": word_origin,
+                                "language": primary_lang,
+                                "definition": f"Origin of {word}",
+                                "year": None,
+                                "roots": []
+                            })
+                            
+                # Try more general patterns if specific ones didn't work
+                if not roots:
+                    general_patterns = [
+                        r'from\s+([A-Z][a-z]+)\s+["\']?(\w+)["\']?',  # from X "Y"
+                        r'cognate\s+with\s+([A-Z][a-z]+)\s+["\']?(\w+)["\']?',  # cognate with X "Y"
+                    ]
+                    
+                    for pattern in general_patterns:
+                        matches = re.findall(pattern, etymology_text)
+                        for match in matches:
+                            lang, word_origin = match
+                            
+                            # Skip common words mistaken for languages
+                            skip_words = ['the', 'and', 'also', 'see', 'its', 'this', 'other', 'with', 'from']
+                            if lang.lower() in skip_words or len(lang) < 3:
+                                continue
+                                
+                            if not any(r.get('word') == word_origin and r.get('language') == lang for r in roots):
+                                roots.append({
+                                    "word": word_origin,
+                                    "language": lang,
+                                    "definition": f"Origin of {word}",
+                                    "year": None,
+                                    "roots": []
+                                })
+            
+            return {
+                "word": word,
+                "language": language,
+                "definition": definition,
+                "year": None,  # This API typically doesn't provide year information
+                "roots": roots
+            }
+            
         except Exception as e:
-            logger.debug(f"Free Dictionary lookup failed for {word}: {str(e)}")
+            logger.debug(f"FreeDictionary lookup failed for {word}: {str(e)}")
             return None
 
     def extract_definition(self, data: Dict, language: str) -> str:
@@ -589,54 +793,48 @@ class EtymologyGenerator:
         except:
             return ""
 
-    def process_word(self, word: str, language: str) -> bool:
-        """Process a single word and save its etymology data"""
-        if word in self.stats["processed_words"]:
-            logger.debug(f"Skipping already processed word: {word}")
-            return False
-            
+    def process_word(self, word, language="English"):
+        """Process a single word and save its etymology data."""
+        word = word.lower().strip()
+        
+        # Skip already processed words
+        if word in getattr(self, 'processed_words', set()):
+            self.logger.debug(f"Skipping already processed word: {word}")
+            return True
+        
         try:
-            logger.debug(f"Processing {language} word: {word}")
-            
             # Fetch etymology data
             etymology_data = self.fetch_etymology(word, language)
             
-            if not etymology_data:
-                self.stats["failed_words"] += 1
-                logger.debug(f"No etymology data found for {word}")
-                return False
-                
-            # Generate file path
-            if len(word) > 0:
-                first_letter = word[0].lower()
-                file_path = self.data_dir / language / first_letter / f"{word}.json"
-                
-                # Create directory if it doesn't exist
-                if not self.test_mode:
-                    os.makedirs(file_path.parent, exist_ok=True)
-                
-                # Save data
-                if not self.test_mode:
-                    with open(file_path, "w", encoding="utf-8") as f:
-                        json.dump(etymology_data, f, indent=2)
+            if etymology_data:
+                # Update statistics
+                self.words_processed += 1
+                self.successful_words += 1
                 
                 # Count connections
-                root_count = len(etymology_data.get("roots", []))
-                self.stats["total_connections"] += root_count
+                if "roots" in etymology_data and etymology_data["roots"]:
+                    self.connections_made += len(etymology_data["roots"])
                 
-                # Update statistics
-                self.stats["successful_words"] += 1
-                self.stats["languages"][language] = self.stats["languages"].get(language, 0) + 1
-                self.stats["last_processed"] = word
-                self.stats["processed_words"].add(word)
+                # Save data to disk if not in test mode
+                if not self.test_mode:
+                    output_file = self.output_dir / f"{language}_{word}.json"
+                    with open(output_file, "w", encoding="utf-8") as f:
+                        json.dump(etymology_data, f, indent=2, ensure_ascii=False)
+                else:
+                    # For testing, store in memory
+                    self.results[f"{language}_{word}"] = etymology_data
                 
-                logger.debug(f"Successfully processed {word} with {root_count} connections")
                 return True
+            else:
+                self.words_processed += 1
+                self.failed_words += 1
+                self.logger.warning(f"Failed to find etymology for {word}")
+                return False
             
-            return False
         except Exception as e:
-            logger.error(f"Error processing word {word}: {str(e)}")
-            self.stats["failed_words"] += 1
+            self.words_processed += 1
+            self.failed_words += 1
+            self.logger.error(f"Error processing {word}: {str(e)}")
             return False
 
     def process_batch(self, words: List[str], language: str) -> None:
@@ -654,78 +852,377 @@ class EtymologyGenerator:
                     self.stats["failed_words"] += 1
                     self.stats["total_words_processed"] += 1
 
-    def estimate_dataset_size(self, word_lists: Dict[str, List[str]]) -> Dict:
-        """Estimate the final dataset size based on word lists"""
+    def estimate_dataset_size(self, word_lists):
+        """Estimate dataset size and processing time."""
+        # Calculate some statistics for logging
         total_words = sum(len(words) for words in word_lists.values())
+        avg_roots_per_word = 3  # Estimated average
+        total_connections = total_words * avg_roots_per_word
+        total_size_mb = total_words * 0.015  # Estimated average file size in MB
         
-        # Assume average of 3 etymology connections per word
-        avg_connections_per_word = 3
-        total_connections = total_words * avg_connections_per_word
+        # Estimated processing time
+        words_per_minute = 20  # Conservative estimate
+        minutes_needed = total_words / words_per_minute
+        days_needed = minutes_needed / (60 * 24)
         
-        # Assume average JSON file size of 500 bytes
-        avg_file_size_bytes = 500
-        total_size_bytes = total_words * avg_file_size_bytes
+        self.logger.info(f"Estimated dataset size: {total_size_mb:.2f} MB")
+        self.logger.info(f"Estimated total words: {total_words}")
+        self.logger.info(f"Estimated total connections: {total_connections}")
+        self.logger.info(f"Estimated processing time: {days_needed:.2f} days")
         
         return {
             "total_words": total_words,
-            "estimated_connections": total_connections,
-            "estimated_size_mb": total_size_bytes / (1024 * 1024),
-            "estimated_time_days": total_words / (60 * 24)  # Assuming 60 words per minute
+            "total_connections": total_connections,
+            "total_size_mb": total_size_mb,
+            "days_needed": days_needed
         }
 
     def run(self):
-        """Run the etymology generator"""
+        """Run the etymology generator on the word lists."""
+        start_time = time.time()
+        
         try:
-            logger.info(f"Starting etymology generator (test mode: {self.test_mode})")
-            
-            # Fetch word lists
+            # Get word lists for each language
             word_lists = self.fetch_word_lists()
             
             # Estimate dataset size
-            estimates = self.estimate_dataset_size(word_lists)
-            logger.info(f"Estimated dataset size: {estimates['estimated_size_mb']:.2f} MB")
-            logger.info(f"Estimated total words: {estimates['total_words']}")
-            logger.info(f"Estimated total connections: {estimates['estimated_connections']}")
-            logger.info(f"Estimated processing time: {estimates['estimated_time_days']:.2f} days")
+            dataset_info = self.estimate_dataset_size(word_lists)
             
-            # Process each language
+            # Set up progress tracking
+            total_words = sum(len(words) for words in word_lists.values())
+            words_per_minute = 20  # Conservative estimate
+            
+            # Process each language's words
             for language, words in word_lists.items():
-                logger.info(f"Processing {len(words)} {language} words")
+                self.logger.info(f"Processing {len(words)} {language} words")
                 
-                # Shuffle words to distribute load more evenly
-                random.shuffle(words)
-                
-                # Process in batches
-                for i in tqdm(range(0, len(words), self.batch_size), desc=f"Processing {language} words"):
-                    batch = words[i:i+self.batch_size]
-                    self.process_batch(batch, language)
-                    
-                    # Save state periodically
-                    if i % (self.batch_size * 10) == 0:
-                        self.save_state()
+                # Set up progress bar
+                with tqdm(total=len(words), desc=f"Processing {language} words") as pbar:
+                    for word in words:
+                        # Process individual word
+                        success = self.process_word(word, language)
                         
-                    # Add small delay between batches to avoid rate limiting
-                    time.sleep(1)
+                        # Update progress
+                        pbar.update(1)
+                        
+                        # Break if max words reached
+                        if self.max_words and self.words_processed >= self.max_words:
+                            self.logger.info(f"Reached maximum word limit ({self.max_words})")
+                            break
             
-            # Final state save
-            self.save_state()
+            # Save final state
+            if not self.test_mode:
+                self.save_state()
             
-            # Calculate and log statistics
-            duration = time.time() - self.stats["start_time"]
-            logger.info(f"Completed in {duration/60:.2f} minutes")
-            logger.info(f"Total words processed: {self.stats['total_words_processed']}")
-            logger.info(f"Successful words: {self.stats['successful_words']}")
-            logger.info(f"Failed words: {self.stats['failed_words']}")
-            logger.info(f"Total connections: {self.stats['total_connections']}")
+            # Log completion statistics
+            end_time = time.time()
+            elapsed_minutes = (end_time - start_time) / 60
+            self.logger.info(f"Completed in {elapsed_minutes:.2f} minutes")
+            self.logger.info(f"Total words processed: {self.words_processed}")
+            self.logger.info(f"Successful words: {self.successful_words}")
+            self.logger.info(f"Failed words: {self.failed_words}")
+            self.logger.info(f"Total connections: {self.connections_made}")
             
-            return self.stats
+            # Return statistics
+            return {
+                "words_processed": self.words_processed,
+                "successful_words": self.successful_words,
+                "failed_words": self.failed_words,
+                "connections": self.connections_made,
+                "elapsed_minutes": elapsed_minutes
+            }
             
-        except KeyboardInterrupt:
-            logger.info("Process interrupted by user")
-            self.save_state()
         except Exception as e:
-            logger.error(f"Error running etymology generator: {str(e)}")
-            self.save_state()
+            self.logger.error(f"Error running etymology generator: {str(e)}")
+            return None
+
+    def load_supplementary_data(self):
+        """Load supplementary etymology data from known sources, or create seed data if none exists."""
+        try:
+            # Define paths for supplementary data files
+            data_dir = Path("data")
+            english_file = data_dir / "english_etymologies.json"
+            latin_file = data_dir / "latin_roots.json"
+            greek_file = data_dir / "greek_roots.json"
+            french_file = data_dir / "french_etymologies.json"
+            
+            data = {}
+            
+            # Load data from files if they exist
+            if english_file.exists():
+                with open(english_file, 'r', encoding='utf-8') as f:
+                    data.update(json.load(f))
+            if latin_file.exists():
+                with open(latin_file, 'r', encoding='utf-8') as f:
+                    data.update(json.load(f))
+            if greek_file.exists():
+                with open(greek_file, 'r', encoding='utf-8') as f:
+                    data.update(json.load(f))
+            if french_file.exists():
+                with open(french_file, 'r', encoding='utf-8') as f:
+                    data.update(json.load(f))
+                
+            # If no data files exist, create seed data for common etymologies
+            if not data:
+                # Create dictionary of common English etymologies
+                english_data = {
+                    "etymology": {
+                        "language": "English",
+                        "year": 1398,
+                        "roots": [
+                            {"word": "etymologia", "language": "Latin", "year": 1200},
+                            {"word": "ἐτυμολογία", "language": "Ancient Greek", "year": -300}
+                        ]
+                    },
+                    "philosophy": {
+                        "language": "English",
+                        "year": 1300, 
+                        "roots": [
+                            {"word": "philosophia", "language": "Latin", "year": 100},
+                            {"word": "φιλοσοφία", "language": "Ancient Greek", "year": -400}
+                        ]
+                    },
+                    "democracy": {
+                        "language": "English",
+                        "year": 1570,
+                        "roots": [
+                            {"word": "dēmocratia", "language": "Medieval Latin", "year": 900},
+                            {"word": "δημοκρατία", "language": "Ancient Greek", "year": -500}
+                        ]
+                    },
+                    "computer": {
+                        "language": "English",
+                        "year": 1640,
+                        "roots": [
+                            {"word": "computare", "language": "Latin", "year": 300}
+                        ]
+                    },
+                    "biology": {
+                        "language": "English",
+                        "year": 1819,
+                        "roots": [
+                            {"word": "biologia", "language": "New Latin", "year": 1766},
+                            {"word": "βίος", "language": "Ancient Greek", "year": -500, "definition": "life", "transliteration": "bíos"},
+                            {"word": "λογία", "language": "Ancient Greek", "year": -500, "definition": "study of", "transliteration": "logía"}
+                        ]
+                    }
+                }
+                
+                # Add French etymologies
+                french_data = {
+                    "château": {
+                        "language": "French",
+                        "year": 1100,
+                        "roots": [
+                            {"word": "castellum", "language": "Latin", "year": 100, "definition": "castle, fort"},
+                            {"word": "chastel", "language": "Old French", "year": 900}
+                        ]
+                    },
+                    "bonjour": {
+                        "language": "French",
+                        "year": 1400,
+                        "roots": [
+                            {"word": "bon", "language": "French", "year": 1100, "definition": "good"},
+                            {"word": "jour", "language": "French", "year": 1100, "definition": "day"}
+                        ]
+                    },
+                    "café": {
+                        "language": "French",
+                        "year": 1700,
+                        "roots": [
+                            {"word": "qahwa", "language": "Arabic", "year": 1500, "definition": "coffee"}
+                        ]
+                    },
+                    "merci": {
+                        "language": "French",
+                        "year": 1300,
+                        "roots": [
+                            {"word": "mercedem", "language": "Latin", "year": 100, "definition": "reward, favor, grace"}
+                        ]
+                    },
+                    "fromage": {
+                        "language": "French",
+                        "year": 1200,
+                        "roots": [
+                            {"word": "formaticum", "language": "Late Latin", "year": 800, "definition": "formed cheese"}
+                        ]
+                    }
+                }
+                
+                # Add Latin etymologies
+                latin_data = {
+                    "veni": {
+                        "language": "Latin",
+                        "year": -100,
+                        "roots": [
+                            {"word": "*gʷem-", "language": "Proto-Indo-European", "year": -3000, "definition": "to come"}
+                        ]
+                    },
+                    "vidi": {
+                        "language": "Latin",
+                        "year": -100,
+                        "roots": [
+                            {"word": "*weid-", "language": "Proto-Indo-European", "year": -3000, "definition": "to see"}
+                        ]
+                    },
+                    "vici": {
+                        "language": "Latin",
+                        "year": -100,
+                        "roots": [
+                            {"word": "*weik-", "language": "Proto-Indo-European", "year": -3000, "definition": "to fight, conquer"}
+                        ]
+                    },
+                    "aqua": {
+                        "language": "Latin",
+                        "year": -100,
+                        "roots": [
+                            {"word": "*akʷā-", "language": "Proto-Indo-European", "year": -3000, "definition": "water"}
+                        ]
+                    },
+                    "terra": {
+                        "language": "Latin",
+                        "year": -100,
+                        "roots": [
+                            {"word": "*ters-", "language": "Proto-Indo-European", "year": -3000, "definition": "dry"}
+                        ]
+                    }
+                }
+                
+                # Add Greek etymologies
+                greek_data = {
+                    "logos": {
+                        "language": "Greek",
+                        "year": -500,
+                        "roots": [
+                            {"word": "λόγος", "language": "Ancient Greek", "year": -800, "definition": "word, speech, reason"}
+                        ]
+                    },
+                    "cosmos": {
+                        "language": "Greek",
+                        "year": -500,
+                        "roots": [
+                            {"word": "κόσμος", "language": "Ancient Greek", "year": -800, "definition": "order, arrangement, ornament"}
+                        ]
+                    },
+                    "pathos": {
+                        "language": "Greek",
+                        "year": -500,
+                        "roots": [
+                            {"word": "πάθος", "language": "Ancient Greek", "year": -800, "definition": "suffering, emotion"}
+                        ]
+                    },
+                    "ethos": {
+                        "language": "Greek",
+                        "year": -500,
+                        "roots": [
+                            {"word": "ἦθος", "language": "Ancient Greek", "year": -800, "definition": "character, custom"}
+                        ]
+                    },
+                    "chronos": {
+                        "language": "Greek",
+                        "year": -500,
+                        "roots": [
+                            {"word": "χρόνος", "language": "Ancient Greek", "year": -800, "definition": "time"}
+                        ]
+                    }
+                }
+                
+                # Combine all data
+                data = {**english_data, **french_data, **latin_data, **greek_data}
+                
+                self.logger.info(f"Created supplementary data with {len(data)} essential entries")
+            
+            return data
+            
+        except Exception as e:
+            self.logger.error(f"Error loading supplementary data: {e}")
+            return {}
+
+    def initialize_language_detection(self):
+        """Initialize language detection modules and patterns."""
+        # Standard language prefixes
+        self.language_prefixes = {
+            # English variants
+            "Middle English": "English",
+            "Old English": "English",
+            "Early Modern English": "English",
+            "Late Middle English": "English",
+            "Early Middle English": "English",
+            
+            # Latin variants
+            "Late Latin": "Latin",
+            "Medieval Latin": "Latin",
+            "New Latin": "Latin",
+            "Vulgar Latin": "Latin",
+            "Ecclesiastical Latin": "Latin",
+            "Classical Latin": "Latin",
+            
+            # Greek variants
+            "Koine Greek": "Greek",
+            "Byzantine Greek": "Greek",
+            "Mycenaean Greek": "Greek",
+            "Ancient Greek": "Greek",
+            "Modern Greek": "Greek",
+            "Hellenistic Greek": "Greek",
+            
+            # French variants
+            "Old French": "French",
+            "Middle French": "French",
+            "Norman French": "French",
+            "Anglo-Norman": "French",
+            "Anglo-French": "French",
+            
+            # German variants
+            "Old High German": "German",
+            "Middle High German": "German",
+            "Early New High German": "German",
+            
+            # Norse/Scandinavian variants
+            "Old Norse": "Norse",
+            "Old Swedish": "Swedish",
+            "Old Danish": "Danish",
+            "Old Norwegian": "Norwegian",
+            "Old Icelandic": "Icelandic",
+            
+            # Celtic variants
+            "Old Irish": "Irish",
+            "Middle Irish": "Irish",
+            "Old Welsh": "Welsh",
+            "Middle Welsh": "Welsh",
+            "Gaulish": "Celtic",
+            "Brythonic": "Celtic",
+            "Proto-Celtic": "Celtic",
+            
+            # Spanish variants
+            "Old Spanish": "Spanish",
+            
+            # Italian variants
+            "Old Italian": "Italian",
+            
+            # Portuguese variants
+            "Old Portuguese": "Portuguese",
+            
+            # Arabic variants
+            "Classical Arabic": "Arabic",
+            
+            # Dutch variants
+            "Middle Dutch": "Dutch",
+            "Old Dutch": "Dutch",
+            
+            # Russian variants
+            "Old Russian": "Russian",
+            "Old East Slavic": "Russian",
+            
+            # Indo-European variants
+            "Proto-Indo-European": "Indo-European",
+            "Proto-Germanic": "Germanic",
+            "Proto-Romance": "Romance",
+            "Proto-Slavic": "Slavic",
+            "Proto-Italic": "Italic",
+            "Proto-Balto-Slavic": "Balto-Slavic",
+            "Proto-Celtic": "Celtic",
+            "Proto-Greek": "Greek"
+        }
 
 def main():
     parser = argparse.ArgumentParser(description="Etymology Dataset Generator")
