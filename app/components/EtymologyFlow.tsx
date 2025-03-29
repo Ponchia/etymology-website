@@ -6,24 +6,50 @@ import ReactFlow, {
   Edge,
   useNodesState,
   useEdgesState,
-  MarkerType
+  MarkerType,
+  Handle,
+  Position
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { RootWord, languageColors } from '../types';
 import { motion } from 'framer-motion';
 
 // Custom node component
-function EtymologyNode({ data }: { data: RootWord }) {
+function EtymologyNode({ data, id }: { data: RootWord; id: string }) {
   const languageColor = data.language && languageColors[data.language] 
     ? languageColors[data.language].split(' ')[0] 
     : 'bg-gray-700';
+
+  // Only show source handle on the main node
+  const showSourceHandle = id === 'main';
+  
+  // Show target handle on all nodes except the main one
+  const showTargetHandle = id !== 'main';
 
   return (
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm max-w-[250px]"
+      className="bg-white p-4 rounded-lg border-2 border-gray-300 shadow-md max-w-[250px]"
     >
+      {showSourceHandle && (
+        <Handle
+          type="source"
+          position={Position.Bottom}
+          id="bottom"
+          style={{ background: '#555', width: '8px', height: '8px' }}
+        />
+      )}
+      
+      {showTargetHandle && (
+        <Handle
+          type="target"
+          position={Position.Top}
+          id="top"
+          style={{ background: '#555', width: '8px', height: '8px' }}
+        />
+      )}
+      
       <h3 className="text-lg font-bold text-gray-800 mb-1">{data.word}</h3>
       <span className={`inline-block rounded-full px-2 py-0.5 text-xs text-white ${languageColor} mb-2`}>
         {data.language}
@@ -53,7 +79,6 @@ export default function EtymologyFlow({ words }: { words: RootWord[] }) {
     if (!words || words.length === 0) return;
     
     const newNodes: Node[] = [];
-    const newEdges: Edge[] = [];
     
     // Map to track created nodes
     const nodeMap = new Map<string, string>();
@@ -105,29 +130,48 @@ export default function EtymologyFlow({ words }: { words: RootWord[] }) {
         });
         
         nodeMap.set(word.word, nodeId);
-        
-        // Connect to the main word
-        newEdges.push({
-          id: `e_main_to_${nodeId}`,
-          source: 'main',
-          target: nodeId,
-          type: 'smoothstep',
-          markerEnd: {
-            type: MarkerType.ArrowClosed,
-            color: '#888',
-            width: 12,
-            height: 12
-          },
-          style: { stroke: '#888', strokeWidth: 1 }
-        });
       });
       
       rowIndex++;
     }
     
     setNodes(newNodes);
+  }, [words, setNodes]);
+  
+  // Create edges separately after nodes
+  useMemo(() => {
+    if (!nodes || nodes.length <= 1) return;
+    
+    const newEdges: Edge[] = [];
+    
+    // Create edges from main node to all other nodes
+    nodes.forEach(node => {
+      if (node.id !== 'main') {
+        newEdges.push({
+          id: `e_main_to_${node.id}`,
+          source: 'main',
+          target: node.id,
+          sourceHandle: 'bottom',
+          targetHandle: 'top',
+          type: 'default',
+          animated: false,
+          markerEnd: {
+            type: MarkerType.Arrow,
+            color: '#333',
+            width: 15,
+            height: 15
+          },
+          style: { 
+            stroke: '#333', 
+            strokeWidth: 2,
+            opacity: 1
+          }
+        });
+      }
+    });
+    
     setEdges(newEdges);
-  }, [words, setNodes, setEdges]);
+  }, [nodes, setEdges]);
   
   if (!words || words.length === 0) {
     return <div className="flex h-full items-center justify-center">No etymology data available</div>;
@@ -140,8 +184,25 @@ export default function EtymologyFlow({ words }: { words: RootWord[] }) {
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       nodeTypes={nodeTypes}
+      elevateEdgesOnSelect={true}
+      elevateNodesOnSelect={false}
       fitView
       fitViewOptions={{ padding: 0.3 }}
+      defaultEdgeOptions={{
+        type: 'default',
+        animated: false,
+        style: { 
+          stroke: '#333', 
+          strokeWidth: 2,
+          opacity: 0.8
+        }
+      }}
+      style={{ 
+        background: 'rgb(245, 245, 245)',
+        width: '100%',
+        height: '100%'
+      }}
+      proOptions={{ hideAttribution: false }}
       className="h-full w-full"
     />
   );

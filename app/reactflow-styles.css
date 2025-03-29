@@ -1,0 +1,76 @@
+/* ReactFlow-specific styles */
+.react-flow__node {
+  border: 2px solid #333 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+  background-color: white !important;
+  padding: 10px !important;
+  max-width: 250px !important;
+  width: auto !important;
+  z-index: 1 !important;
+}
+
+/* Handle styles - more subtle */
+.react-flow__handle {
+  width: 8px !important;
+  height: 8px !important;
+  background-color: #333 !important;
+  border: 1px solid white !important;
+  opacity: 0.7 !important;
+}
+
+.react-flow__handle-bottom {
+  bottom: -5px !important;
+}
+
+.react-flow__handle-top {
+  top: -5px !important;
+}
+
+.react-flow__edge {
+  z-index: 5 !important;
+}
+
+.react-flow__edges {
+  z-index: 2 !important;
+}
+
+/* Minimalistic edge styles */
+.react-flow__edge-path {
+  stroke: #333 !important;
+  stroke-width: 2px !important;
+  stroke-dasharray: 5 !important; /* Dotted line */
+}
+
+/* Force SVG elements to be visible but minimalistic */
+.react-flow__edges svg {
+  overflow: visible !important;
+}
+
+.react-flow__edges svg path {
+  stroke: #333 !important;
+  stroke-width: 2px !important;
+  opacity: 0.8 !important;
+}
+
+/* Default edge style */
+.react-flow__edge.default-edge .react-flow__edge-path {
+  stroke: #333 !important;
+  stroke-width: 2px !important;
+}
+
+.react-flow__edge-text {
+  font-weight: bold !important;
+}
+
+.react-flow__edge-textbg {
+  fill: white !important;
+}
+
+.react-flow__controls {
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.react-flow__edge-interaction {
+  stroke-width: 10px !important; /* Smaller interaction area */
+} 
