@@ -2,6 +2,10 @@
 
 A modern, sleek etymology website that allows users to input a word and view its etymology chain with a timeline of when each word originated.
 
+## Live Demo
+
+Visit the live site: [Etymology Explorer](https://ponchia.github.io/etymology-website/)
+
 ## Overview
 
 - Clean, minimal interface with a centered search input
