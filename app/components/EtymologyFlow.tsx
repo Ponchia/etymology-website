@@ -11,7 +11,7 @@ import ReactFlow, {
   Position
 } from 'reactflow';
 import 'reactflow/dist/style.css';
-import { RootWord, languageColors } from '../types';
+import { RootWord, languageColors, EtymologyWord } from '../types';
 import { motion } from 'framer-motion';
 
 // Custom node component
@@ -20,33 +20,29 @@ function EtymologyNode({ data, id }: { data: RootWord; id: string }) {
     ? languageColors[data.language].split(' ')[0] 
     : 'bg-gray-700';
 
-  // Only show source handle on the main node
-  const showSourceHandle = id === 'main';
-  
-  // Show target handle on all nodes except the main one
-  const showTargetHandle = id !== 'main';
-
+  // Need to show source handles on all nodes that might have children
+  // Show target handles on all nodes that might have parents
   return (
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className="bg-white p-4 rounded-lg border-2 border-gray-300 shadow-md max-w-[250px]"
     >
-      {showSourceHandle && (
-        <Handle
-          type="source"
-          position={Position.Bottom}
-          id="bottom"
-          style={{ background: '#555', width: '8px', height: '8px' }}
-        />
-      )}
+      {/* All nodes can be sources */}
+      <Handle
+        type="source"
+        position={Position.Bottom}
+        id="bottom"
+        style={{ background: '#333', width: '8px', height: '8px' }}
+      />
       
-      {showTargetHandle && (
+      {/* All nodes except the main one can be targets */}
+      {id !== 'main' && (
         <Handle
           type="target"
           position={Position.Top}
           id="top"
-          style={{ background: '#555', width: '8px', height: '8px' }}
+          style={{ background: '#333', width: '8px', height: '8px' }}
         />
       )}
       
@@ -66,13 +62,12 @@ function EtymologyNode({ data, id }: { data: RootWord; id: string }) {
   );
 }
 
-const nodeTypes = {
-  etymologyNode: EtymologyNode
-};
-
 export default function EtymologyFlow({ words }: { words: RootWord[] }) {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  
+  // Memoize nodeTypes to prevent recreation on every render
+  const nodeTypes = useMemo(() => ({ etymologyNode: EtymologyNode }), []);
   
   // Create the node structure
   useMemo(() => {
@@ -80,7 +75,7 @@ export default function EtymologyFlow({ words }: { words: RootWord[] }) {
     
     const newNodes: Node[] = [];
     
-    // Map to track created nodes
+    // Map to track created nodes by word text
     const nodeMap = new Map<string, string>();
     
     // Main word at the top center
@@ -140,38 +135,90 @@ export default function EtymologyFlow({ words }: { words: RootWord[] }) {
   
   // Create edges separately after nodes
   useMemo(() => {
-    if (!nodes || nodes.length <= 1) return;
+    if (!nodes || nodes.length <= 1 || !words || words.length === 0) return;
     
     const newEdges: Edge[] = [];
+    const wordToNodeId = new Map<string, string>();
     
-    // Create edges from main node to all other nodes
+    // Create mapping of word text to node id
     nodes.forEach(node => {
-      if (node.id !== 'main') {
-        newEdges.push({
-          id: `e_main_to_${node.id}`,
-          source: 'main',
-          target: node.id,
-          sourceHandle: 'bottom',
-          targetHandle: 'top',
-          type: 'default',
-          animated: false,
-          markerEnd: {
-            type: MarkerType.Arrow,
-            color: '#333',
-            width: 15,
-            height: 15
-          },
-          style: { 
-            stroke: '#333', 
-            strokeWidth: 2,
-            opacity: 1
-          }
-        });
-      }
+      wordToNodeId.set(node.data.word, node.id);
     });
     
+    // Helper function to create an edge if both nodes exist
+    const createEdge = (sourceWord: string, targetWord: string) => {
+      const sourceId = wordToNodeId.get(sourceWord);
+      const targetId = wordToNodeId.get(targetWord);
+      
+      if (sourceId && targetId) {
+        const edgeId = `e_${sourceId}_to_${targetId}`;
+        
+        // Check if this edge already exists to avoid duplicates
+        if (!newEdges.some(edge => edge.id === edgeId)) {
+          newEdges.push({
+            id: edgeId,
+            source: sourceId,
+            target: targetId,
+            sourceHandle: 'bottom',
+            targetHandle: 'top',
+            type: 'default',
+            animated: false,
+            markerEnd: {
+              type: MarkerType.Arrow,
+              color: '#333',
+              width: 15,
+              height: 15
+            },
+            style: { 
+              stroke: '#333', 
+              strokeWidth: 2,
+              opacity: 1
+            }
+          });
+        }
+      }
+    };
+    
+    // Process the original data structure to build edges
+    const mainWord = words[0] as EtymologyWord;
+    
+    // Connect main word to its etymology words (direct descendants)
+    if (mainWord.etymology) {
+      for (const etymWord of mainWord.etymology) {
+        createEdge(mainWord.word, etymWord.word);
+      }
+    }
+    
+    // Function to connect a word to its roots recursively
+    const connectRootsRecursively = (word: RootWord) => {
+      if (word.roots && word.roots.length > 0) {
+        for (const root of word.roots) {
+          createEdge(word.word, root.word);
+          
+          // Recursively connect this root's roots
+          connectRootsRecursively(root);
+        }
+      }
+    };
+    
+    // Process each word in the flattened array
+    for (const word of words) {
+      connectRootsRecursively(word);
+    }
+    
+    // Check for isolated nodes with no connections
+    const connectedNodeIds = new Set<string>();
+    newEdges.forEach(edge => {
+      connectedNodeIds.add(edge.source);
+      connectedNodeIds.add(edge.target);
+    });
+    
+    console.log('Connected nodes:', connectedNodeIds);
+    console.log('Total nodes:', nodes.length);
+    console.log('Total edges:', newEdges.length);
+    
     setEdges(newEdges);
-  }, [nodes, setEdges]);
+  }, [nodes, words, setEdges]);
   
   if (!words || words.length === 0) {
     return <div className="flex h-full items-center justify-center">No etymology data available</div>;
