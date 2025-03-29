@@ -66,6 +66,10 @@ export default function EtymologyFlow({ words }: { words: RootWord[] }) {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   
+  // Move state declarations here, before they're used
+  const [parentChildMap, setParentChildMap] = useState<Map<string, string>>(new Map());
+  const [nodeIdMap, setNodeIdMap] = useState<Map<string, string>>(new Map());
+  
   // Memoize nodeTypes to prevent recreation on every render
   const nodeTypes = useMemo(() => ({ etymologyNode: EtymologyNode }), []);
   
@@ -105,8 +109,11 @@ export default function EtymologyFlow({ words }: { words: RootWord[] }) {
         
         // Check if this is the main word with etymology
         if (depth === 0 && (word as EtymologyWord).etymology) {
-          for (const etymWord of (word as EtymologyWord).etymology) {
-            hierarchicalWord.children.push(buildSubtree(etymWord, depth + 1));
+          const etymology = (word as EtymologyWord).etymology;
+          if (etymology) {
+            for (const etymWord of etymology) {
+              hierarchicalWord.children.push(buildSubtree(etymWord, depth + 1));
+            }
           }
         }
         
@@ -148,7 +155,7 @@ export default function EtymologyFlow({ words }: { words: RootWord[] }) {
       collectByDepth(tree);
       
       // Assign indices at each depth level
-      depthMap.forEach((nodesAtDepth, depth) => {
+      depthMap.forEach((nodesAtDepth) => {
         nodesAtDepth.forEach((node, index) => {
           node.index = index;
         });
@@ -217,10 +224,6 @@ export default function EtymologyFlow({ words }: { words: RootWord[] }) {
     setNodeIdMap(nodeMap);
     
   }, [words, setNodes]);
-  
-  // Added state to store parent-child map and node ID map
-  const [parentChildMap, setParentChildMap] = useState<Map<string, string>>(new Map());
-  const [nodeIdMap, setNodeIdMap] = useState<Map<string, string>>(new Map());
   
   // Create edges separately after nodes and maps are set
   useMemo(() => {
