@@ -60,8 +60,8 @@ function EtymologyNode({ data, id }: { data: RootWord; id: string }) {
       {data.definition && (
         <p className="text-sm text-gray-600 mb-2">{getDefinition(data.definition)}</p>
       )}
-      {data.year !== undefined && (
-        <div className="text-xs text-gray-500">
+      {data.year !== undefined && data.year !== null && (
+        <div className="text-xs text-gray-500 italic">
           {formatYear(data.year)}
         </div>
       )}

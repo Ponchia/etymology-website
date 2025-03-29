@@ -47,7 +47,7 @@ export interface EtymologyWord extends RootWord {
 
 // Helper function to format years for display
 export function formatYear(year: YearValue): string {
-  if (year === null) return 'unknown';
+  if (year === null) return '';
   return year > 0 ? year.toString() : `${Math.abs(year)} BCE`;
 }
 
