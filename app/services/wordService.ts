@@ -51,56 +51,179 @@ export function flattenEtymologyTree(word: EtymologyWord): EtymologyWord[] {
 }
 
 // Sample data for development and fallback
-const SAMPLE_DATA: EtymologyWord = {
-  "word": "etymology",
-  "language": "English",
-  "year": 1398,
-  "definition": "the study of the origin and history of words",
-  "etymology": [
-    {
-      "word": "etymologia",
-      "language": "Latin",
-      "year": 1350
-    }
-  ],
-  "roots": [
-    {
-      "word": "etymologia",
-      "language": "Latin",
-      "definition": "origin of words",
-      "year": 1350,
-      "roots": [
-        {
-          "word": "etymon",
-          "language": "Greek",
-          "definition": "true sense",
-          "year": null,
-          "roots": [
-            {
-              "word": "etymos",
-              "language": "Greek",
-              "definition": "true, real, actual",
-              "year": null
-            }
-          ]
-        },
-        {
-          "word": "logia",
-          "language": "Greek",
-          "definition": "study of",
-          "year": null,
-          "roots": [
-            {
-              "word": "logos",
-              "language": "Greek",
-              "definition": "word, speech, discourse, reason",
-              "year": null
-            }
-          ]
-        }
-      ]
-    }
-  ]
+const SAMPLE_DATA: Record<string, EtymologyWord> = {
+  "etymology": {
+    "word": "etymology",
+    "language": "English",
+    "year": 1398,
+    "definition": "the study of the origin and history of words",
+    "etymology": [
+      {
+        "word": "etymologia",
+        "language": "Latin",
+        "year": 1350
+      }
+    ],
+    "roots": [
+      {
+        "word": "etymologia",
+        "language": "Latin",
+        "definition": "origin of words",
+        "year": 1350,
+        "roots": [
+          {
+            "word": "etymon",
+            "language": "Greek",
+            "definition": "true sense",
+            "year": null,
+            "roots": [
+              {
+                "word": "etymos",
+                "language": "Greek",
+                "definition": "true, real, actual",
+                "year": null
+              }
+            ]
+          },
+          {
+            "word": "logia",
+            "language": "Greek",
+            "definition": "study of",
+            "year": null,
+            "roots": [
+              {
+                "word": "logos",
+                "language": "Greek",
+                "definition": "word, speech, discourse, reason",
+                "year": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "philosophy": {
+    "word": "philosophy",
+    "language": "English",
+    "year": 1340,
+    "definition": "love or pursuit of wisdom; systematic investigation of the nature of truth",
+    "etymology": [
+      {
+        "word": "philosophie",
+        "language": "French",
+        "year": 1290,
+        "definition": "love of wisdom"
+      }
+    ],
+    "roots": [
+      {
+        "word": "philosophia",
+        "language": "Latin",
+        "definition": "the study of philosophy",
+        "year": null,
+        "roots": [
+          {
+            "word": "philosophos",
+            "language": "Greek",
+            "definition": "lover of wisdom",
+            "year": null,
+            "roots": [
+              {
+                "word": "philos",
+                "language": "Greek",
+                "definition": "loving, dear",
+                "year": null
+              },
+              {
+                "word": "sophia",
+                "language": "Greek",
+                "definition": "knowledge, wisdom",
+                "year": null,
+                "roots": [
+                  {
+                    "word": "sophos",
+                    "language": "Greek",
+                    "definition": "wise",
+                    "year": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "monde": {
+    "word": "monde",
+    "language": "French",
+    "year": 1050,
+    "definition": "world, universe, earth",
+    "etymology": [],
+    "roots": [
+      {
+        "word": "mundus",
+        "language": "Latin",
+        "definition": "world, universe, the heavens",
+        "year": null,
+        "roots": [
+          {
+            "word": "mundus",
+            "language": "Latin",
+            "definition": "clean, elegant",
+            "year": null,
+            "roots": [
+              {
+                "word": "munde",
+                "language": "Latin",
+                "definition": "cleanly, neatly",
+                "year": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "amor": {
+    "word": "amor",
+    "language": "Latin",
+    "year": -100,
+    "definition": "love, affection, passion",
+    "etymology": [],
+    "roots": [
+      {
+        "word": "ama",
+        "language": "Proto-Italic",
+        "definition": "love",
+        "year": null,
+        "roots": [
+          {
+            "word": "am-",
+            "language": "Proto-Indo-European",
+            "definition": "mother, nurse",
+            "year": null
+          }
+        ]
+      }
+    ]
+  },
+  "polis": {
+    "word": "polis",
+    "language": "Greek",
+    "year": -800,
+    "definition": "city, city-state",
+    "etymology": [],
+    "roots": [
+      {
+        "word": "pele-",
+        "language": "Proto-Indo-European",
+        "definition": "citadel, fortified high place",
+        "year": null
+      }
+    ]
+  }
 };
 
 export async function getWordEtymology(word: string): Promise<EtymologyWord | null> {
@@ -112,15 +235,15 @@ export async function getWordEtymology(word: string): Promise<EtymologyWord | nu
     if (isDev) {
       console.log('Development mode - using sample data');
       
-      // For demonstration, return sample data for "etymology"
-      if (normalizedWord === 'etymology') {
-        return SAMPLE_DATA;
+      // Look for the word in our sample data
+      if (SAMPLE_DATA[normalizedWord]) {
+        return SAMPLE_DATA[normalizedWord];
       }
       
       // Simulate a delay for loading state demonstration
       await new Promise(resolve => setTimeout(resolve, 500));
       
-      // Return null for other words in development
+      // Return null for words not in our sample data
       return null;
     } 
     // Production mode - fetch from GitHub
@@ -153,7 +276,7 @@ export async function getWordEtymology(word: string): Promise<EtymologyWord | nu
         // even in production if GitHub fetch fails
         if (normalizedWord === 'etymology') {
           console.log('Falling back to sample data for "etymology"');
-          return SAMPLE_DATA;
+          return SAMPLE_DATA['etymology'];
         }
         
         return null;
